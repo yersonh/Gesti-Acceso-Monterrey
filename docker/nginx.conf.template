@@ -1,0 +1,61 @@
+user www-data;
+worker_processes auto;
+pid /run/nginx.pid;
+
+events {
+    worker_connections 1024;
+}
+
+http {
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+
+    sendfile        on;
+    keepalive_timeout 65;
+    client_max_body_size 20M;
+
+    # Ocultar versión de Nginx en cabeceras
+    server_tokens off;
+
+    # Comprimir responses para reducir el tamaño de transferencia (~80% para HTML/CSS)
+    gzip on;
+    gzip_types text/html text/css application/javascript application/json text/plain;
+    gzip_min_length 1024;
+    gzip_comp_level 4;
+
+    # Buffer suficiente para páginas PHP grandes (default 8×4k=32KB es insuficiente)
+    fastcgi_buffers         16 16k;
+    fastcgi_buffer_size     32k;
+    fastcgi_busy_buffers_size 64k;
+
+    server {
+        listen ${APP_PORT};
+
+        root /app/public;
+        index index.php;
+
+        # Todas las rutas pasan por index.php (router de la app)
+        location / {
+            try_files $uri $uri/ /index.php?$query_string;
+        }
+
+        # Pasar PHP a PHP-FPM
+        location ~ \.php$ {
+            fastcgi_pass   127.0.0.1:9000;
+            fastcgi_index  index.php;
+            fastcgi_param  SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+            include        fastcgi_params;
+            fastcgi_read_timeout 60;
+        }
+
+        # Bloquear acceso directo a archivos sensibles
+        location ~ /\.(env|git|htaccess) {
+            deny all;
+            return 404;
+        }
+
+        # Logs
+        access_log /var/log/nginx/access.log;
+        error_log  /var/log/nginx/error.log;
+    }
+}
