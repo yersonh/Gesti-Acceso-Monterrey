@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../services/ClienteCore.php';
 
 class UsuarioModel {
     private $db;
@@ -107,54 +108,89 @@ class UsuarioModel {
             ]);
             $idUsuario = $stmt->fetchColumn();
 
-            // 2. Ciudadano existente sin cuenta → vincular, actualizar nombres/apellidos
-            //    siempre (el usuario conoce mejor su nombre completo), y completar
-            //    campos opcionales solo si estaban vacíos en BD.
+            // 2. Ciudadano
             if (!empty($data['id_ciudadano_existente'])) {
+                // 2a. Ya existe en ciudadanos_cache (espejo de Core) → solo vincular la cuenta.
+                //     Los datos personales los sincroniza Core, no se editan aquí.
                 $stmt2 = $this->db->prepare("
-                    UPDATE ciudadanos SET
-                        usuario_id   = ?,
-                        nombres      = ?,
-                        apellidos    = ?,
-                        telefono     = COALESCE(NULLIF(?, ''), telefono),
-                        email        = COALESCE(NULLIF(?, ''), email),
-                        whatsapp     = COALESCE(NULLIF(?, ''), whatsapp),
-                        direccion    = COALESCE(NULLIF(?, ''), direccion),
-                        proveniencia = COALESCE(NULLIF(?, ''), proveniencia),
-                        updated_at   = NOW()
-                    WHERE id_ciudadano = ?
+                    UPDATE ciudadanos_cache SET usuario_id = ? WHERE id_ciudadano = ?
                 ");
                 $stmt2->execute([
                     $idUsuario,
-                    $data['nombres'],
-                    $data['apellidos'],
-                    $data['telefono']     ?? '',
-                    $data['email'],
-                    $data['whatsapp']     ?? '',
-                    $data['direccion']    ?? '',
-                    $data['proveniencia'] ?? '',
                     $data['id_ciudadano_existente'],
                 ]);
+
             } else {
-                // 2b. Ciudadano nuevo → insertar registro completo
+                // 2b. No existe localmente → crear en Core (fuente de verdad) y reflejar en la cache
+                $core = new ClienteCore();
+
+                try {
+                    $ciudadanoCore = $core->crearCiudadano([
+                        'tipo_identificacion_id' => $core->idTipoIdentificacion($data['tipo_identificacion']),
+                        'numero_identificacion'  => $data['numero_identificacion'],
+                        'nombres'                => $data['nombres'],
+                        'apellidos'              => $data['apellidos'],
+                        'telefono'               => $data['telefono']     ?? null,
+                        'email'                  => $data['email'],
+                        'whatsapp'               => $data['whatsapp']     ?? null,
+                        'direccion'              => $data['direccion']    ?? null,
+                        'proveniencia'           => $data['proveniencia'] ?? null,
+                    ]);
+
+                } catch (CoreValidationException $eCore) {
+                    // Core dice que la cédula ya existe allá, aunque local no la teníamos sincronizada
+                    $ciudadanoCore = $core->buscarCiudadanoPorIdentificacion(
+                        $data['tipo_identificacion'],
+                        $data['numero_identificacion']
+                    );
+
+                    if (!$ciudadanoCore) {
+                        throw $eCore;
+                    }
+
+                } catch (Exception $eConexion) {
+                    // Core caído, timeout, etc. — mensaje claro para el usuario, no un 500 genérico
+                    throw new Exception(
+                        'No se pudo verificar tu identificación con el sistema central. Intenta nuevamente en unos minutos.',
+                        0,
+                        $eConexion
+                    );
+                }
+
                 $stmt2 = $this->db->prepare("
-                    INSERT INTO ciudadanos
-                        (usuario_id, nombres, apellidos, tipo_identificacion,
-                         numero_identificacion, telefono, email,
-                         whatsapp, direccion, proveniencia)
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    INSERT INTO ciudadanos_cache
+                        (id_ciudadano, nombres, apellidos, tipo_identificacion, numero_identificacion,
+                         telefono, email, direccion, proveniencia, whatsapp, usuario_id, activo, synced_at)
+                    VALUES
+                        (:id_ciudadano, :nombres, :apellidos, :tipo_identificacion, :numero_identificacion,
+                         :telefono, :email, :direccion, :proveniencia, :whatsapp, :usuario_id, :activo, NOW())
+                    ON CONFLICT (id_ciudadano) DO UPDATE SET
+                        nombres                = EXCLUDED.nombres,
+                        apellidos              = EXCLUDED.apellidos,
+                        tipo_identificacion     = EXCLUDED.tipo_identificacion,
+                        numero_identificacion   = EXCLUDED.numero_identificacion,
+                        telefono                = EXCLUDED.telefono,
+                        email                   = EXCLUDED.email,
+                        direccion               = EXCLUDED.direccion,
+                        proveniencia            = EXCLUDED.proveniencia,
+                        whatsapp                = EXCLUDED.whatsapp,
+                        usuario_id              = EXCLUDED.usuario_id,
+                        activo                  = EXCLUDED.activo,
+                        synced_at               = NOW()
                 ");
                 $stmt2->execute([
-                    $idUsuario,
-                    $data['nombres'],
-                    $data['apellidos'],
-                    $data['tipo_identificacion'],
-                    $data['numero_identificacion'],
-                    $data['telefono']     ?? null,
-                    $data['email'],
-                    $data['whatsapp']     ?? null,
-                    $data['direccion']    ?? null,
-                    $data['proveniencia'] ?? null,
+                    ':id_ciudadano'           => $ciudadanoCore['id'],
+                    ':nombres'                => $ciudadanoCore['nombres']               ?? $data['nombres'],
+                    ':apellidos'              => $ciudadanoCore['apellidos']             ?? $data['apellidos'],
+                    ':tipo_identificacion'    => $data['tipo_identificacion'],
+                    ':numero_identificacion'  => $ciudadanoCore['numero_identificacion'] ?? $data['numero_identificacion'],
+                    ':telefono'               => $ciudadanoCore['telefono']              ?? $data['telefono']     ?? null,
+                    ':email'                  => $ciudadanoCore['email']                 ?? $data['email'],
+                    ':direccion'              => $ciudadanoCore['direccion']              ?? $data['direccion']    ?? null,
+                    ':proveniencia'           => $ciudadanoCore['proveniencia']           ?? $data['proveniencia'] ?? null,
+                    ':whatsapp'               => $ciudadanoCore['whatsapp']               ?? $data['whatsapp']     ?? null,
+                    ':usuario_id'             => $idUsuario,
+                    ':activo'                 => $ciudadanoCore['activo'] ?? true,
                 ]);
             }
 

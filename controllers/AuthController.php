@@ -135,7 +135,7 @@ class AuthController {
                 if (!filter_var($emailRegistro, FILTER_VALIDATE_EMAIL))
                     throw new Exception('El correo electrónico no es válido');
 
-                $tiposPermitidos = ['CC', 'CE', 'TI', 'PA', 'RC', 'NIT'];
+                $tiposPermitidos = ['CC', 'CE', 'TI', 'PA', 'RC', 'NIT', 'PEP'];
                 if (!in_array($_POST['tipo_identificacion'] ?? '', $tiposPermitidos, true))
                     throw new Exception('Tipo de identificación no válido');
 
