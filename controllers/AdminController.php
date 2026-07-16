@@ -607,7 +607,7 @@ class AdminController
                     f.email,
                     f.cargo,
                     f.activo,
-                    f.created_at,
+                    f.synced_at AS created_at,
                     STRING_AGG(d.nombre, ', ' ORDER BY d.nombre) AS dependencias,
                     COALESCE(
                         JSON_AGG(d.id_dependencia ORDER BY d.nombre) FILTER (WHERE d.id_dependencia IS NOT NULL),
@@ -617,7 +617,7 @@ class AdminController
                 LEFT JOIN funcionario_dependencia fd ON fd.funcionario_id = f.id_funcionario
                 LEFT JOIN dependencias_cache d ON d.id_dependencia = fd.dependencia_id
                 GROUP BY f.id_funcionario, f.nombres, f.apellidos, f.tipo_identificacion,
-                         f.numero_identificacion, f.telefono, f.email, f.cargo, f.activo, f.created_at
+                         f.numero_identificacion, f.telefono, f.email, f.cargo, f.activo, f.synced_at
                 ORDER BY f.apellidos, f.nombres
             ")->fetchAll();
 
@@ -1133,7 +1133,7 @@ class AdminController
                     ci.email,
                     ci.proveniencia,
                     ci.activo,
-                    ci.created_at,
+                    ci.synced_at AS created_at,
                     u.email       AS cuenta_email,
                     COUNT(c.id_cita) AS total_citas
                 FROM ciudadanos_cache ci
@@ -1141,7 +1141,7 @@ class AdminController
                 LEFT JOIN citas c    ON c.ciudadano_id = ci.id_ciudadano
                 GROUP BY ci.id_ciudadano, ci.nombres, ci.apellidos, ci.tipo_identificacion,
                          ci.numero_identificacion, ci.telefono, ci.email, ci.proveniencia,
-                         ci.activo, ci.created_at, u.email
+                         ci.activo, ci.synced_at, u.email
                 ORDER BY ci.apellidos, ci.nombres
             ")->fetchAll();
 
