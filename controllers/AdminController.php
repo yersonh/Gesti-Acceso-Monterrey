@@ -447,7 +447,7 @@ class AdminController
 
                     if (!$idFuncionario) throw new InvalidArgumentException('ID inválido.');
 
-                    $rolesPermitidos = ['Funcionario', 'Recepcionista'];
+                    $rolesPermitidos = ['Funcionario'];
                     if (!in_array($rol, $rolesPermitidos, true)) {
                         throw new InvalidArgumentException('Rol inválido.');
                     }

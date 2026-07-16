@@ -180,11 +180,9 @@ $tiposId = ['CC','TI','CE','PA','NIT','RC'];
                     <span id="acceso-email-error" class="field-error"></span>
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Rol *</label>
-                    <select name="rol" class="form-control" required>
-                        <option value="Funcionario">Funcionario</option>
-                        <option value="Recepcionista">Recepcionista</option>
-                    </select>
+                    <label class="form-label">Rol</label>
+                    <input type="text" class="form-control" value="Funcionario" disabled>
+                    <input type="hidden" name="rol" value="Funcionario">
                 </div>
                 <div style="background:#f0fdf4;border:1.5px solid #86efac;border-radius:8px;padding:12px 14px;display:flex;gap:10px;align-items:flex-start;margin-top:4px;">
                     <i class="fas fa-envelope" style="color:#16a34a;margin-top:2px;flex-shrink:0;"></i>
