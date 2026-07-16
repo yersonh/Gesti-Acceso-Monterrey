@@ -840,7 +840,7 @@
                     <label>Tipo de identificación <span class="requerido">*</span></label>
                     <div class="campo-input">
                         <i class="fas fa-id-badge icono-campo"></i>
-                        <select name="tipo_identificacion" required>
+                        <select name="tipo_identificacion" id="tipo_identificacion" required onchange="actualizarMaxlengthIdentificacion()">
                             <option value="" disabled <?php echo !isset($_POST['tipo_identificacion']) ? 'selected' : ''; ?>>Seleccione...</option>
                             <option value="CC" <?php echo (isset($_POST['tipo_identificacion']) && $_POST['tipo_identificacion'] === 'CC') ? 'selected' : ''; ?>>CC — Cédula de Ciudadanía</option>
                             <option value="TI" <?php echo (isset($_POST['tipo_identificacion']) && $_POST['tipo_identificacion'] === 'TI') ? 'selected' : ''; ?>>TI — Tarjeta de Identidad</option>
@@ -855,9 +855,9 @@
                     <label>Número de identificación <span class="requerido">*</span></label>
                     <div class="campo-input">
                         <i class="fas fa-hashtag icono-campo"></i>
-                        <input type="text" name="numero_identificacion" id="numero_identificacion" 
+                        <input type="text" name="numero_identificacion" id="numero_identificacion"
                                placeholder="Ej: 1234567890" required
-                               maxlength="20"
+                               maxlength="<?php echo (isset($_POST['tipo_identificacion']) && $_POST['tipo_identificacion'] === 'PA') ? 20 : 10; ?>"
                                value="<?php echo isset($_POST['numero_identificacion']) ? htmlspecialchars($_POST['numero_identificacion']) : ''; ?>">
                     </div>
                     <div id="validacion-identificacion" style="font-size: 0.8rem; margin-top: 5px; min-height: 20px;"></div>
@@ -1003,6 +1003,15 @@
 </div>
 
 <script>
+    // Ajusta el largo máximo permitido según el tipo de identificación
+    // (PA/Pasaporte puede ser alfanumérico y más largo; los demás máx. 10)
+    function actualizarMaxlengthIdentificacion() {
+        const tipo  = document.getElementById('tipo_identificacion').value;
+        const input = document.getElementById('numero_identificacion');
+        input.maxLength = (tipo === 'PA') ? 20 : 10;
+    }
+    actualizarMaxlengthIdentificacion();
+
     // Toggle mostrar/ocultar contraseña
     function togglePass(id, btn) {
         const input = document.getElementById(id);
@@ -1042,26 +1051,31 @@
 
     // Validación de identificación en tiempo real
     const identificacionInput = document.getElementById('numero_identificacion');
+    const tipoIdentificacionSelect = document.getElementById('tipo_identificacion');
     const validacionDiv = document.getElementById('validacion-identificacion');
     let timeoutId;
 
-    if (identificacionInput) {
-        identificacionInput.addEventListener('input', function() {
-            const numero = this.value.trim();
-            
-            clearTimeout(timeoutId);
-            
-            if (numero.length === 0) {
-                validacionDiv.innerHTML = '';
-                validacionDiv.style.color = '';
-                return;
-            }
-            
-            validacionDiv.innerHTML = 'Verificando...';
-            validacionDiv.style.color = '#6b6b6b';
-            
-            timeoutId = setTimeout(function() {
-                fetch('/ajax/verificar_identificacion?numero_identificacion=' + encodeURIComponent(numero))
+    function dispararValidacionIdentificacion() {
+        const numero = identificacionInput.value.trim();
+        const tipo   = tipoIdentificacionSelect.value;
+
+        clearTimeout(timeoutId);
+
+        if (numero.length === 0 || !tipo) {
+            validacionDiv.innerHTML = '';
+            validacionDiv.style.color = '';
+            return;
+        }
+
+        validacionDiv.innerHTML = 'Verificando...';
+        validacionDiv.style.color = '#6b6b6b';
+
+        timeoutId = setTimeout(function() {
+            const params = new URLSearchParams({
+                numero_identificacion: numero,
+                tipo_identificacion: tipo,
+            });
+            fetch('/ajax/verificar_identificacion?' + params.toString())
                     .then(response => response.json())
                     .then(data => {
                         if (data.error) {
@@ -1086,7 +1100,11 @@
                         validacionDiv.style.color = '#e53e3e';
                     });
             }, 300);
-        });
+    }
+
+    if (identificacionInput) {
+        identificacionInput.addEventListener('input', dispararValidacionIdentificacion);
+        tipoIdentificacionSelect.addEventListener('change', dispararValidacionIdentificacion);
     }
 
     // Validación coincidencia contraseñas

@@ -1,6 +1,7 @@
 <?php
 // ajax/verificar_identificacion.php
 require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../services/ClienteCore.php';
 
 header('Content-Type: application/json');
 
@@ -13,9 +14,16 @@ if ($_SESSION['verificar_count'] > 15) {
 }
 
 $numero = trim($_GET['numero_identificacion'] ?? '');
+$tipo   = trim($_GET['tipo_identificacion'] ?? '');
 
 // Validar que el número de identificación solo contenga dígitos (y letras para pasaportes)
 if (!preg_match('/^[A-Z0-9\-]{3,20}$/i', $numero)) {
+    echo json_encode(['existe' => false, 'mensaje' => '']);
+    exit;
+}
+
+$tiposPermitidos = ['CC', 'CE', 'TI', 'PA', 'RC', 'NIT', 'PEP'];
+if (!in_array($tipo, $tiposPermitidos, true)) {
     echo json_encode(['existe' => false, 'mensaje' => '']);
     exit;
 }
@@ -36,8 +44,31 @@ try {
     $stmt->execute([$numero]);
     $row = $stmt->fetch();
 
+    // No está en la cache local — puede existir en Core sin sincronizar todavía.
+    // Se consulta Core solo en este caso (no en cada tecleo) para no sobrecargarlo.
     if (!$row) {
-        // No existe en ciudadanos — registro normal
+        try {
+            $core = new ClienteCore();
+            $ciudadanoCore = $core->buscarCiudadanoPorIdentificacion($tipo, $numero);
+        } catch (Exception $eCore) {
+            // Core caído/timeout: no bloquear el registro por esto, se resolverá
+            // en el momento del envío real (UsuarioModel::create ya maneja ese caso).
+            error_log('verificar_identificacion.php - Core no disponible: ' . $eCore->getMessage());
+            $ciudadanoCore = null;
+        }
+
+        if ($ciudadanoCore) {
+            // Existe en Core aunque no esté sincronizado localmente todavía
+            echo json_encode([
+                'existe'  => true,
+                'estado'  => 'sin_cuenta'
+            ]);
+            exit;
+        }
+    }
+
+    if (!$row) {
+        // No existe ni en cache ni en Core — registro normal
         echo json_encode([
             'existe'  => false,
             'estado'  => 'nuevo',
