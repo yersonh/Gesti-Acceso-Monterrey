@@ -24,15 +24,6 @@ class RecepcionController {
                     }
                     $_SESSION['flash_mensaje'] = 'Ingreso registrado correctamente.';
 
-                } elseif ($accion === 'registrar_salida') {
-                    $id   = (int)($_POST['id'] ?? 0);
-                    $tipo = $_POST['tipo'] ?? 'cita';
-                    $ok = $tipo === 'espontanea'
-                        ? RecepcionModel::registrarSalidaEspontanea($id)
-                        : RecepcionModel::registrarSalida($id);
-                    if (!$ok) throw new Exception('No se pudo registrar la salida.');
-                    $_SESSION['flash_mensaje'] = 'Salida registrada correctamente.';
-
                 } elseif ($accion === 'visita_espontanea') {
                     $ciudadanoId          = (int)($_POST['ciudadano_id'] ?? 0);
                     $nombres              = trim($_POST['nombres'] ?? '');

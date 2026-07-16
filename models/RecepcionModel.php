@@ -81,56 +81,6 @@ class RecepcionModel {
         }
     }
 
-    public static function registrarSalida(int $idCita): bool {
-        try {
-            $pdo  = Database::getConnection();
-            $stmt = $pdo->prepare("
-                UPDATE citas SET estado = 'finalizada', hora_salida = NOW(), updated_at = NOW()
-                WHERE id_cita = :id AND estado = 'en_curso'
-            ");
-            $stmt->execute([':id' => $idCita]);
-
-            if ($stmt->rowCount() > 0) {
-                Auditoria::registrar(
-                    'REGISTRAR_SALIDA',
-                    "Recepción registró salida de la cita ID {$idCita}",
-                    'citas',
-                    $idCita
-                );
-                return true;
-            }
-            return false;
-        } catch (Exception $e) {
-            error_log('RecepcionModel::registrarSalida - ' . $e->getMessage());
-            return false;
-        }
-    }
-
-    public static function registrarSalidaEspontanea(int $idVisita): bool {
-        try {
-            $pdo  = Database::getConnection();
-            $stmt = $pdo->prepare("
-                UPDATE visitas_espontaneas SET estado = 'finalizada', hora_salida = NOW(), updated_at = NOW()
-                WHERE id_visita = :id AND estado = 'en_curso'
-            ");
-            $stmt->execute([':id' => $idVisita]);
-
-            if ($stmt->rowCount() > 0) {
-                Auditoria::registrar(
-                    'REGISTRAR_SALIDA_ESPONTANEA',
-                    "Recepción registró salida de la visita espontánea ID {$idVisita}",
-                    'visitas_espontaneas',
-                    $idVisita
-                );
-                return true;
-            }
-            return false;
-        } catch (Exception $e) {
-            error_log('RecepcionModel::registrarSalidaEspontanea - ' . $e->getMessage());
-            return false;
-        }
-    }
-
     public static function obtenerAlertasDia(int $minutosAnticipacion = 15): array {
         try {
             $pdo  = Database::getConnection();

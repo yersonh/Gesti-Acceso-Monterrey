@@ -407,17 +407,7 @@
                                     <button type="submit" class="btn btn-outline btn-sm"><i class="fas fa-sign-in-alt"></i> Ingreso</button>
                                 </form>
                                 <?php endif; ?>
-                                <?php if ($estado === 'en_curso'): ?>
-                                <form method="POST" action="/recepcion" style="display:inline;">
-                                    <?= csrf_field() ?>
-                                    <?= tab_id_field() ?>
-                                    <input type="hidden" name="accion" value="registrar_salida">
-                                    <input type="hidden" name="id" value="<?= (int)$r['id'] ?>">
-                                    <input type="hidden" name="tipo" value="<?= htmlspecialchars($r['tipo_registro']) ?>">
-                                    <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-sign-out-alt"></i> Salida</button>
-                                </form>
-                                <?php endif; ?>
-                                <?php if (!($r['tipo_registro'] === 'cita' && $estado === 'confirmada') && $estado !== 'en_curso'): ?>—<?php endif; ?>
+                                <?php if (!($r['tipo_registro'] === 'cita' && $estado === 'confirmada')): ?>—<?php endif; ?>
                             </td>
                         </tr>
                         <?php endforeach; ?>
@@ -675,16 +665,6 @@
                     <input type="hidden" name="id_cita" value="${r.id}">
                     <button type="submit" class="btn btn-outline btn-sm"><i class="fas fa-sign-in-alt"></i> Ingreso</button>
                 </form> `;
-            }
-            if (r.estado === 'en_curso') {
-                acciones += `<form method="POST" action="/recepcion" style="display:inline;">
-                    <input type="hidden" name="csrf_token" value="${window.CSRF_TOKEN}">
-                    <input type="hidden" name="tab_id" value="${TAB_ID}">
-                    <input type="hidden" name="accion" value="registrar_salida">
-                    <input type="hidden" name="id" value="${r.id}">
-                    <input type="hidden" name="tipo" value="${r.tipo_registro}">
-                    <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-sign-out-alt"></i> Salida</button>
-                </form>`;
             }
 
             return `<tr>
