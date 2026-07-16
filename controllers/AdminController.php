@@ -440,26 +440,32 @@ class AdminController
             try {
                 $pdo = Database::getConnection();
 
-                if ($accion === 'crear') {
-                    $campos = ['nombres','apellidos','tipo_identificacion','numero_identificacion','email','cargo'];
-                    foreach ($campos as $c) {
-                        if (empty(trim($_POST[$c] ?? ''))) {
-                            throw new InvalidArgumentException("El campo '$c' es obligatorio.");
-                        }
+                if ($accion === 'dar_acceso') {
+                    $idFuncionario = (int)($_POST['id_funcionario'] ?? 0);
+                    $email         = strtolower(trim($_POST['email'] ?? ''));
+                    $rol           = $_POST['rol'] ?? '';
+
+                    if (!$idFuncionario) throw new InvalidArgumentException('ID inválido.');
+
+                    $rolesPermitidos = ['Funcionario', 'Recepcionista'];
+                    if (!in_array($rol, $rolesPermitidos, true)) {
+                        throw new InvalidArgumentException('Rol inválido.');
                     }
 
-                    $tiposPermitidos = ['CC','TI','CE','PA','NIT','RC'];
-                    if (!in_array($_POST['tipo_identificacion'], $tiposPermitidos, true)) {
-                        throw new InvalidArgumentException('Tipo de identificación inválido.');
+                    $stmtF = $pdo->prepare("SELECT nombres, apellidos, usuario_id FROM funcionarios_cache WHERE id_funcionario = :id");
+                    $stmtF->execute([':id' => $idFuncionario]);
+                    $funcionarioRow = $stmtF->fetch();
+                    if (!$funcionarioRow) throw new InvalidArgumentException('Funcionario no encontrado.');
+                    if (!empty($funcionarioRow['usuario_id'])) {
+                        throw new InvalidArgumentException('Este funcionario ya tiene una cuenta asignada.');
                     }
 
-                    $emailFunc = strtolower(trim($_POST['email']));
-                    if (!filter_var($emailFunc, FILTER_VALIDATE_EMAIL)) {
+                    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                         throw new InvalidArgumentException('El correo electrónico no es válido.');
                     }
 
                     $chk = $pdo->prepare("SELECT COUNT(*) FROM usuarios WHERE email = :em");
-                    $chk->execute([':em' => $emailFunc]);
+                    $chk->execute([':em' => $email]);
                     if ($chk->fetchColumn() > 0) {
                         throw new InvalidArgumentException('Este correo ya tiene una cuenta registrada en el sistema.');
                     }
@@ -469,61 +475,37 @@ class AdminController
                     $tempPass = $this->generarPasswordTemporal();
                     $stmtU = $pdo->prepare("
                         INSERT INTO usuarios (email, password_hash, rol, activo, password_temporal, password_temporal_expires_at)
-                        VALUES (:em, :ph, 'Funcionario', true, true, NOW() + INTERVAL '24 hours')
+                        VALUES (:em, :ph, :rol, true, true, NOW() + INTERVAL '24 hours')
                         RETURNING id_usuario
                     ");
                     $stmtU->execute([
-                        ':em' => $emailFunc,
-                        ':ph' => password_hash($tempPass, PASSWORD_DEFAULT),
+                        ':em'  => $email,
+                        ':ph'  => password_hash($tempPass, PASSWORD_DEFAULT),
+                        ':rol' => $rol,
                     ]);
                     $usuarioId = (int)$stmtU->fetchColumn();
 
-                    $stmt = $pdo->prepare("
-                        INSERT INTO funcionarios
-                            (nombres, apellidos, tipo_identificacion, numero_identificacion,
-                             telefono, email, cargo, activo, usuario_id)
-                        VALUES (:n, :ap, :ti, :ni, :tel, :em, :cargo, true, :uid)
-                        RETURNING id_funcionario
-                    ");
-                    $stmt->execute([
-                        ':n'    => trim($_POST['nombres']),
-                        ':ap'   => trim($_POST['apellidos']),
-                        ':ti'   => $_POST['tipo_identificacion'],
-                        ':ni'   => trim($_POST['numero_identificacion']),
-                        ':tel'  => trim($_POST['telefono'] ?? ''),
-                        ':em'   => $emailFunc,
-                        ':cargo'=> trim($_POST['cargo']),
-                        ':uid'  => $usuarioId,
+                    $pdo->prepare("
+                        UPDATE funcionarios_cache SET usuario_id = :uid WHERE id_funcionario = :id
+                    ")->execute([
+                        ':uid' => $usuarioId,
+                        ':id'  => $idFuncionario,
                     ]);
-                    $id = (int)$stmt->fetchColumn();
-                    // Insertar dependencias seleccionadas
-                    $depIds = array_filter(
-                        array_map('intval', (array)($_POST['dependencias'] ?? [])),
-                        fn($v) => $v > 0
-                    );
-                    if ($depIds) {
-                        $stmtDep = $pdo->prepare("
-                            INSERT INTO funcionario_dependencia (funcionario_id, dependencia_id)
-                            VALUES (:fid, :did)
-                            ON CONFLICT DO NOTHING
-                        ");
-                        foreach ($depIds as $depId) {
-                            $stmtDep->execute([':fid' => $id, ':did' => $depId]);
-                        }
-                    }
 
                     $pdo->commit();
 
-                    require_once BASE_PATH . '/config/mail.php';
-                    (new Mailer())->enviarCredencialesTemporales(
-                        trim($_POST['nombres']) . ' ' . trim($_POST['apellidos']),
-                        $emailFunc,
-                        $tempPass,
-                        'Funcionario'
-                    );
+                    $nombreCompleto = trim($funcionarioRow['nombres'] . ' ' . $funcionarioRow['apellidos']);
 
-                    Auditoria::registrar('CREAR_FUNCIONARIO', "Creación de funcionario: {$_POST['nombres']} {$_POST['apellidos']}", 'funcionarios', $id);
-                    $_SESSION['flash_mensaje'] = 'Funcionario registrado. Se enviaron las credenciales por correo.';
+                    require_once BASE_PATH . '/config/mail.php';
+                    (new Mailer())->enviarCredencialesTemporales($nombreCompleto, $email, $tempPass, $rol);
+
+                    Auditoria::registrar(
+                        'DAR_ACCESO_FUNCIONARIO',
+                        "Cuenta creada para funcionario: $nombreCompleto ($email), rol $rol",
+                        'funcionarios_cache',
+                        $idFuncionario
+                    );
+                    $_SESSION['flash_mensaje'] = 'Cuenta creada correctamente. Se enviaron las credenciales por correo.';
 
                 } elseif ($accion === 'editar') {
                     $id = (int)($_POST['id_funcionario'] ?? 0);
@@ -608,6 +590,8 @@ class AdminController
                     f.cargo,
                     f.activo,
                     f.synced_at AS created_at,
+                    f.usuario_id IS NOT NULL AS tiene_cuenta,
+                    u.email AS cuenta_email,
                     STRING_AGG(d.nombre, ', ' ORDER BY d.nombre) AS dependencias,
                     COALESCE(
                         JSON_AGG(d.id_dependencia ORDER BY d.nombre) FILTER (WHERE d.id_dependencia IS NOT NULL),
@@ -616,8 +600,9 @@ class AdminController
                 FROM funcionarios_cache f
                 LEFT JOIN funcionario_dependencia fd ON fd.funcionario_id = f.id_funcionario
                 LEFT JOIN dependencias_cache d ON d.id_dependencia = fd.dependencia_id
+                LEFT JOIN usuarios u ON u.id_usuario = f.usuario_id
                 GROUP BY f.id_funcionario, f.nombres, f.apellidos, f.tipo_identificacion,
-                         f.numero_identificacion, f.telefono, f.email, f.cargo, f.activo, f.synced_at
+                         f.numero_identificacion, f.telefono, f.email, f.cargo, f.activo, f.synced_at, u.email
                 ORDER BY f.apellidos, f.nombres
             ")->fetchAll();
 

@@ -8,9 +8,6 @@ $tiposId = ['CC','TI','CE','PA','NIT','RC'];
         <h2>Funcionarios</h2>
         <p>Gestión de funcionarios habilitados para recibir citas</p>
     </div>
-    <button class="btn-primary" onclick="abrirModal('modal-nuevo-func')">
-        <i class="fas fa-plus"></i> Nuevo funcionario
-    </button>
 </div>
 
 <!-- KPIs -->
@@ -50,7 +47,7 @@ $tiposId = ['CC','TI','CE','PA','NIT','RC'];
     <div class="empty-state">
         <i class="fas fa-user-tie"></i>
         <h4>Sin funcionarios registrados</h4>
-        <p>Use el botón "Nuevo funcionario" para agregar registros.</p>
+        <p>Aún no hay funcionarios sincronizados desde Core.</p>
     </div>
     <?php else: ?>
     <div style="overflow-x:auto;">
@@ -62,6 +59,7 @@ $tiposId = ['CC','TI','CE','PA','NIT','RC'];
                 <th>Cargo</th>
                 <th>Email</th>
                 <th>Dependencias</th>
+                <th>Cuenta</th>
                 <th>Estado</th>
                 <th>Acciones</th>
             </tr>
@@ -78,7 +76,8 @@ $tiposId = ['CC','TI','CE','PA','NIT','RC'];
             data-numero="<?= htmlspecialchars($f['numero_identificacion'] ?? '', ENT_QUOTES) ?>"
             data-email="<?= htmlspecialchars($f['email'] ?? '', ENT_QUOTES) ?>"
             data-telefono="<?= htmlspecialchars($f['telefono'] ?? '', ENT_QUOTES) ?>"
-            data-cargo="<?= htmlspecialchars($f['cargo'] ?? '', ENT_QUOTES) ?>">
+            data-cargo="<?= htmlspecialchars($f['cargo'] ?? '', ENT_QUOTES) ?>"
+            data-tiene-cuenta="<?= $f['tiene_cuenta'] ? '1' : '0' ?>">
             <td>
                 <strong><?= htmlspecialchars($f['nombres'] . ' ' . $f['apellidos']) ?></strong>
             </td>
@@ -97,6 +96,16 @@ $tiposId = ['CC','TI','CE','PA','NIT','RC'];
                 </div>
                 <?php else: ?>
                     <span style="color:var(--texto-sub);">—</span>
+                <?php endif; ?>
+            </td>
+            <td style="font-size:0.82rem;">
+                <?php if ($f['tiene_cuenta']): ?>
+                    <span class="badge badge-activo"><i class="fas fa-circle" style="font-size:0.5rem"></i> Sí</span>
+                    <?php if ($f['cuenta_email']): ?>
+                    <div style="color:var(--texto-sub);font-size:0.75rem;margin-top:2px;"><?= htmlspecialchars($f['cuenta_email']) ?></div>
+                    <?php endif; ?>
+                <?php else: ?>
+                    <span class="badge badge-inactivo"><i class="fas fa-circle" style="font-size:0.5rem"></i> No</span>
                 <?php endif; ?>
             </td>
             <td>
@@ -127,6 +136,14 @@ $tiposId = ['CC','TI','CE','PA','NIT','RC'];
                             <i class="fas <?= $f['activo'] ? 'fa-user-slash' : 'fa-user-check' ?>"></i>
                         </button>
                     </form>
+
+                    <!-- Dar acceso -->
+                    <?php if (!$f['tiene_cuenta']): ?>
+                    <button type="button" class="action-btn" title="Dar acceso"
+                        onclick="abrirDarAcceso(this)">
+                        <i class="fas fa-key"></i>
+                    </button>
+                    <?php endif; ?>
                 </div>
             </td>
         </tr>
@@ -137,97 +154,48 @@ $tiposId = ['CC','TI','CE','PA','NIT','RC'];
     <?php endif; ?>
 </div>
 
-<!-- ══ Modal Nuevo Funcionario ══ -->
-<div class="modal-overlay" id="modal-nuevo-func">
+<!-- ══ Modal Dar Acceso ══ -->
+<div class="modal-overlay" id="modal-dar-acceso">
     <div class="modal-card">
         <div class="modal-header">
-            <h3><i class="fas fa-user-plus" style="color:var(--verde-medio);margin-right:6px;"></i> Nuevo Funcionario</h3>
-            <button class="modal-close" onclick="cerrarModal('modal-nuevo-func')">
+            <h3><i class="fas fa-key" style="color:var(--verde-medio);margin-right:6px;"></i> Dar acceso al sistema</h3>
+            <button class="modal-close" onclick="cerrarModal('modal-dar-acceso')">
                 <i class="fas fa-times"></i>
             </button>
         </div>
         <form method="POST" action="/admin/funcionarios" onsubmit="return validarFormulario(this)">
             <?= csrf_field() ?>
             <?= tab_id_field() ?>
-            <input type="hidden" name="accion" value="crear">
+            <input type="hidden" name="accion" value="dar_acceso">
+            <input type="hidden" name="id_funcionario" id="acceso-id_funcionario">
             <div class="modal-body">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label class="form-label">Nombres *</label>
-                        <input type="text" name="nombres" class="form-control" required placeholder="Ej: María"
-                               data-vrequired="1" data-vpattern="nombres" oninput="validarInput(this)">
-                        <span class="field-error"></span>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Apellidos *</label>
-                        <input type="text" name="apellidos" class="form-control" required placeholder="Ej: López"
-                               data-vrequired="1" data-vpattern="nombres" oninput="validarInput(this)">
-                        <span class="field-error"></span>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label class="form-label">Tipo ID *</label>
-                        <select name="tipo_identificacion" class="form-control" required>
-                            <?php foreach ($tiposId as $t): ?>
-                            <option value="<?= $t ?>"><?= $t ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Número ID *</label>
-                        <input type="text" name="numero_identificacion" class="form-control" required placeholder="Ej: 9876543210"
-                               data-vrequired="1" data-vpattern="numero_id" oninput="validarInput(this)">
-                        <span class="field-error"></span>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label class="form-label">Email *</label>
-                        <input type="email" name="email" id="func-email" class="form-control" required placeholder="correo@ejemplo.com"
-                               data-vrequired="1" oninput="validarInput(this)"
-                               onblur="verificarEmailUsuario(this,'func-email-error','btn-guardar-func')">
-                        <span id="func-email-error" class="field-error"></span>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Teléfono</label>
-                        <input type="text" name="telefono" class="form-control" placeholder="Ej: 3001234567"
-                               data-voptional="1" data-vpattern="telefono" oninput="validarInput(this)">
-                        <span class="field-error"></span>
-                    </div>
+                <p style="font-size:0.85rem;color:var(--texto-sub);margin:0 0 12px;">
+                    Funcionario: <strong id="acceso-nombre-preview"></strong>
+                </p>
+                <div class="form-group">
+                    <label class="form-label">Email *</label>
+                    <input type="email" name="email" id="acceso-email" class="form-control" required placeholder="correo@ejemplo.com"
+                           data-vrequired="1" oninput="validarInput(this)"
+                           onblur="verificarEmailUsuario(this,'acceso-email-error','btn-guardar-acceso')">
+                    <span id="acceso-email-error" class="field-error"></span>
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Cargo *</label>
-                    <input type="text" name="cargo" class="form-control" required placeholder="Ej: Director de Planeación"
-                           data-vrequired="1" data-vpattern="cargo" oninput="validarInput(this)">
-                    <span class="field-error"></span>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Dependencias</label>
-                    <?php if (empty($dependenciasDisponibles)): ?>
-                        <p style="font-size:0.83rem;color:var(--texto-sub);">No hay dependencias activas registradas.</p>
-                    <?php else: ?>
-                    <div style="border:1.5px solid var(--borde);border-radius:8px;padding:10px 12px;max-height:140px;overflow-y:auto;display:flex;flex-direction:column;gap:6px;">
-                        <?php foreach ($dependenciasDisponibles as $dep): ?>
-                        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:0.88rem;font-weight:400;">
-                            <input type="checkbox" name="dependencias[]" value="<?= (int)$dep['id_dependencia'] ?>"
-                                   style="width:15px;height:15px;accent-color:var(--verde);cursor:pointer;flex-shrink:0;">
-                            <?= htmlspecialchars($dep['nombre']) ?>
-                        </label>
-                        <?php endforeach; ?>
-                    </div>
-                    <?php endif; ?>
+                    <label class="form-label">Rol *</label>
+                    <select name="rol" class="form-control" required>
+                        <option value="Funcionario">Funcionario</option>
+                        <option value="Recepcionista">Recepcionista</option>
+                    </select>
                 </div>
                 <div style="background:#f0fdf4;border:1.5px solid #86efac;border-radius:8px;padding:12px 14px;display:flex;gap:10px;align-items:flex-start;margin-top:4px;">
                     <i class="fas fa-envelope" style="color:#16a34a;margin-top:2px;flex-shrink:0;"></i>
                     <p style="font-size:0.83rem;color:#166534;margin:0;line-height:1.5;">
-                        Se creará automáticamente una cuenta con rol <strong>Funcionario</strong> y se enviará al correo ingresado una contraseña temporal válida por <strong>24 horas</strong>.
+                        Se creará una cuenta con el rol seleccionado y se enviará al correo ingresado una contraseña temporal válida por <strong>24 horas</strong>.
                     </p>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn-secondary" onclick="cerrarModal('modal-nuevo-func')">Cancelar</button>
-                <button type="submit" id="btn-guardar-func" class="btn-primary"><i class="fas fa-save"></i> Guardar</button>
+                <button type="button" class="btn-secondary" onclick="cerrarModal('modal-dar-acceso')">Cancelar</button>
+                <button type="submit" id="btn-guardar-acceso" class="btn-primary"><i class="fas fa-save"></i> Guardar</button>
             </div>
         </form>
     </div>
@@ -326,5 +294,13 @@ function abrirEditar(btn) {
     document.getElementById('edit-func-cargo').value                 = r.dataset.cargo;
     limpiarValidacion(document.getElementById('modal-editar-func').querySelector('form'));
     abrirModal('modal-editar-func');
+}
+function abrirDarAcceso(btn) {
+    var r = btn.closest('tr');
+    document.getElementById('acceso-id_funcionario').value = r.dataset.id;
+    document.getElementById('acceso-email').value           = r.dataset.email || '';
+    document.getElementById('acceso-nombre-preview').textContent = r.dataset.nombres + ' ' + r.dataset.apellidos;
+    limpiarValidacion(document.getElementById('modal-dar-acceso').querySelector('form'));
+    abrirModal('modal-dar-acceso');
 }
 </script>
