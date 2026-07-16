@@ -12,171 +12,245 @@
     <link rel="icon" type="image/png" href="/imagenes/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --bg: #f4f6fb;
-            --surface: #ffffff;
-            --border: #e2e8f0;
-            --text: #0f172a;
-            --text-sub: #64748b;
-            --primary: #4f46e5;
-            --primary-dark: #4338ca;
-            --primary-light: #eef2ff;
-            --verde: #16a34a;   --verde-bg: #dcfce7;
-            --azul: #2563eb;    --azul-bg: #dbeafe;
-            --gris: #64748b;    --gris-bg: #f1f5f9;
-            --rojo: #dc2626;    --rojo-bg: #fee2e2;
-            --ambar: #d97706;   --ambar-bg: #fef3c7;
+            --verde: #1a5c38;
+            --verde-medio: #2d7a4f;
+            --verde-claro: #3d9e68;
+            --dorado: #c9a84c;
+            --dorado-claro: #e8c97a;
+            --blanco: #ffffff;
+            --texto: #1e293b;
+            --texto-sub: #64748b;
+            --borde: #e2e8f0;
+            --fondo: #f8f9fc;
+            --rojo: #ef4444;
+            --amarillo: #f59e0b;
+            --azul: #3b82f6;
         }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg);
-            color: var(--text);
+            font-family: 'DM Sans', sans-serif;
+            background: var(--fondo);
+            color: var(--texto);
             min-height: 100vh;
         }
 
         .header {
-            background: var(--surface);
-            border-bottom: 1px solid var(--border);
-            padding: 0 28px;
-            height: 60px;
+            background: var(--verde);
+            padding: 0 32px;
+            height: 64px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             position: sticky;
             top: 0;
             z-index: 100;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.15);
         }
-        .header-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-        .header-brand img { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; }
-        .header-brand-texto { color: var(--text); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; line-height: 1.3; }
-        .header-brand-texto strong { display: block; font-size: 0.86rem; color: var(--primary); }
-        .header-usuario { display: flex; align-items: center; gap: 16px; }
-        .header-titulo { font-weight: 700; font-size: 0.95rem; color: var(--text); display: flex; align-items: center; gap: 8px; }
-        .header-titulo i { color: var(--primary); }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(to right, var(--verde), var(--dorado), var(--verde-claro));
+        }
+
+        .header-brand { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+        .header-brand img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid var(--dorado); }
+        .header-brand-texto { color: var(--blanco); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.9; line-height: 1.4; }
+        .header-brand-texto strong { display: block; font-size: 0.92rem; color: var(--dorado-claro); letter-spacing: 0.04em; }
+
+        .header-titulo { font-weight: 700; font-size: 0.95rem; color: var(--blanco); display: flex; align-items: center; gap: 8px; }
+        .header-titulo i { color: var(--dorado-claro); }
+
+        .header-usuario { display: flex; align-items: center; gap: 20px; }
+        .info-funcionario { text-align: right; }
+        .funcionario-nombre { color: var(--blanco); font-weight: 600; font-size: 0.9rem; }
+        .funcionario-cargo { color: var(--dorado-claro); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        .avatar {
+            width: 38px; height: 38px; border-radius: 50%;
+            background: rgba(201,168,76,0.25); border: 2px solid var(--dorado);
+            color: var(--dorado-claro); font-size: 0.85rem; font-weight: 700;
+            display: flex; align-items: center; justify-content: center;
+        }
         .btn-logout {
-            background: var(--gris-bg); border: 1px solid var(--border);
-            color: var(--text-sub); padding: 7px 14px; border-radius: 8px;
-            font-family: 'Inter', sans-serif; font-size: 0.8rem; font-weight: 600;
+            background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+            color: var(--blanco); padding: 7px 14px; border-radius: 8px;
+            font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 500;
             cursor: pointer; display: flex; align-items: center; gap: 6px;
-            text-decoration: none; transition: all 0.15s;
+            text-decoration: none; transition: all 0.2s;
         }
-        .btn-logout:hover { background: var(--rojo-bg); color: var(--rojo); }
+        .btn-logout:hover { background: rgba(255,255,255,0.2); }
 
-        .main { max-width: 1400px; margin: 0 auto; padding: 24px 24px 60px; }
+        .main { max-width: 1300px; margin: 0 auto; padding: 36px 24px 60px; }
 
-        .banner { padding: 12px 16px; border-radius: 10px; display: flex; align-items: center; gap: 10px; font-size: 0.88rem; font-weight: 500; margin-bottom: 16px; }
-        .banner-success { background: var(--verde-bg); color: #14532d; border-left: 4px solid var(--verde); }
-        .banner-error { background: var(--rojo-bg); color: #7f1d1d; border-left: 4px solid var(--rojo); }
+        .alertas { margin-bottom: 24px; }
+        .alerta {
+            padding: 14px 18px; border-radius: 10px; display: flex; align-items: center; gap: 10px;
+            font-size: 0.9rem; font-weight: 500; animation: slideIn 0.3s ease; margin-bottom: 10px;
+        }
+        .alerta-success { background: #e8f5e9; border-left: 4px solid #2e7d32; color: #1e4620; }
+        .alerta-error { background: #fee; border-left: 4px solid #e53e3e; color: #c53030; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .alertas-panel { margin-bottom: 20px; }
+        .alertas-panel { margin-bottom: 24px; }
         .alerta-fila {
-            background: var(--ambar-bg); border: 1px solid #fcd34d; border-radius: 10px;
+            background: #fffbeb; border: 1px solid var(--amarillo); border-radius: 10px;
             padding: 12px 16px; display: flex; align-items: center; gap: 12px;
-            font-size: 0.85rem; color: #78350f; margin-bottom: 8px;
+            font-size: 0.85rem; color: #92400e; margin-bottom: 8px;
         }
-        .alerta-fila i { color: var(--ambar); font-size: 1rem; flex-shrink: 0; }
+        .alerta-fila i { color: var(--amarillo); font-size: 1rem; flex-shrink: 0; }
         .alerta-fila strong { color: #78350f; }
 
-        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 20px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 32px; }
         .stat-card {
-            background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
-            padding: 18px 20px; display: flex; align-items: center; gap: 14px;
+            background: var(--blanco); border: 1px solid var(--borde); border-radius: 16px;
+            padding: 24px; display: flex; align-items: center; gap: 16px; transition: all 0.3s;
         }
-        .stat-icono { width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
-        .stat-card.total .stat-icono   { background: var(--primary-light); color: var(--primary); }
-        .stat-card.curso .stat-icono   { background: var(--verde-bg); color: var(--verde); }
-        .stat-card.final .stat-icono   { background: var(--gris-bg); color: var(--gris); }
-        .stat-card.espon .stat-icono   { background: var(--azul-bg); color: var(--azul); }
-        .stat-info h3 { font-size: 1.4rem; font-weight: 800; line-height: 1.1; }
-        .stat-info p { color: var(--text-sub); font-size: 0.78rem; font-weight: 600; margin-top: 2px; }
+        .stat-card:hover { transform: translateY(-2px); box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); }
+        .stat-icono { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0; }
+        .stat-card.total .stat-icono { background: #fef3c7; color: var(--amarillo); }
+        .stat-card.curso .stat-icono { background: #e0f2e9; color: var(--verde-medio); }
+        .stat-card.final .stat-icono { background: #f1f5f9; color: var(--texto-sub); }
+        .stat-card.espon .stat-icono { background: #e0f2fe; color: var(--azul); }
+        .stat-info h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 4px; }
+        .stat-info p { color: var(--texto-sub); font-size: 0.85rem; font-weight: 500; }
 
-        .toolbar { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+        .toolbar { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
         .buscador { position: relative; flex: 1; min-width: 240px; max-width: 380px; }
-        .buscador i { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-sub); font-size: 0.85rem; }
+        .buscador i { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--texto-sub); font-size: 0.85rem; }
         .buscador input {
-            width: 100%; padding: 10px 14px 10px 36px; border: 1.5px solid var(--border); border-radius: 9px;
-            font-family: 'Inter', sans-serif; font-size: 0.87rem; background: var(--surface);
+            width: 100%; padding: 10px 14px 10px 36px; border: 1.5px solid var(--borde); border-radius: 8px;
+            font-family: 'DM Sans', sans-serif; font-size: 0.87rem; background: var(--blanco);
         }
-        .buscador input:focus { outline: none; border-color: var(--primary); }
+        .buscador input:focus { outline: none; border-color: var(--verde-medio); }
 
-        .btn { padding: 10px 18px; border: none; border-radius: 9px; font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: all 0.15s; text-decoration: none; }
-        .btn-primary { background: var(--primary); color: white; }
-        .btn-primary:hover { background: var(--primary-dark); }
-        .btn-outline { background: var(--surface); border: 1.5px solid var(--border); color: var(--text); }
-        .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
-        .btn-sm { padding: 6px 12px; font-size: 0.78rem; }
+        .btn {
+            padding: 10px 20px; border: none; border-radius: 8px; font-family: 'DM Sans', sans-serif;
+            font-size: 0.85rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center;
+            gap: 8px; transition: all 0.2s; text-decoration: none;
+        }
+        .btn-primary { background: var(--verde); color: white; }
+        .btn-primary:hover { background: var(--verde-medio); }
+        .btn-danger { background: white; border: 1.5px solid var(--rojo); color: var(--rojo); }
+        .btn-danger:hover { background: var(--rojo); color: white; }
+        .btn-warning { background: white; border: 1.5px solid var(--amarillo); color: var(--amarillo); }
+        .btn-warning:hover { background: var(--amarillo); color: white; }
+        .btn-sm { padding: 6px 12px; font-size: 0.8rem; }
+        .btn-outline { background: transparent; border: 1px solid var(--borde); color: var(--texto-sub); }
+        .btn-outline:hover { background: var(--fondo); border-color: var(--texto-sub); }
 
-        .table-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+        .card { background: var(--blanco); border: 1px solid var(--borde); border-radius: 16px; overflow: hidden; }
+        .card-header {
+            padding: 20px 24px; border-bottom: 1px solid var(--borde);
+            background: linear-gradient(to right, rgba(26,92,56,0.02), transparent);
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .card-header h2 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--texto); display: flex; align-items: center; gap: 8px; }
+        .card-header i { color: var(--verde-medio); font-size: 1.2rem; }
+        .card-header .badge { background: var(--verde-claro); color: white; padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; }
+        .card-body { padding: 0; }
+
         table { width: 100%; border-collapse: collapse; }
         thead th {
             text-align: left; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
-            color: var(--text-sub); padding: 12px 16px; border-bottom: 1px solid var(--border); background: #fafbfe;
+            color: var(--texto-sub); padding: 12px 24px; border-bottom: 1px solid var(--borde); background: rgba(26,92,56,0.02);
         }
-        tbody td { padding: 12px 16px; font-size: 0.85rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
+        tbody td { padding: 12px 24px; font-size: 0.85rem; border-bottom: 1px solid var(--borde); vertical-align: middle; }
         tbody tr:last-child td { border-bottom: none; }
-        tbody tr:hover { background: #fafbff; }
+        tbody tr:hover { background: var(--fondo); }
 
-        .persona-nombre { font-weight: 600; color: var(--text); }
-        .persona-sub { font-size: 0.76rem; color: var(--text-sub); margin-top: 2px; }
+        .persona-nombre { font-weight: 600; color: var(--texto); }
+        .persona-sub { font-size: 0.76rem; color: var(--texto-sub); margin-top: 2px; }
 
         .badge-estado { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 20px; font-size: 0.74rem; font-weight: 700; white-space: nowrap; }
         .badge-estado::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
-        .badge-estado.en_curso    { background: var(--verde-bg); color: var(--verde); }
-        .badge-estado.confirmada  { background: var(--azul-bg); color: var(--azul); }
-        .badge-estado.finalizada  { background: var(--gris-bg); color: var(--gris); }
-        .badge-estado.cancelada   { background: var(--rojo-bg); color: var(--rojo); }
-        .badge-estado.no_asistio  { background: var(--ambar-bg); color: var(--ambar); }
+        .badge-estado.en_curso    { background: #e0f2e9; color: var(--verde-medio); }
+        .badge-estado.confirmada  { background: #e0f2fe; color: var(--azul); }
+        .badge-estado.finalizada  { background: #f1f5f9; color: var(--texto-sub); }
+        .badge-estado.cancelada   { background: #fee2e2; color: var(--rojo); }
+        .badge-estado.no_asistio  { background: #fef3c7; color: var(--amarillo); }
         .badge-estado.pendiente,
         .badge-estado.propuesta_reprogramacion,
-        .badge-estado.contrapropuesta_ciudadano { background: var(--primary-light); color: var(--primary); }
+        .badge-estado.contrapropuesta_ciudadano { background: rgba(201,168,76,0.15); color: var(--dorado); }
 
         .badge-tipo { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; padding: 3px 8px; border-radius: 6px; }
-        .badge-tipo.cita { background: var(--primary-light); color: var(--primary); }
-        .badge-tipo.espontanea { background: var(--azul-bg); color: var(--azul); }
+        .badge-tipo.cita { background: #e0f2e9; color: var(--verde-medio); }
+        .badge-tipo.espontanea { background: #e0f2fe; color: var(--azul); }
 
-        .empty-state { text-align: center; padding: 60px 20px; color: var(--text-sub); }
+        .empty-state { text-align: center; padding: 60px 20px; color: var(--texto-sub); }
         .empty-state i { font-size: 2.4rem; margin-bottom: 12px; opacity: 0.4; }
 
         /* Modal */
         .modal-overlay {
-            position: fixed; inset: 0; background: rgba(15,23,42,0.5); display: none;
-            align-items: center; justify-content: center; z-index: 1000; backdrop-filter: blur(3px);
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center;
+            z-index: 1000; backdrop-filter: blur(4px);
         }
-        .modal-overlay.open { display: flex; }
-        .modal-card { background: var(--surface); border-radius: 16px; width: 92%; max-width: 640px; max-height: 90vh; overflow-y: auto; }
-        .modal-header { padding: 18px 24px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-        .modal-header h3 { font-size: 1.1rem; font-weight: 700; display: flex; align-items: center; gap: 8px; }
-        .modal-close { background: none; border: none; font-size: 1.1rem; color: var(--text-sub); cursor: pointer; }
-        .modal-body { padding: 20px 24px; }
-        .modal-footer { padding: 16px 24px; border-top: 1px solid var(--border); display: flex; justify-content: flex-end; gap: 10px; }
+        .modal {
+            background: white; border-radius: 20px; padding: 0; max-width: 640px; width: 92%;
+            max-height: 90vh; overflow-y: auto; animation: modalSlideIn 0.3s ease;
+        }
+        @keyframes modalSlideIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
 
-        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
-        .form-group { margin-bottom: 14px; }
-        .form-group label { display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 6px; color: var(--text); }
-        .form-group input, .form-group select, .form-group textarea {
-            width: 100%; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 8px;
-            font-family: 'Inter', sans-serif; font-size: 0.87rem; background: var(--surface);
+        .modal-header { padding: 24px 32px 0; display: flex; align-items: center; justify-content: space-between; }
+        .modal-header h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--texto); display: flex; align-items: center; gap: 8px; }
+        .modal-close { background: none; border: none; font-size: 1.1rem; color: var(--texto-sub); cursor: pointer; }
+        .modal-body { padding: 20px 32px; }
+        .modal-acciones, .modal-footer { padding: 0 32px 24px; display: flex; justify-content: flex-end; gap: 12px; }
+
+        .btn-modal-cancelar {
+            padding: 12px 24px; background: var(--blanco); border: 1.5px solid var(--borde); border-radius: 8px;
+            font-family: 'DM Sans', sans-serif; font-weight: 500; cursor: pointer; transition: all 0.2s;
         }
-        .form-group input:disabled, .form-group select:disabled { background: var(--gris-bg); color: var(--text-sub); }
-        .form-group textarea { resize: vertical; min-height: 70px; }
+        .btn-modal-cancelar:hover { border-color: var(--texto); }
+        .btn-modal-confirmar {
+            padding: 12px 24px; border: none; border-radius: 8px; font-family: 'DM Sans', sans-serif;
+            font-weight: 600; color: white; cursor: pointer; transition: all 0.2s; background: var(--verde);
+        }
+        .btn-modal-confirmar:hover { opacity: 0.9; transform: translateY(-1px); }
+
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.85rem; color: var(--texto); }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%; padding: 12px; border: 1.5px solid var(--borde); border-radius: 8px;
+            font-family: 'DM Sans', sans-serif; font-size: 0.9rem; background: var(--blanco);
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--verde-medio); }
+        .form-group input:disabled, .form-group select:disabled { background: var(--fondo); color: var(--texto-sub); }
+        .form-group textarea { resize: vertical; min-height: 80px; }
         .grupo-verificar { display: flex; gap: 8px; align-items: flex-end; }
         .grupo-verificar .form-group { flex: 1; margin-bottom: 0; }
-        #verif-estado { font-size: 0.78rem; margin-top: 6px; min-height: 16px; }
+        #verif-estado { font-size: 0.8rem; margin-top: 8px; min-height: 18px; }
 
         @media (max-width: 1024px) {
             .stats-grid { grid-template-columns: repeat(2, 1fr); }
             .form-row { grid-template-columns: 1fr; }
         }
-        @media (max-width: 640px) {
-            .header { padding: 0 14px; }
+        @media (max-width: 768px) {
+            .header { padding: 0 16px; }
+            .header-brand-texto { font-size: 0.6rem; letter-spacing: 0.05em; line-height: 1.3; }
+            .header-brand-texto strong { font-size: 0.68rem; letter-spacing: 0.02em; }
+            .main { padding: 24px 16px 48px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 480px) {
             .main { padding: 16px 12px 48px; }
             .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .stat-card { padding: 16px; gap: 10px; }
+            .stat-icono { width: 40px; height: 40px; font-size: 1.2rem; }
+            .stat-info h3 { font-size: 1.3rem; }
+            .info-funcionario { display: none; }
+            .btn-logout span { display: none; }
             table { font-size: 0.78rem; }
-            thead th, tbody td { padding: 9px 10px; }
+            thead th, tbody td { padding: 9px 12px; }
         }
     </style>
 </head>
@@ -191,21 +265,33 @@
         </a>
         <div class="header-titulo"><i class="fas fa-desktop"></i> Recepción</div>
         <div class="header-usuario">
-            <span style="font-size:0.85rem;font-weight:600;color:var(--text-sub);">
-                <?= htmlspecialchars($_SESSION['usuario_nombre'] ?? 'Recepcionista') ?>
-            </span>
-            <a href="/logout" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Salir</a>
+            <div class="info-funcionario">
+                <div class="funcionario-nombre"><?= htmlspecialchars($_SESSION['usuario_nombre'] ?? 'Recepcionista') ?></div>
+                <div class="funcionario-cargo">Recepcionista</div>
+            </div>
+            <div class="avatar">
+                <?php
+                    $nombreSesion = trim($_SESSION['usuario_nombre'] ?? 'R');
+                    $partesNombre = explode(' ', $nombreSesion);
+                    echo strtoupper(substr($partesNombre[0] ?? 'R', 0, 1) . substr($partesNombre[1] ?? '', 0, 1));
+                ?>
+            </div>
+            <a href="/logout" class="btn-logout"><i class="fas fa-sign-out-alt"></i> <span>Salir</span></a>
         </div>
     </header>
 
     <main class="main">
 
         <?php if ($mensaje): ?>
-        <div class="banner banner-success"><i class="fas fa-check-circle"></i> <?= htmlspecialchars($mensaje) ?></div>
+        <div class="alertas">
+            <div class="alerta alerta-success"><i class="fas fa-check-circle"></i> <?= htmlspecialchars($mensaje) ?></div>
+        </div>
         <?php endif; ?>
 
         <?php if ($error): ?>
-        <div class="banner banner-error"><i class="fas fa-exclamation-circle"></i> <?= htmlspecialchars($error) ?></div>
+        <div class="alertas">
+            <div class="alerta alerta-error"><i class="fas fa-exclamation-circle"></i> <?= htmlspecialchars($error) ?></div>
+        </div>
         <?php endif; ?>
 
         <div class="alertas-panel" id="alertas-panel">
@@ -252,101 +338,107 @@
             </button>
         </div>
 
-        <div class="table-card">
-            <div style="overflow-x:auto;">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Visitante</th>
-                        <th>Identificación</th>
-                        <th>Funcionario</th>
-                        <th>Dependencia</th>
-                        <th>Horario</th>
-                        <th>Estado</th>
-                        <th>Ingreso</th>
-                        <th>Salida</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody id="registros-tbody">
-                    <?php
-                    $etiquetasEstado = [
-                        'en_curso' => 'En curso', 'confirmada' => 'Confirmada', 'finalizada' => 'Finalizada',
-                        'cancelada' => 'Cancelada', 'no_asistio' => 'No asistió', 'pendiente' => 'Pendiente',
-                        'propuesta_reprogramacion' => 'Propuesta enviada', 'contrapropuesta_ciudadano' => 'Contrapropuesta',
-                    ];
-                    $fmtHora = function ($valor) {
-                        if (!$valor) return '—';
-                        $ts = strtotime($valor);
-                        return $ts ? date('h:i A', $ts) : $valor;
-                    };
-                    ?>
-                    <?php foreach ($registros as $r): ?>
-                    <?php
-                        $nombre      = trim(($r['nombres_ciudadano'] ?? '') . ' ' . ($r['apellidos_ciudadano'] ?? ''));
-                        $funcionario = trim(($r['nombres_funcionario'] ?? '') . ' ' . ($r['apellidos_funcionario'] ?? ''));
-                        $horario = $r['tipo_registro'] === 'cita'
-                            ? (!empty($r['fecha_cita']) ? date('d/m/Y', strtotime($r['fecha_cita'])) : '') . ' · ' . $fmtHora($r['hora_inicio'] ?? null)
-                            : 'Espontánea · ' . $fmtHora($r['hora_ingreso'] ?? null);
-                        $estado = $r['estado'];
-                    ?>
-                    <tr>
-                        <td>
-                            <div class="persona-nombre"><?= htmlspecialchars($nombre ?: '—') ?></div>
-                            <div class="persona-sub">
-                                <span class="badge-tipo <?= htmlspecialchars($r['tipo_registro']) ?>">
-                                    <?= $r['tipo_registro'] === 'cita' ? 'Cita' : 'Espontánea' ?>
-                                </span>
-                            </div>
-                        </td>
-                        <td><?= htmlspecialchars(trim(($r['tipo_identificacion'] ?? '') . ' ' . ($r['numero_identificacion'] ?? ''))) ?></td>
-                        <td><?= htmlspecialchars($funcionario ?: '—') ?></td>
-                        <td><?= htmlspecialchars($r['dependencia'] ?? '—') ?></td>
-                        <td><?= htmlspecialchars($horario) ?></td>
-                        <td><span class="badge-estado <?= htmlspecialchars($estado) ?>"><?= htmlspecialchars($etiquetasEstado[$estado] ?? $estado) ?></span></td>
-                        <td><?= htmlspecialchars($fmtHora($r['hora_ingreso'] ?? null)) ?></td>
-                        <td><?= htmlspecialchars($fmtHora($r['hora_salida'] ?? null)) ?></td>
-                        <td>
-                            <?php if ($r['tipo_registro'] === 'cita' && $estado === 'confirmada'): ?>
-                            <form method="POST" action="/recepcion" style="display:inline;">
-                                <?= csrf_field() ?>
-                                <?= tab_id_field() ?>
-                                <input type="hidden" name="accion" value="registrar_ingreso">
-                                <input type="hidden" name="id_cita" value="<?= (int)$r['id'] ?>">
-                                <button type="submit" class="btn btn-outline btn-sm"><i class="fas fa-sign-in-alt"></i> Ingreso</button>
-                            </form>
-                            <?php endif; ?>
-                            <?php if ($estado === 'en_curso'): ?>
-                            <form method="POST" action="/recepcion" style="display:inline;">
-                                <?= csrf_field() ?>
-                                <?= tab_id_field() ?>
-                                <input type="hidden" name="accion" value="registrar_salida">
-                                <input type="hidden" name="id" value="<?= (int)$r['id'] ?>">
-                                <input type="hidden" name="tipo" value="<?= htmlspecialchars($r['tipo_registro']) ?>">
-                                <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-sign-out-alt"></i> Salida</button>
-                            </form>
-                            <?php endif; ?>
-                            <?php if (!($r['tipo_registro'] === 'cita' && $estado === 'confirmada') && $estado !== 'en_curso'): ?>—<?php endif; ?>
-                        </td>
-                    </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+        <div class="card">
+            <div class="card-header">
+                <h2><i class="fas fa-clipboard-list"></i> Registros de Hoy</h2>
+                <span class="badge" id="registros-badge"><?= count($registros) ?></span>
             </div>
-            <?php if (empty($registros)): ?>
-            <div class="empty-state" id="tabla-vacia">
-                <i class="fas fa-inbox"></i>
-                <p>No hay registros para hoy.</p>
+            <div class="card-body">
+                <div style="overflow-x:auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Visitante</th>
+                            <th>Identificación</th>
+                            <th>Funcionario</th>
+                            <th>Dependencia</th>
+                            <th>Horario</th>
+                            <th>Estado</th>
+                            <th>Ingreso</th>
+                            <th>Salida</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="registros-tbody">
+                        <?php
+                        $etiquetasEstado = [
+                            'en_curso' => 'En curso', 'confirmada' => 'Confirmada', 'finalizada' => 'Finalizada',
+                            'cancelada' => 'Cancelada', 'no_asistio' => 'No asistió', 'pendiente' => 'Pendiente',
+                            'propuesta_reprogramacion' => 'Propuesta enviada', 'contrapropuesta_ciudadano' => 'Contrapropuesta',
+                        ];
+                        $fmtHora = function ($valor) {
+                            if (!$valor) return '—';
+                            $ts = strtotime($valor);
+                            return $ts ? date('h:i A', $ts) : $valor;
+                        };
+                        ?>
+                        <?php foreach ($registros as $r): ?>
+                        <?php
+                            $nombre      = trim(($r['nombres_ciudadano'] ?? '') . ' ' . ($r['apellidos_ciudadano'] ?? ''));
+                            $funcionario = trim(($r['nombres_funcionario'] ?? '') . ' ' . ($r['apellidos_funcionario'] ?? ''));
+                            $horario = $r['tipo_registro'] === 'cita'
+                                ? (!empty($r['fecha_cita']) ? date('d/m/Y', strtotime($r['fecha_cita'])) : '') . ' · ' . $fmtHora($r['hora_inicio'] ?? null)
+                                : 'Espontánea · ' . $fmtHora($r['hora_ingreso'] ?? null);
+                            $estado = $r['estado'];
+                        ?>
+                        <tr>
+                            <td>
+                                <div class="persona-nombre"><?= htmlspecialchars($nombre ?: '—') ?></div>
+                                <div class="persona-sub">
+                                    <span class="badge-tipo <?= htmlspecialchars($r['tipo_registro']) ?>">
+                                        <?= $r['tipo_registro'] === 'cita' ? 'Cita' : 'Espontánea' ?>
+                                    </span>
+                                </div>
+                            </td>
+                            <td><?= htmlspecialchars(trim(($r['tipo_identificacion'] ?? '') . ' ' . ($r['numero_identificacion'] ?? ''))) ?></td>
+                            <td><?= htmlspecialchars($funcionario ?: '—') ?></td>
+                            <td><?= htmlspecialchars($r['dependencia'] ?? '—') ?></td>
+                            <td><?= htmlspecialchars($horario) ?></td>
+                            <td><span class="badge-estado <?= htmlspecialchars($estado) ?>"><?= htmlspecialchars($etiquetasEstado[$estado] ?? $estado) ?></span></td>
+                            <td><?= htmlspecialchars($fmtHora($r['hora_ingreso'] ?? null)) ?></td>
+                            <td><?= htmlspecialchars($fmtHora($r['hora_salida'] ?? null)) ?></td>
+                            <td>
+                                <?php if ($r['tipo_registro'] === 'cita' && $estado === 'confirmada'): ?>
+                                <form method="POST" action="/recepcion" style="display:inline;">
+                                    <?= csrf_field() ?>
+                                    <?= tab_id_field() ?>
+                                    <input type="hidden" name="accion" value="registrar_ingreso">
+                                    <input type="hidden" name="id_cita" value="<?= (int)$r['id'] ?>">
+                                    <button type="submit" class="btn btn-outline btn-sm"><i class="fas fa-sign-in-alt"></i> Ingreso</button>
+                                </form>
+                                <?php endif; ?>
+                                <?php if ($estado === 'en_curso'): ?>
+                                <form method="POST" action="/recepcion" style="display:inline;">
+                                    <?= csrf_field() ?>
+                                    <?= tab_id_field() ?>
+                                    <input type="hidden" name="accion" value="registrar_salida">
+                                    <input type="hidden" name="id" value="<?= (int)$r['id'] ?>">
+                                    <input type="hidden" name="tipo" value="<?= htmlspecialchars($r['tipo_registro']) ?>">
+                                    <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-sign-out-alt"></i> Salida</button>
+                                </form>
+                                <?php endif; ?>
+                                <?php if (!($r['tipo_registro'] === 'cita' && $estado === 'confirmada') && $estado !== 'en_curso'): ?>—<?php endif; ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+                </div>
+                <?php if (empty($registros)): ?>
+                <div class="empty-state" id="tabla-vacia">
+                    <i class="fas fa-inbox"></i>
+                    <p>No hay registros para hoy.</p>
+                </div>
+                <?php endif; ?>
             </div>
-            <?php endif; ?>
         </div>
     </main>
 
     <!-- Modal Visita Espontánea -->
     <div class="modal-overlay" id="modal-espontanea">
-        <div class="modal-card">
+        <div class="modal">
             <div class="modal-header">
-                <h3><i class="fas fa-user-plus" style="color:var(--primary);"></i> Visita Espontánea</h3>
+                <h3><i class="fas fa-user-plus" style="color:var(--verde-medio);"></i> Visita Espontánea</h3>
                 <button class="modal-close" onclick="cerrarModal('modal-espontanea')"><i class="fas fa-times"></i></button>
             </div>
             <form method="POST" action="/recepcion" id="form-espontanea">
@@ -379,7 +471,7 @@
                     </div>
                     <div id="verif-estado"></div>
 
-                    <div class="form-row" style="margin-top:14px;">
+                    <div class="form-row" style="margin-top:16px;">
                         <div class="form-group">
                             <label>Nombres *</label>
                             <input type="text" name="nombres" id="esp-nombres" required>
@@ -446,9 +538,9 @@
                     </div>
 
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline" onclick="cerrarModal('modal-espontanea')">Cancelar</button>
-                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Registrar Visita</button>
+                <div class="modal-acciones">
+                    <button type="button" class="btn-modal-cancelar" onclick="cerrarModal('modal-espontanea')">Cancelar</button>
+                    <button type="submit" class="btn-modal-confirmar"><i class="fas fa-save"></i> Registrar Visita</button>
                 </div>
             </form>
         </div>
@@ -458,10 +550,10 @@
         const TAB_ID = window.TAB_ID;
 
         function abrirModalEspontanea() {
-            document.getElementById('modal-espontanea').classList.add('open');
+            document.getElementById('modal-espontanea').style.display = 'flex';
         }
         function cerrarModal(id) {
-            document.getElementById(id).classList.remove('open');
+            document.getElementById(id).style.display = 'none';
         }
 
         // ── Verificar ciudadano existente ────────────────────────────────
@@ -471,7 +563,7 @@
             if (!numero) { estadoDiv.textContent = ''; return; }
 
             estadoDiv.textContent = 'Verificando…';
-            estadoDiv.style.color = 'var(--text-sub)';
+            estadoDiv.style.color = 'var(--texto-sub)';
 
             fetch('/recepcion/verificar?numero=' + encodeURIComponent(numero) + '&tab_id=' + TAB_ID)
                 .then(r => r.json())
@@ -490,16 +582,16 @@
                             input.disabled = valor !== '';
                         });
 
-                        estadoDiv.innerHTML = '<i class="fas fa-check-circle" style="color:var(--verde);"></i> Ciudadano encontrado — datos cargados';
-                        estadoDiv.style.color = 'var(--verde)';
+                        estadoDiv.innerHTML = '<i class="fas fa-check-circle" style="color:var(--verde-medio);"></i> Ciudadano encontrado — datos cargados';
+                        estadoDiv.style.color = 'var(--verde-medio)';
                     } else {
                         document.getElementById('esp-ciudadano_id').value = 0;
                         campos.forEach(campo => {
                             const input = document.getElementById('esp-' + campo);
                             input.disabled = false;
                         });
-                        estadoDiv.innerHTML = '<i class="fas fa-info-circle" style="color:var(--primary);"></i> No encontrado — se registrará como nuevo';
-                        estadoDiv.style.color = 'var(--primary)';
+                        estadoDiv.innerHTML = '<i class="fas fa-info-circle" style="color:var(--dorado);"></i> No encontrado — se registrará como nuevo';
+                        estadoDiv.style.color = 'var(--dorado)';
                     }
                 })
                 .catch(() => {
@@ -630,7 +722,7 @@
                             div.className = 'empty-state';
                             div.id = 'tabla-vacia';
                             div.innerHTML = '<i class="fas fa-inbox"></i><p>No hay registros para hoy.</p>';
-                            tbody.closest('.table-card').appendChild(div);
+                            tbody.closest('.card-body').appendChild(div);
                         }
                     } else if (vacio) {
                         vacio.remove();
@@ -640,6 +732,7 @@
                     document.getElementById('stat-curso').textContent = data.stats.en_curso;
                     document.getElementById('stat-final').textContent = data.stats.finalizadas;
                     document.getElementById('stat-espon').textContent = data.stats.espontaneas;
+                    document.getElementById('registros-badge').textContent = data.stats.total;
 
                     const panel = document.getElementById('alertas-panel');
                     panel.innerHTML = data.alertas.map(a => `
