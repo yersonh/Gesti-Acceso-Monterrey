@@ -35,7 +35,7 @@ try {
     $pdo = Database::getConnection();
 
     // Obtener el id_funcionario del usuario logueado
-    $stmtMio = $pdo->prepare("SELECT id_funcionario FROM funcionarios WHERE usuario_id = ?");
+    $stmtMio = $pdo->prepare("SELECT id_funcionario FROM funcionarios_cache WHERE usuario_id = ?");
     $stmtMio->execute([$_SESSION['usuario_id']]);
     $miFuncionario = (int)$stmtMio->fetchColumn();
 

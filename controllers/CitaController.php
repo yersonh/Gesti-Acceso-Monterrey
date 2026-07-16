@@ -240,10 +240,10 @@ class CitaController {
                     f.email AS func_email,
                     d.nombre AS dependencia_nombre
                 FROM citas c
-                JOIN ciudadanos ci ON ci.id_ciudadano = c.ciudadano_id
+                JOIN ciudadanos_cache ci ON ci.id_ciudadano = c.ciudadano_id
                 JOIN usuarios u ON u.id_usuario = ci.usuario_id
-                JOIN funcionarios f ON f.id_funcionario = c.funcionario_id
-                LEFT JOIN dependencias d ON d.id_dependencia = c.dependencia_id
+                JOIN funcionarios_cache f ON f.id_funcionario = c.funcionario_id
+                LEFT JOIN dependencias_cache d ON d.id_dependencia = c.dependencia_id
                 WHERE c.token_respuesta = :token
                 AND c.estado = 'propuesta_reprogramacion'
                 AND c.token_expira > NOW()

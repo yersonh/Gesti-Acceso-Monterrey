@@ -62,7 +62,7 @@ class AdminController
                         SELECT COALESCE(p.nombres||' '||p.apellidos, f.nombres||' '||f.apellidos, u.email) AS nombre
                         FROM usuarios u
                         LEFT JOIN personal p     ON p.usuario_id = u.id_usuario
-                        LEFT JOIN funcionarios f ON f.usuario_id = u.id_usuario
+                        LEFT JOIN funcionarios_cache f ON f.usuario_id = u.id_usuario
                         WHERE u.id_usuario = :id
                     ");
                     $stmtNombreRol->execute([':id' => $id]);
@@ -173,8 +173,8 @@ class AdminController
                                         u.email) AS nombre_perfil
                         FROM usuarios u
                         LEFT JOIN personal p     ON p.usuario_id  = u.id_usuario
-                        LEFT JOIN funcionarios f ON f.usuario_id  = u.id_usuario
-                        LEFT JOIN ciudadanos ci  ON ci.usuario_id = u.id_usuario
+                        LEFT JOIN funcionarios_cache f ON f.usuario_id  = u.id_usuario
+                        LEFT JOIN ciudadanos_cache ci  ON ci.usuario_id = u.id_usuario
                         WHERE u.id_usuario = :id AND u.activo = true
                     ");
                     $stmt->execute([':id' => $id]);
@@ -216,8 +216,8 @@ class AdminController
                     TO_CHAR(u.last_login_at,  'DD/MM/YYYY HH24:MI')  AS last_login_fmt,
                     COALESCE(
                         (SELECT nombres || ' ' || apellidos FROM personal     WHERE usuario_id = u.id_usuario LIMIT 1),
-                        (SELECT nombres || ' ' || apellidos FROM funcionarios WHERE usuario_id = u.id_usuario LIMIT 1),
-                        (SELECT nombres || ' ' || apellidos FROM ciudadanos   WHERE usuario_id = u.id_usuario LIMIT 1),
+                        (SELECT nombres || ' ' || apellidos FROM funcionarios_cache WHERE usuario_id = u.id_usuario LIMIT 1),
+                        (SELECT nombres || ' ' || apellidos FROM ciudadanos_cache   WHERE usuario_id = u.id_usuario LIMIT 1),
                         u.email
                     ) AS nombre_perfil
                 FROM usuarios u
@@ -613,9 +613,9 @@ class AdminController
                         JSON_AGG(d.id_dependencia ORDER BY d.nombre) FILTER (WHERE d.id_dependencia IS NOT NULL),
                         '[]'
                     )::text AS dependencia_ids
-                FROM funcionarios f
+                FROM funcionarios_cache f
                 LEFT JOIN funcionario_dependencia fd ON fd.funcionario_id = f.id_funcionario
-                LEFT JOIN dependencias d ON d.id_dependencia = fd.dependencia_id
+                LEFT JOIN dependencias_cache d ON d.id_dependencia = fd.dependencia_id
                 GROUP BY f.id_funcionario, f.nombres, f.apellidos, f.tipo_identificacion,
                          f.numero_identificacion, f.telefono, f.email, f.cargo, f.activo, f.created_at
                 ORDER BY f.apellidos, f.nombres
@@ -626,12 +626,12 @@ class AdminController
                     COUNT(*) AS total,
                     COUNT(*) FILTER (WHERE f.activo = true) AS activos,
                     COUNT(DISTINCT fd.funcionario_id) AS con_dependencias
-                FROM funcionarios f
+                FROM funcionarios_cache f
                 LEFT JOIN funcionario_dependencia fd ON fd.funcionario_id = f.id_funcionario
             ")->fetch();
 
             $dependenciasDisponibles = $pdo->query("
-                SELECT id_dependencia, nombre FROM dependencias WHERE activo = true ORDER BY nombre
+                SELECT id_dependencia, nombre FROM dependencias_cache WHERE activo = true ORDER BY nombre
             ")->fetchAll();
 
         } catch (Exception $e) {
@@ -741,7 +741,7 @@ class AdminController
                     d.activo,
                     d.created_at,
                     COUNT(fd.funcionario_id) AS num_funcionarios
-                FROM dependencias d
+                FROM dependencias_cache d
                 LEFT JOIN funcionario_dependencia fd ON fd.dependencia_id = d.id_dependencia
                 GROUP BY d.id_dependencia, d.nombre, d.descripcion, d.activo, d.created_at
                 ORDER BY d.nombre
@@ -789,7 +789,7 @@ class AdminController
 
                     $stmtNomAs = $pdo->prepare("
                         SELECT f.nombres||' '||f.apellidos AS func_nom, d.nombre AS dep_nom
-                        FROM funcionarios f, dependencias d
+                        FROM funcionarios_cache f, dependencias_cache d
                         WHERE f.id_funcionario = :f AND d.id_dependencia = :d
                     ");
                     $stmtNomAs->execute([':f' => $funcId, ':d' => $depId]);
@@ -816,8 +816,8 @@ class AdminController
                     $stmtNomDes = $pdo->prepare("
                         SELECT f.nombres||' '||f.apellidos AS func_nom, d.nombre AS dep_nom
                         FROM funcionario_dependencia fd
-                        JOIN funcionarios f   ON f.id_funcionario = fd.funcionario_id
-                        JOIN dependencias d   ON d.id_dependencia = fd.dependencia_id
+                        JOIN funcionarios_cache f   ON f.id_funcionario = fd.funcionario_id
+                        JOIN dependencias_cache d   ON d.id_dependencia = fd.dependencia_id
                         WHERE fd.id = :id
                     ");
                     $stmtNomDes->execute([':id' => $id]);
@@ -858,21 +858,21 @@ class AdminController
                     d.id_dependencia,
                     d.nombre     AS dep_nombre
                 FROM funcionario_dependencia fd
-                JOIN funcionarios  f ON f.id_funcionario   = fd.funcionario_id
-                JOIN dependencias  d ON d.id_dependencia   = fd.dependencia_id
+                JOIN funcionarios_cache  f ON f.id_funcionario   = fd.funcionario_id
+                JOIN dependencias_cache  d ON d.id_dependencia   = fd.dependencia_id
                 ORDER BY f.apellidos, f.nombres, d.nombre
             ")->fetchAll();
 
             $funcionarios = $pdo->query("
                 SELECT id_funcionario, nombres, apellidos, cargo
-                FROM funcionarios
+                FROM funcionarios_cache
                 WHERE activo = true
                 ORDER BY apellidos, nombres
             ")->fetchAll();
 
             $dependencias = $pdo->query("
                 SELECT id_dependencia, nombre
-                FROM dependencias
+                FROM dependencias_cache
                 WHERE activo = true
                 ORDER BY nombre
             ")->fetchAll();
@@ -1136,7 +1136,7 @@ class AdminController
                     ci.created_at,
                     u.email       AS cuenta_email,
                     COUNT(c.id_cita) AS total_citas
-                FROM ciudadanos ci
+                FROM ciudadanos_cache ci
                 LEFT JOIN usuarios u ON u.id_usuario = ci.usuario_id
                 LEFT JOIN citas c    ON c.ciudadano_id = ci.id_ciudadano
                 GROUP BY ci.id_ciudadano, ci.nombres, ci.apellidos, ci.tipo_identificacion,
@@ -1150,7 +1150,7 @@ class AdminController
                     COUNT(*)                                            AS total,
                     COUNT(*) FILTER (WHERE activo = true)               AS activos,
                     COUNT(*) FILTER (WHERE usuario_id IS NOT NULL)      AS con_cuenta
-                FROM ciudadanos
+                FROM ciudadanos_cache
             ")->fetch();
 
         } catch (Exception $e) {

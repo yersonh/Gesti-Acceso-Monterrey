@@ -85,10 +85,10 @@ class ValoracionModel {
                     c.motivo,
                     c.fecha
                 FROM   citas c
-                JOIN   ciudadanos   ci ON ci.id_ciudadano  = c.ciudadano_id
+                JOIN   ciudadanos_cache   ci ON ci.id_ciudadano  = c.ciudadano_id
                 JOIN   usuarios     u  ON u.id_usuario     = ci.usuario_id
-                JOIN   funcionarios f  ON f.id_funcionario = c.funcionario_id
-                JOIN   dependencias d  ON d.id_dependencia = c.dependencia_id
+                JOIN   funcionarios_cache f  ON f.id_funcionario = c.funcionario_id
+                JOIN   dependencias_cache d  ON d.id_dependencia = c.dependencia_id
                 WHERE  c.id_cita = ?
             ");
         } else {
@@ -103,9 +103,9 @@ class ValoracionModel {
                     ve.motivo,
                     DATE(ve.hora_ingreso) AS fecha
                 FROM   visitas_espontaneas ve
-                JOIN   ciudadanos   ci ON ci.id_ciudadano   = ve.ciudadano_id
-                LEFT JOIN funcionarios f  ON f.id_funcionario = ve.funcionario_id
-                JOIN   dependencias d  ON d.id_dependencia = ve.dependencia_id
+                JOIN   ciudadanos_cache   ci ON ci.id_ciudadano   = ve.ciudadano_id
+                LEFT JOIN funcionarios_cache f  ON f.id_funcionario = ve.funcionario_id
+                JOIN   dependencias_cache d  ON d.id_dependencia = ve.dependencia_id
                 WHERE  ve.id_visita = ?
             ");
         }

@@ -15,7 +15,7 @@ class Funcionario {
                     f.nombres,
                     f.apellidos,
                     f.cargo
-                FROM funcionarios f
+                FROM funcionarios_cache f
                 JOIN funcionario_dependencia fd ON fd.funcionario_id = f.id_funcionario
                 WHERE fd.dependencia_id = :dep
                   AND f.activo = true
@@ -45,9 +45,9 @@ class Funcionario {
                     f.email,
                     f.activo,
                     STRING_AGG(d.nombre, ', ' ORDER BY d.nombre) AS dependencias
-                FROM funcionarios f
+                FROM funcionarios_cache f
                 LEFT JOIN funcionario_dependencia fd ON fd.funcionario_id = f.id_funcionario
-                LEFT JOIN dependencias d ON d.id_dependencia = fd.dependencia_id
+                LEFT JOIN dependencias_cache d ON d.id_dependencia = fd.dependencia_id
                 WHERE f.id_funcionario = :id
                 GROUP BY f.id_funcionario, f.nombres, f.apellidos, f.cargo,
                          f.telefono, f.email, f.activo
@@ -77,7 +77,7 @@ class Funcionario {
                     f.email,
                     f.activo,
                     f.usuario_id
-                FROM funcionarios f
+                FROM funcionarios_cache f
                 WHERE f.usuario_id = ? AND f.activo = true
             ");
             $stmt->execute([$usuarioId]);
@@ -97,7 +97,7 @@ class Funcionario {
             $pdo  = Database::getConnection();
             $stmt = $pdo->prepare("
                 SELECT d.*
-                FROM dependencias d
+                FROM dependencias_cache d
                 JOIN funcionario_dependencia fd ON fd.dependencia_id = d.id_dependencia
                 WHERE fd.funcionario_id = ? AND d.activo = true
             ");
@@ -143,7 +143,7 @@ class Funcionario {
                 ci.telefono  AS ciudadano_telefono,
                 ci.email     AS ciudadano_email
             FROM citas c
-            JOIN ciudadanos ci ON ci.id_ciudadano = c.ciudadano_id
+            JOIN ciudadanos_cache ci ON ci.id_ciudadano = c.ciudadano_id
             WHERE c.funcionario_id = ?
             AND c.fecha >= ?
             AND c.estado = 'confirmada'
@@ -187,8 +187,8 @@ class Funcionario {
                     ci.telefono      AS ciudadano_telefono,
                     d.nombre         AS dependencia
                 FROM citas c
-                JOIN ciudadanos ci ON ci.id_ciudadano = c.ciudadano_id
-                LEFT JOIN dependencias d ON d.id_dependencia = c.dependencia_id
+                JOIN ciudadanos_cache ci ON ci.id_ciudadano = c.ciudadano_id
+                LEFT JOIN dependencias_cache d ON d.id_dependencia = c.dependencia_id
                 WHERE c.funcionario_id = :funcionario_id
                 AND c.estado IN ('pendiente', 'contrapropuesta_ciudadano', 'propuesta_reprogramacion')
                 ORDER BY c.fecha ASC, c.hora_inicio ASC
@@ -217,8 +217,8 @@ class Funcionario {
                     ci.email     AS ciudadano_email,
                     d.nombre     AS dependencia_nombre
                 FROM citas c
-                JOIN ciudadanos ci ON ci.id_ciudadano = c.ciudadano_id
-                LEFT JOIN dependencias d ON d.id_dependencia = c.dependencia_id
+                JOIN ciudadanos_cache ci ON ci.id_ciudadano = c.ciudadano_id
+                LEFT JOIN dependencias_cache d ON d.id_dependencia = c.dependencia_id
                 WHERE c.id_cita = ? AND c.funcionario_id = ? AND c.estado IN ('pendiente', 'contrapropuesta_ciudadano')
             ");
             $stmt->execute([$citaId, $funcionarioId]);
@@ -296,8 +296,8 @@ class Funcionario {
                     ci.email     AS ciudadano_email,
                     d.nombre     AS dependencia_nombre
                 FROM citas c
-                JOIN ciudadanos ci ON ci.id_ciudadano = c.ciudadano_id
-                LEFT JOIN dependencias d ON d.id_dependencia = c.dependencia_id
+                JOIN ciudadanos_cache ci ON ci.id_ciudadano = c.ciudadano_id
+                LEFT JOIN dependencias_cache d ON d.id_dependencia = c.dependencia_id
                 WHERE c.id_cita = ? AND c.funcionario_id = ? AND c.estado IN ('pendiente', 'contrapropuesta_ciudadano')
             ");
             $stmt->execute([$citaId, $funcionarioId]);
@@ -356,8 +356,8 @@ class Funcionario {
                     ci.telefono  AS ciudadano_telefono,
                     d.nombre     AS dependencia_nombre
                 FROM citas c
-                JOIN ciudadanos ci ON ci.id_ciudadano = c.ciudadano_id
-                LEFT JOIN dependencias d ON d.id_dependencia = c.dependencia_id
+                JOIN ciudadanos_cache ci ON ci.id_ciudadano = c.ciudadano_id
+                LEFT JOIN dependencias_cache d ON d.id_dependencia = c.dependencia_id
                 WHERE c.id_cita = ? AND c.funcionario_id = ? AND c.estado = 'pendiente'
             ");
             $stmt->execute([$citaId, $funcionarioId]);
@@ -581,9 +581,9 @@ class Funcionario {
                     ci.apellidos AS ciudadano_apellidos,
                     d.nombre AS dependencia_nombre
                 FROM citas c
-                JOIN ciudadanos ci ON ci.id_ciudadano = c.ciudadano_id
+                JOIN ciudadanos_cache ci ON ci.id_ciudadano = c.ciudadano_id
                 JOIN usuarios u ON u.id_usuario = ci.usuario_id
-                LEFT JOIN dependencias d ON d.id_dependencia = c.dependencia_id
+                LEFT JOIN dependencias_cache d ON d.id_dependencia = c.dependencia_id
                 WHERE c.id_cita = :id AND c.funcionario_id = :fid
             ");
             $stmt->execute([':id' => $citaId, ':fid' => $funcionarioId]);
@@ -649,8 +649,8 @@ class Funcionario {
                     ci.telefono                   AS ciudadano_telefono,
                     d.nombre                      AS dependencia
                 FROM citas c
-                JOIN ciudadanos ci ON ci.id_ciudadano = c.ciudadano_id
-                LEFT JOIN dependencias d ON d.id_dependencia = c.dependencia_id
+                JOIN ciudadanos_cache ci ON ci.id_ciudadano = c.ciudadano_id
+                LEFT JOIN dependencias_cache d ON d.id_dependencia = c.dependencia_id
                 WHERE c.funcionario_id = ?
                 AND c.estado = 'en_curso'
 
@@ -668,8 +668,8 @@ class Funcionario {
                     ci.telefono                   AS ciudadano_telefono,
                     d.nombre                      AS dependencia
                 FROM visitas_espontaneas ve
-                LEFT JOIN ciudadanos ci ON ci.id_ciudadano = ve.ciudadano_id
-                LEFT JOIN dependencias d ON d.id_dependencia = ve.dependencia_id
+                LEFT JOIN ciudadanos_cache ci ON ci.id_ciudadano = ve.ciudadano_id
+                LEFT JOIN dependencias_cache d ON d.id_dependencia = ve.dependencia_id
                 WHERE ve.funcionario_id = ?
                 AND ve.estado = 'en_curso'
 

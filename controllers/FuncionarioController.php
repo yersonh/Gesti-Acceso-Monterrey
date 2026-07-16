@@ -34,7 +34,7 @@ class FuncionarioController {
             if (!$funcionario) {
                 try {
                     $pdo  = Database::getConnection();
-                    $stmt = $pdo->prepare('SELECT * FROM funcionarios WHERE usuario_id = ?');
+                    $stmt = $pdo->prepare('SELECT * FROM funcionarios_cache WHERE usuario_id = ?');
                     $stmt->execute([$usuario['id_usuario']]);
                     $funcionario = $stmt->fetch();
                 } catch (Exception $e) {

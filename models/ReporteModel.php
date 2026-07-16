@@ -348,7 +348,7 @@ class ReporteModel
         return $this->db
             ->query("
                 SELECT id_dependencia, nombre
-                FROM dependencias
+                FROM dependencias_cache
                 WHERE activo = true
                 ORDER BY nombre
             ")
@@ -374,7 +374,7 @@ class ReporteModel
             ->query("
                 SELECT id_funcionario,
                        nombres || ' ' || apellidos AS nombre
-                FROM funcionarios
+                FROM funcionarios_cache
                 WHERE activo = true
                 ORDER BY nombres
             ")

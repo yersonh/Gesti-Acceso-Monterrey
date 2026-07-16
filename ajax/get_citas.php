@@ -24,7 +24,7 @@ if (!in_array($filtroEstado, $estadosPermitidos, true)) {
 if (!$ciudadanoId) {
     try {
         $pdo  = Database::getConnection();
-        $stmt = $pdo->prepare("SELECT id_ciudadano FROM ciudadanos WHERE usuario_id = ?");
+        $stmt = $pdo->prepare("SELECT id_ciudadano FROM ciudadanos_cache WHERE usuario_id = ?");
         $stmt->execute([$_SESSION['usuario_id']]);
         $row = $stmt->fetch();
         if ($row) {

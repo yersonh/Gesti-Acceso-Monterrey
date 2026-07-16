@@ -31,8 +31,8 @@ try {
             ci.telefono  AS ciudadano_telefono,
             d.nombre     AS dependencia
         FROM citas c
-        JOIN ciudadanos ci ON ci.id_ciudadano = c.ciudadano_id
-        JOIN dependencias d ON d.id_dependencia = c.dependencia_id
+        JOIN ciudadanos_cache ci ON ci.id_ciudadano = c.ciudadano_id
+        JOIN dependencias_cache d ON d.id_dependencia = c.dependencia_id
         JOIN funcionario_dependencia fd ON fd.dependencia_id = c.dependencia_id
         WHERE fd.funcionario_id = :fid
           AND c.id_cita > :ultimo_id
@@ -60,8 +60,8 @@ try {
                 ci.telefono  AS ciudadano_telefono,
                 d.nombre     AS dependencia
             FROM citas c
-            JOIN ciudadanos ci ON ci.id_ciudadano = c.ciudadano_id
-            JOIN dependencias d ON d.id_dependencia = c.dependencia_id
+            JOIN ciudadanos_cache ci ON ci.id_ciudadano = c.ciudadano_id
+            JOIN dependencias_cache d ON d.id_dependencia = c.dependencia_id
             WHERE c.funcionario_id = :fid
               AND c.estado = 'contrapropuesta_ciudadano'
               AND c.updated_at > TO_TIMESTAMP(:ts)
@@ -84,8 +84,8 @@ try {
             ci.telefono                 AS ciudadano_telefono,
             d.nombre                    AS dependencia
         FROM citas c
-        JOIN ciudadanos ci ON ci.id_ciudadano  = c.ciudadano_id
-        JOIN dependencias d ON d.id_dependencia = c.dependencia_id
+        JOIN ciudadanos_cache ci ON ci.id_ciudadano  = c.ciudadano_id
+        JOIN dependencias_cache d ON d.id_dependencia = c.dependencia_id
         WHERE c.funcionario_id = :fid
           AND c.estado = 'en_curso'
         UNION ALL
@@ -100,8 +100,8 @@ try {
             ci.telefono                 AS ciudadano_telefono,
             d.nombre                    AS dependencia
         FROM visitas_espontaneas ve
-        JOIN ciudadanos  ci ON ci.id_ciudadano   = ve.ciudadano_id
-        JOIN dependencias d ON d.id_dependencia  = ve.dependencia_id
+        JOIN ciudadanos_cache  ci ON ci.id_ciudadano   = ve.ciudadano_id
+        JOIN dependencias_cache d ON d.id_dependencia  = ve.dependencia_id
         WHERE ve.funcionario_id = :fid2
           AND ve.estado = 'en_curso'
         ORDER BY hora_ingreso ASC

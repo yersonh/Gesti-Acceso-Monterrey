@@ -11,7 +11,7 @@ class Dependencia {
             $pdo  = Database::getConnection();
             $stmt = $pdo->query("
                 SELECT id_dependencia, nombre
-                FROM dependencias
+                FROM dependencias_cache
                 WHERE activo = true
                 ORDER BY nombre
             ");
@@ -30,7 +30,7 @@ class Dependencia {
             $pdo  = Database::getConnection();
             $stmt = $pdo->prepare("
                 SELECT id_dependencia, nombre, descripcion
-                FROM dependencias
+                FROM dependencias_cache
                 WHERE id_dependencia = :id AND activo = true
             ");
             $stmt->execute([':id' => $id]);

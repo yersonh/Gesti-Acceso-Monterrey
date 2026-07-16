@@ -33,8 +33,8 @@ class UsuarioModel {
                 c.id_ciudadano
             FROM usuarios u
             LEFT JOIN personal     p ON p.usuario_id = u.id_usuario
-            LEFT JOIN funcionarios f ON f.usuario_id = u.id_usuario
-            LEFT JOIN ciudadanos   c ON c.usuario_id = u.id_usuario
+            LEFT JOIN funcionarios_cache f ON f.usuario_id = u.id_usuario
+            LEFT JOIN ciudadanos_cache   c ON c.usuario_id = u.id_usuario
         ";
     }
 
@@ -77,7 +77,7 @@ class UsuarioModel {
     public function getByIdentificacion($numero_identificacion) {
         $stmt = $this->db->prepare("
             SELECT c.*, u.id_usuario, u.email, u.rol, u.activo
-            FROM ciudadanos c
+            FROM ciudadanos_cache c
             LEFT JOIN usuarios u ON u.id_usuario = c.usuario_id
             WHERE c.numero_identificacion = ?
         ");
@@ -252,8 +252,8 @@ class UsuarioModel {
                    u.email, u.rol, u.activo
             FROM usuarios u
             LEFT JOIN personal     p ON p.usuario_id = u.id_usuario
-            LEFT JOIN funcionarios f ON f.usuario_id = u.id_usuario
-            LEFT JOIN ciudadanos   c ON c.usuario_id = u.id_usuario
+            LEFT JOIN funcionarios_cache f ON f.usuario_id = u.id_usuario
+            LEFT JOIN ciudadanos_cache   c ON c.usuario_id = u.id_usuario
             WHERE u.email ILIKE ?
                OR COALESCE(p.nombres,   f.nombres,   c.nombres)   ILIKE ?
                OR COALESCE(p.apellidos, f.apellidos, c.apellidos) ILIKE ?
@@ -271,8 +271,8 @@ class UsuarioModel {
                    u.email
             FROM usuarios u
             LEFT JOIN personal     p ON p.usuario_id = u.id_usuario
-            LEFT JOIN funcionarios f ON f.usuario_id = u.id_usuario
-            LEFT JOIN ciudadanos   c ON c.usuario_id = u.id_usuario
+            LEFT JOIN funcionarios_cache f ON f.usuario_id = u.id_usuario
+            LEFT JOIN ciudadanos_cache   c ON c.usuario_id = u.id_usuario
             WHERE u.activo = true
             ORDER BY nombres, apellidos
         ");

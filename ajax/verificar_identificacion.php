@@ -29,7 +29,7 @@ try {
     $pdo  = Database::getConnection();
     $stmt = $pdo->prepare("
         SELECT id_ciudadano, usuario_id
-        FROM   ciudadanos
+        FROM   ciudadanos_cache
         WHERE  numero_identificacion = ?
         LIMIT  1
     ");

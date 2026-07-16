@@ -159,8 +159,8 @@ class Cita {
                     f.apellidos              AS func_apellidos,
                     f.cargo                  AS func_cargo
                 FROM citas c
-                JOIN dependencias d  ON d.id_dependencia = c.dependencia_id
-                JOIN funcionarios f  ON f.id_funcionario = c.funcionario_id
+                JOIN dependencias_cache d  ON d.id_dependencia = c.dependencia_id
+                JOIN funcionarios_cache f  ON f.id_funcionario = c.funcionario_id
                 WHERE c.ciudadano_id = :id
                 $whereEstado
                 ORDER BY c.created_at DESC, c.fecha DESC, c.hora_inicio DESC
@@ -421,9 +421,9 @@ class Cita {
                     ci.apellidos          AS ciudadano_apellidos,
                     ci.email              AS ciudadano_email
                 FROM citas c
-                JOIN dependencias d  ON d.id_dependencia = c.dependencia_id
-                JOIN funcionarios f  ON f.id_funcionario = c.funcionario_id
-                JOIN ciudadanos   ci ON ci.id_ciudadano  = c.ciudadano_id
+                JOIN dependencias_cache d  ON d.id_dependencia = c.dependencia_id
+                JOIN funcionarios_cache f  ON f.id_funcionario = c.funcionario_id
+                JOIN ciudadanos_cache   ci ON ci.id_ciudadano  = c.ciudadano_id
                 WHERE c.id_cita = :id
             ");
             $stmt->execute([':id' => $citaId]);
