@@ -6,7 +6,7 @@ class FuncionarioController {
     private int   $funcionarioId;
 
     private function requireFuncionario(): void {
-        if (!isset($_SESSION['usuario_id']) || !in_array($_SESSION['usuario_rol'], ['Funcionario', 'Recepcionista'], true)) {
+        if (!isset($_SESSION['usuario_id']) || $_SESSION['usuario_rol'] !== 'Funcionario') {
             redirect('/login');
         }
     }

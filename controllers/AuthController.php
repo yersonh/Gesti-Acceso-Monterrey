@@ -93,8 +93,10 @@ class AuthController {
                         if ($usuario['rol'] === 'Ciudadano') {
                             $_SESSION['ciudadano_id'] = $usuario['id_ciudadano'] ?? null;
                             redirect('/dashboard');
-                        } elseif ($usuario['rol'] === 'Funcionario' || $usuario['rol'] === 'Recepcionista') {
+                        } elseif ($usuario['rol'] === 'Funcionario') {
                             redirect('/funcionario/dashboard');
+                        } elseif ($usuario['rol'] === 'Recepcionista') {
+                            redirect('/recepcion');
                         } elseif ($usuario['rol'] === 'Administrador') {
                             redirect('/admin/dashboard');
                         } elseif ($usuario['rol'] === 'Superadmin') {

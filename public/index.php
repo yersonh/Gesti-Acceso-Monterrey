@@ -97,6 +97,17 @@ switch ($uri) {
         (new FuncionarioController())->dashboard();
         break;
 
+    // Recepción
+    case 'recepcion':
+        require_once BASE_PATH . '/controllers/RecepcionController.php';
+        (new RecepcionController())->dashboard();
+        break;
+
+    case 'recepcion/verificar':
+        require_once BASE_PATH . '/controllers/RecepcionController.php';
+        (new RecepcionController())->verificarCiudadano();
+        break;
+
     // Ajax
     case 'ajax/get_citas':
         require_once BASE_PATH . '/ajax/get_citas.php';
@@ -167,6 +178,10 @@ switch ($uri) {
         break;
     case 'ajax/check_nuevas_citas':
         require_once BASE_PATH . '/ajax/check_nuevas_citas.php';
+        break;
+
+    case 'ajax/recepcion_poll':
+        require_once BASE_PATH . '/ajax/recepcion_poll.php';
         break;
         // Donde tengas las rutas del superadmin
     case 'reportes/excel':

@@ -44,6 +44,11 @@ class ClienteCore
             $opciones[CURLOPT_POSTFIELDS] = json_encode($data);
             $headers[] = 'Content-Type: application/json';
             $opciones[CURLOPT_HTTPHEADER] = $headers;
+        } elseif ($metodo === 'PUT') {
+            $opciones[CURLOPT_CUSTOMREQUEST] = 'PUT';
+            $opciones[CURLOPT_POSTFIELDS] = json_encode($data);
+            $headers[] = 'Content-Type: application/json';
+            $opciones[CURLOPT_HTTPHEADER] = $headers;
         }
 
         curl_setopt_array($ch, $opciones);
@@ -115,6 +120,12 @@ class ClienteCore
     public function crearCiudadano(array $datosPersonales): array
     {
         return $this->request('POST', 'ciudadanos', $datosPersonales);
+    }
+
+    // Actualiza un ciudadano existente en Core y devuelve el objeto completo actualizado
+    public function actualizarCiudadano(int $idCiudadano, array $datosPersonales): array
+    {
+        return $this->request('PUT', "ciudadanos/{$idCiudadano}", $datosPersonales);
     }
 }
 
