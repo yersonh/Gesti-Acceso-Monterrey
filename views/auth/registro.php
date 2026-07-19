@@ -21,11 +21,11 @@
             --verde-claro: #3d9e68;
             --dorado: #c9a84c;
             --dorado-claro: #e8c97a;
-            --crema: #f8f4ed;
+            --crema: rgba(20, 34, 26, 0.45);
             --blanco: #ffffff;
-            --gris-texto: #2c2c2c;
-            --gris-sub: #6b6b6b;
-            --gris-borde: #d8d0c4;
+            --gris-texto: #eef3ee;
+            --gris-sub: rgba(255, 255, 255, 0.65);
+            --gris-borde: rgba(255, 255, 255, 0.14);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -33,17 +33,24 @@
         body {
             min-height: 100vh;
             font-family: 'DM Sans', sans-serif;
-            background-color: #0e2a1a;
             display: flex;
             overflow: auto;
+            background-image:
+                linear-gradient(180deg, rgba(6, 14, 10, 0.6) 0%, rgba(6, 14, 10, 0.78) 55%, rgba(6, 14, 10, 0.9) 100%),
+                url('/imagenes/Fondo-ciudad.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
         }
 
         /* ── Panel izquierdo ── */
         .panel-izquierdo {
             width: 38%;
             position: relative;
-            background:
-                linear-gradient(160deg, rgba(10, 40, 22, 0.92) 0%, rgba(26, 92, 56, 0.85) 100%);
+            background: rgba(20, 34, 26, 0.45);
+            backdrop-filter: blur(18px) saturate(140%);
+            -webkit-backdrop-filter: blur(18px) saturate(140%);
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
@@ -237,6 +244,9 @@
         .panel-derecho {
             width: 62%;
             background: var(--crema);
+            backdrop-filter: blur(18px) saturate(140%);
+            -webkit-backdrop-filter: blur(18px) saturate(140%);
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
@@ -256,9 +266,10 @@
 
         /* Estilos para mensajes de éxito/error */
         .mensaje-error {
-            background: #fee;
-            border-left: 4px solid #e53e3e;
-            color: #c53030;
+            background: rgba(239, 68, 68, 0.12);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            border-left: 3px solid #ef4444;
+            color: #fecaca;
             padding: 12px 16px;
             border-radius: 8px;
             margin-bottom: 20px;
@@ -267,11 +278,12 @@
             gap: 10px;
             font-size: 0.9rem;
         }
-        
+
         .mensaje-exito {
-            background: #e8f5e9;
-            border-left: 4px solid #2e7d32;
-            color: #1e4620;
+            background: rgba(34, 197, 94, 0.12);
+            border: 1px solid rgba(34, 197, 94, 0.4);
+            border-left: 3px solid #22c55e;
+            color: #bbf7d0;
             padding: 12px 16px;
             border-radius: 8px;
             margin-bottom: 20px;
@@ -317,22 +329,22 @@
             display: inline-flex;
             align-items: center;
             gap: 7px;
-            color: var(--verde-medio);
+            color: var(--dorado-claro);
             text-decoration: none;
             font-size: 0.83rem;
             font-weight: 500;
             padding: 8px 16px;
             border: 1.5px solid var(--gris-borde);
             border-radius: 8px;
-            background: var(--blanco);
+            background: rgba(255, 255, 255, 0.06);
             transition: all 0.2s;
             white-space: nowrap;
             margin-top: 4px;
         }
 
         .btn-volver:hover {
-            border-color: var(--verde-medio);
-            background: rgba(45,122,79,0.05);
+            border-color: var(--dorado);
+            background: rgba(201, 168, 76, 0.1);
         }
 
         /* Secciones del form */
@@ -343,7 +355,7 @@
         .seccion-titulo {
             font-size: 0.72rem;
             font-weight: 700;
-            color: var(--verde-institucional);
+            color: var(--dorado-claro);
             text-transform: uppercase;
             letter-spacing: 0.14em;
             padding-bottom: 10px;
@@ -398,7 +410,7 @@
             left: 13px;
             top: 50%;
             transform: translateY(-50%);
-            color: #c4bbb0;
+            color: rgba(255, 255, 255, 0.45);
             font-size: 0.85rem;
             transition: color 0.25s;
             pointer-events: none;
@@ -408,7 +420,7 @@
         .campo-input select {
             width: 100%;
             padding: 11px 13px 11px 38px;
-            background: var(--blanco);
+            background: rgba(0, 0, 0, 0.28);
             border: 1.5px solid var(--gris-borde);
             border-radius: 9px;
             font-size: 0.9rem;
@@ -421,35 +433,38 @@
 
         .campo-input select {
             cursor: pointer;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23999' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23e8c97a' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
             background-position: right 13px center;
             padding-right: 36px;
         }
 
-        .campo-input input::placeholder { color: #c0b8ae; font-weight: 300; }
+        .campo-input select option { background: #16281c; color: var(--gris-texto); }
+
+        .campo-input input::placeholder { color: rgba(255, 255, 255, 0.4); font-weight: 300; }
 
         .campo-input input:focus,
         .campo-input select:focus {
-            border-color: var(--verde-medio);
-            box-shadow: 0 0 0 3px rgba(45, 122, 79, 0.1);
+            border-color: var(--dorado);
+            box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.18);
+            background: rgba(0, 0, 0, 0.38);
         }
 
-        .campo-input:focus-within i.icono-campo { color: var(--verde-medio); }
+        .campo-input:focus-within i.icono-campo { color: var(--dorado-claro); }
 
         .btn-ver-pass {
             position: absolute;
             right: 11px; top: 50%;
             transform: translateY(-50%);
             background: none; border: none;
-            color: #c0b8ae;
+            color: rgba(255, 255, 255, 0.45);
             cursor: pointer;
             padding: 4px;
             font-size: 0.85rem;
             transition: color 0.2s;
         }
 
-        .btn-ver-pass:hover { color: var(--verde-medio); }
+        .btn-ver-pass:hover { color: var(--dorado-claro); }
 
         /* Indicador fortaleza contraseña */
         .fortaleza-wrap {
@@ -503,24 +518,24 @@
         }
 
         .terminos a {
-            color: var(--verde-medio);
+            color: var(--dorado-claro);
             text-decoration: none;
             font-weight: 500;
         }
 
-        .terminos a:hover { color: var(--verde-institucional); }
+        .terminos a:hover { color: var(--dorado); }
 
         /* Botón registrar */
         .btn-registrar {
             width: 100%;
             padding: 13px;
-            background: var(--verde-institucional);
-            color: var(--blanco);
+            background: linear-gradient(135deg, var(--dorado-claro), var(--dorado));
+            color: #2c2107;
             border: none;
             border-radius: 10px;
             font-family: 'DM Sans', sans-serif;
             font-size: 0.95rem;
-            font-weight: 600;
+            font-weight: 700;
             letter-spacing: 0.06em;
             cursor: pointer;
             display: flex;
@@ -530,6 +545,7 @@
             transition: all 0.25s;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 6px 20px rgba(201, 168, 76, 0.25);
         }
 
         .btn-registrar::after {
@@ -539,9 +555,8 @@
         }
 
         .btn-registrar:hover {
-            background: var(--verde-medio);
             transform: translateY(-1px);
-            box-shadow: 0 8px 24px rgba(26, 92, 56, 0.3);
+            box-shadow: 0 10px 28px rgba(201, 168, 76, 0.4);
         }
 
         .btn-registrar:active { transform: translateY(0); }
@@ -555,11 +570,11 @@
 
         .footer-form p {
             font-size: 0.74rem;
-            color: #a09890;
+            color: rgba(255, 255, 255, 0.5);
             line-height: 1.7;
         }
 
-        .footer-form strong { color: var(--gris-sub); font-weight: 600; }
+        .footer-form strong { color: rgba(255, 255, 255, 0.75); font-weight: 600; }
 
         /* Personalización del scroll */
         body::-webkit-scrollbar {
@@ -568,16 +583,16 @@
         }
 
         body::-webkit-scrollbar-track {
-            background: var(--crema);
+            background: rgba(255, 255, 255, 0.06);
         }
 
         body::-webkit-scrollbar-thumb {
-            background: var(--verde-medio);
+            background: var(--dorado);
             border-radius: 4px;
         }
 
         body::-webkit-scrollbar-thumb:hover {
-            background: var(--verde-institucional);
+            background: var(--dorado-claro);
         }
 
         .panel-izquierdo::-webkit-scrollbar {
@@ -598,16 +613,16 @@
         }
 
         .panel-derecho::-webkit-scrollbar-track {
-            background: #e8e0d5;
+            background: rgba(255, 255, 255, 0.06);
         }
 
         .panel-derecho::-webkit-scrollbar-thumb {
-            background: var(--verde-medio);
+            background: var(--dorado);
             border-radius: 3px;
         }
 
         .panel-derecho::-webkit-scrollbar-thumb:hover {
-            background: var(--verde-institucional);
+            background: var(--dorado-claro);
         }
 
         /* Animación entrada */
@@ -687,9 +702,6 @@
         @media (max-width: 600px) {
             body {
                 flex-direction: column;
-                background:
-                    radial-gradient(ellipse at 20% 0%, rgba(61,158,104,0.2) 0%, transparent 50%),
-                    linear-gradient(175deg, #0a2014 0%, #1a5c38 45%, #0e3522 100%);
                 align-items: center;
                 position: relative;
             }
@@ -711,7 +723,8 @@
                 padding: 24px 20px 36px;
                 border-radius: 20px;
                 margin: 0 16px 40px;
-                box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+                border: 1px solid rgba(255, 255, 255, 0.14);
+                box-shadow: 0 25px 70px rgba(0, 0, 0, 0.5);
             }
             .panel-derecho::before { display: none; }
             .form-encabezado { flex-direction: column; gap: 12px; }

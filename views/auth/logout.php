@@ -17,6 +17,14 @@ $redirectUrl = '/login?tab_id=' . htmlspecialchars(auth_tab_id());
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --verde: #1a5c38;
+            --verde-medio: #2d7a4f;
+            --verde-claro: #3d9e68;
+            --dorado: #c9a84c;
+            --dorado-claro: #e8c97a;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -25,7 +33,6 @@ $redirectUrl = '/login?tab_id=' . htmlspecialchars(auth_tab_id());
 
         body {
             font-family: 'DM Sans', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -33,19 +40,13 @@ $redirectUrl = '/login?tab_id=' . htmlspecialchars(auth_tab_id());
             padding: 20px;
             position: relative;
             overflow: hidden;
-        }
-
-        /* Fondo con efecto de olas */
-        .wave-bg {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,170.7C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
+            background-image:
+                linear-gradient(180deg, rgba(6, 14, 10, 0.6) 0%, rgba(6, 14, 10, 0.78) 55%, rgba(6, 14, 10, 0.9) 100%),
+                url('/imagenes/Fondo-ciudad.png');
             background-size: cover;
-            opacity: 0.3;
-            pointer-events: none;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
         }
 
         .container {
@@ -57,13 +58,27 @@ $redirectUrl = '/login?tab_id=' . htmlspecialchars(auth_tab_id());
         }
 
         .card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 30px;
+            background: rgba(20, 34, 26, 0.45);
+            backdrop-filter: blur(18px) saturate(140%);
+            -webkit-backdrop-filter: blur(18px) saturate(140%);
+            border-radius: 22px;
             padding: 48px 32px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            box-shadow:
+                0 25px 70px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(201, 168, 76, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08);
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(to right, var(--verde), var(--dorado), var(--verde-claro));
         }
 
         /* Logo o ícono */
@@ -76,7 +91,7 @@ $redirectUrl = '/login?tab_id=' . htmlspecialchars(auth_tab_id());
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 10px 30px rgba(26, 92, 56, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 0 6px rgba(201, 168, 76, 0.14);
             position: relative;
             animation: pulse 2s infinite;
         }
@@ -101,12 +116,12 @@ $redirectUrl = '/login?tab_id=' . htmlspecialchars(auth_tab_id());
         h1 {
             font-family: 'Playfair Display', serif;
             font-size: 2.2rem;
-            color: #333;
+            color: #eef3ee;
             margin-bottom: 12px;
         }
 
         h1 span {
-            color: var(--verde-medio);
+            color: var(--dorado-claro);
             position: relative;
             display: inline-block;
         }
@@ -118,13 +133,13 @@ $redirectUrl = '/login?tab_id=' . htmlspecialchars(auth_tab_id());
             left: 0;
             width: 100%;
             height: 8px;
-            background: rgba(45, 122, 79, 0.1);
+            background: rgba(201, 168, 76, 0.14);
             border-radius: 4px;
             z-index: -1;
         }
 
         p {
-            color: #666;
+            color: rgba(255, 255, 255, 0.65);
             font-size: 1rem;
             line-height: 1.6;
             margin-bottom: 32px;
@@ -138,8 +153,8 @@ $redirectUrl = '/login?tab_id=' . htmlspecialchars(auth_tab_id());
             width: 60px;
             height: 60px;
             margin: 0 auto 24px;
-            border: 4px solid rgba(26, 92, 56, 0.1);
-            border-top-color: var(--verde-medio);
+            border: 4px solid rgba(255, 255, 255, 0.12);
+            border-top-color: var(--dorado);
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
@@ -148,7 +163,7 @@ $redirectUrl = '/login?tab_id=' . htmlspecialchars(auth_tab_id());
         .progress-container {
             width: 100%;
             height: 6px;
-            background: rgba(0, 0, 0, 0.05);
+            background: rgba(0, 0, 0, 0.28);
             border-radius: 3px;
             margin: 24px 0;
             overflow: hidden;
@@ -157,7 +172,7 @@ $redirectUrl = '/login?tab_id=' . htmlspecialchars(auth_tab_id());
         .progress-bar {
             height: 100%;
             width: 0%;
-            background: linear-gradient(90deg, var(--verde), var(--verde-medio));
+            background: linear-gradient(90deg, var(--dorado-claro), var(--dorado));
             border-radius: 3px;
             animation: progress 3s ease forwards;
         }
@@ -165,19 +180,19 @@ $redirectUrl = '/login?tab_id=' . htmlspecialchars(auth_tab_id());
         /* Mensaje de redirección */
         .redirect-message {
             font-size: 0.9rem;
-            color: #888;
+            color: rgba(255, 255, 255, 0.55);
             margin-top: 16px;
         }
 
         .redirect-message a {
-            color: var(--verde-medio);
+            color: var(--dorado-claro);
             text-decoration: none;
             font-weight: 600;
             transition: color 0.3s;
         }
 
         .redirect-message a:hover {
-            color: var(--verde);
+            color: var(--dorado);
             text-decoration: underline;
         }
 
@@ -270,33 +285,9 @@ $redirectUrl = '/login?tab_id=' . htmlspecialchars(auth_tab_id());
             }
         }
 
-        /* Modo oscuro opcional (si tienes toggle) */
-        @media (prefers-color-scheme: dark) {
-            body {
-                background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            }
-
-            .card {
-                background: rgba(30, 41, 59, 0.95);
-            }
-
-            h1 {
-                color: #fff;
-            }
-
-            p {
-                color: #94a3b8;
-            }
-
-            .redirect-message {
-                color: #64748b;
-            }
-        }
     </style>
 </head>
 <body>
-    <div class="wave-bg"></div>
-    
     <div class="container">
         <div class="card">
             <!-- Logo con animación -->

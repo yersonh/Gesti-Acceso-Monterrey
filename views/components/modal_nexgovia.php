@@ -57,7 +57,9 @@
     .nexgov-modal {
         width: 100%;
         max-width: 500px;
-        background: #f8f4ed;
+        background: rgba(20, 34, 26, 0.75);
+        backdrop-filter: blur(20px) saturate(140%);
+        -webkit-backdrop-filter: blur(20px) saturate(140%);
         border: 1px solid rgba(201,168,76,0.25);
         border-radius: 20px;
         box-shadow: 0 30px 70px rgba(0,0,0,0.4), 0 0 0 1px rgba(201,168,76,0.15);
@@ -174,20 +176,20 @@
         padding: 24px;
         overflow-y: auto;
         flex: 1;
-        background: #f8f4ed;
+        background: transparent;
     }
     .nexgov-body::-webkit-scrollbar { width: 5px; }
     .nexgov-body::-webkit-scrollbar-track { background: transparent; }
     .nexgov-body::-webkit-scrollbar-thumb {
-        background: rgba(26,92,56,0.2);
+        background: rgba(201,168,76,0.3);
         border-radius: 9999px;
     }
     .nexgov-body::-webkit-scrollbar-thumb:hover {
-        background: rgba(26,92,56,0.4);
+        background: rgba(201,168,76,0.5);
     }
 
     .nexgov-desc {
-        color: #3a3a3a;
+        color: rgba(255, 255, 255, 0.75);
         font-size: 0.87rem;
         line-height: 1.7;
         margin-bottom: 22px;
@@ -204,13 +206,13 @@
     .nexgov-feat {
         padding: 13px;
         border-radius: 12px;
-        background: #fff;
+        background: rgba(0, 0, 0, 0.22);
         border: 1px solid rgba(201,168,76,0.18);
         transition: border-color 0.2s, box-shadow 0.2s;
     }
     .nexgov-feat:hover {
         border-color: rgba(201,168,76,0.4);
-        box-shadow: 0 3px 10px rgba(26,92,56,0.08);
+        box-shadow: 0 3px 10px rgba(0,0,0,0.2);
     }
     .nexgov-feat-icon { font-size: 1.05rem; margin-bottom: 7px; }
     .nexgov-feat-title {
@@ -220,14 +222,14 @@
         letter-spacing: 0.1em;
         margin-bottom: 3px;
     }
-    .nexgov-feat-desc { font-size: 0.7rem; color: #6b6b6b; line-height: 1.4; }
+    .nexgov-feat-desc { font-size: 0.7rem; color: rgba(255, 255, 255, 0.55); line-height: 1.4; }
 
-    .nexgov-feat:nth-child(1) .nexgov-feat-icon { color: #1a5c38; }
-    .nexgov-feat:nth-child(1) .nexgov-feat-title { color: #1a5c38; }
-    .nexgov-feat:nth-child(2) .nexgov-feat-icon { color: #2d7a4f; }
-    .nexgov-feat:nth-child(2) .nexgov-feat-title { color: #2d7a4f; }
-    .nexgov-feat:nth-child(3) .nexgov-feat-icon { color: #c9a84c; }
-    .nexgov-feat:nth-child(3) .nexgov-feat-title { color: #a07830; }
+    .nexgov-feat:nth-child(1) .nexgov-feat-icon { color: var(--verde-claro, #3d9e68); }
+    .nexgov-feat:nth-child(1) .nexgov-feat-title { color: var(--verde-claro, #3d9e68); }
+    .nexgov-feat:nth-child(2) .nexgov-feat-icon { color: #6ee7b7; }
+    .nexgov-feat:nth-child(2) .nexgov-feat-title { color: #6ee7b7; }
+    .nexgov-feat:nth-child(3) .nexgov-feat-icon { color: #e8c97a; }
+    .nexgov-feat:nth-child(3) .nexgov-feat-title { color: #e8c97a; }
 
     /* ── Website link ────────────────────────────────────── */
     .nexgov-website {
@@ -238,24 +240,24 @@
         flex-wrap: wrap;
         margin-bottom: 20px;
     }
-    .nexgov-website p { font-size: 0.82rem; color: #6b6b6b; font-weight: 400; }
+    .nexgov-website p { font-size: 0.82rem; color: rgba(255, 255, 255, 0.55); font-weight: 400; }
     .nexgov-website a {
         display: inline-flex;
         align-items: center;
         gap: 6px;
         padding: 5px 12px;
         border-radius: 20px;
-        background: rgba(26,92,56,0.07);
-        color: #1a5c38;
+        background: rgba(201,168,76,0.1);
+        color: #e8c97a;
         font-weight: 700;
         font-size: 0.78rem;
-        border: 1px solid rgba(26,92,56,0.2);
+        border: 1px solid rgba(201,168,76,0.3);
         text-decoration: none;
         transition: all 0.25s;
     }
     .nexgov-website a:hover {
-        background: rgba(26,92,56,0.14);
-        border-color: rgba(26,92,56,0.4);
+        background: rgba(201,168,76,0.18);
+        border-color: rgba(201,168,76,0.5);
     }
 
     /* ── Botón CTA ───────────────────────────────────────── */
@@ -263,9 +265,9 @@
         width: 100%;
         padding: 13px;
         border-radius: 10px;
-        background: #1a5c38;
-        color: #fff;
-        font-weight: 600;
+        background: linear-gradient(135deg, #e8c97a, #c9a84c);
+        color: #2c2107;
+        font-weight: 700;
         font-size: 0.95rem;
         border: none;
         cursor: pointer;
@@ -274,24 +276,24 @@
         position: relative;
         overflow: hidden;
         letter-spacing: 0.04em;
+        box-shadow: 0 6px 20px rgba(201,168,76,0.25);
     }
     .nexgov-cta::after {
         content: '';
         position: absolute;
         inset: 0;
-        background: linear-gradient(135deg, rgba(255,255,255,0.07), transparent);
+        background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
     }
     .nexgov-cta:hover {
-        background: #2d7a4f;
         transform: translateY(-1px);
-        box-shadow: 0 6px 20px rgba(26,92,56,0.3);
+        box-shadow: 0 10px 28px rgba(201,168,76,0.4);
     }
     .nexgov-cta:active { transform: translateY(0); }
 
     .nexgov-copy {
         text-align: center;
         font-size: 0.65rem;
-        color: #a09890;
+        color: rgba(255, 255, 255, 0.4);
     }
 
     /* ── Mobile ──────────────────────────────────────────── */

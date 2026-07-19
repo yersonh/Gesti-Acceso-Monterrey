@@ -35,10 +35,11 @@ $primerNombre   = $partes[0];
             --dorado-claro: #e8c97a;
             --crema:        #f8f4ed;
             --blanco:       #ffffff;
-            --texto:        #1e293b;
-            --texto-sub:    #64748b;
-            --borde:        #e2e8f0;
-            --fondo:        #f8f9fc;
+            --texto:        #eef3ee;
+            --texto-sub:    rgba(238, 243, 238, 0.6);
+            --borde:        rgba(255, 255, 255, 0.12);
+            --fondo:        rgba(0, 0, 0, 0.22);
+            --vidrio:       rgba(20, 34, 26, 0.45);
             --danger:       #ef4444;
             --success:      #10b981;
             --warning:      #f59e0b;
@@ -47,16 +48,27 @@ $primerNombre   = $partes[0];
 
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
+        html, body { height: 100%; }
+
         body {
             font-family: 'DM Sans', sans-serif;
-            background: var(--fondo);
             color: var(--texto);
             min-height: 100vh;
+
+            background-image:
+                linear-gradient(180deg, rgba(6, 14, 10, 0.6) 0%, rgba(6, 14, 10, 0.78) 55%, rgba(6, 14, 10, 0.9) 100%),
+                url('/imagenes/Fondo-ciudad.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
         }
 
         /* ── Header ─────────────────────────────────────────────────────── */
         .header {
-            background: var(--verde);
+            background: rgba(15, 53, 34, 0.6);
+            backdrop-filter: blur(18px) saturate(140%);
+            -webkit-backdrop-filter: blur(18px) saturate(140%);
             padding: 0 32px;
             height: 64px;
             display: flex;
@@ -65,7 +77,8 @@ $primerNombre   = $partes[0];
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+            border-bottom: 1px solid rgba(201,168,76,0.2);
         }
 
         .header::after {
@@ -137,18 +150,20 @@ $primerNombre   = $partes[0];
             color: var(--texto); margin-bottom: 4px;
         }
 
-        .bienvenida h1 span { color: var(--verde-medio); }
+        .bienvenida h1 span { color: var(--dorado-claro); }
 
         .bienvenida p { color: var(--texto-sub); font-size: 0.9rem; font-weight: 300; }
 
         /* ── Filtros ─────────────────────────────────────────────────────── */
         .filtros-panel {
-            background: var(--blanco);
+            background: var(--vidrio);
+            backdrop-filter: blur(16px) saturate(140%);
+            -webkit-backdrop-filter: blur(16px) saturate(140%);
             border: 1px solid var(--borde);
             border-radius: var(--radius);
             padding: 1.25rem 1.5rem;
             margin-bottom: 24px;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.25);
         }
 
         .filtros-panel-titulo {
@@ -174,7 +189,7 @@ $primerNombre   = $partes[0];
         .filtro-group input,
         .filtro-group select {
             width: 100%;
-            background: var(--fondo);
+            background: rgba(0,0,0,0.28);
             border: 1.5px solid var(--borde);
             border-radius: 8px;
             color: var(--texto);
@@ -186,20 +201,22 @@ $primerNombre   = $partes[0];
         }
 
         .filtro-group input:focus,
-        .filtro-group select:focus { border-color: var(--verde-medio); }
+        .filtro-group select:focus { border-color: var(--dorado); box-shadow: 0 0 0 3px rgba(201,168,76,0.15); }
+        .filtro-group select option { background: #14221a; color: var(--texto); }
 
         .btn-aplicar {
-            background: var(--verde); color: var(--blanco);
+            background: linear-gradient(135deg, var(--dorado-claro), var(--dorado)); color: #2c2107;
             border: none; border-radius: 8px;
             padding: 0.55rem 1.25rem;
             font-family: 'DM Sans', sans-serif;
-            font-size: 0.875rem; font-weight: 600;
+            font-size: 0.875rem; font-weight: 700;
             cursor: pointer; width: 100%;
-            transition: background 0.2s, transform 0.1s;
+            transition: all 0.2s;
             display: flex; align-items: center; justify-content: center; gap: 6px;
+            box-shadow: 0 4px 14px rgba(201,168,76,0.2);
         }
 
-        .btn-aplicar:hover   { background: var(--verde-medio); }
+        .btn-aplicar:hover   { transform: translateY(-1px); box-shadow: 0 8px 22px rgba(201,168,76,0.35); }
         .btn-aplicar:active  { transform: scale(0.97); }
 
         /* ── Métricas resumen ────────────────────────────────────────────── */
@@ -211,7 +228,9 @@ $primerNombre   = $partes[0];
         }
 
         .metric-card {
-            background: var(--blanco);
+            background: var(--vidrio);
+            backdrop-filter: blur(16px) saturate(140%);
+            -webkit-backdrop-filter: blur(16px) saturate(140%);
             border: 1px solid var(--borde);
             border-radius: var(--radius);
             padding: 20px 20px 16px;
@@ -219,7 +238,7 @@ $primerNombre   = $partes[0];
             transition: box-shadow 0.2s;
         }
 
-        .metric-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.07); }
+        .metric-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
 
         .metric-card .m-icon { font-size: 1.1rem; margin-bottom: 2px; }
         .metric-card .m-label {
@@ -237,20 +256,22 @@ $primerNombre   = $partes[0];
         .metric-card.mc-total    .m-icon,
         .metric-card.mc-total    .m-value  { color: var(--texto); }
         .metric-card.mc-citas    .m-icon,
-        .metric-card.mc-citas    .m-value  { color: var(--verde-medio); }
+        .metric-card.mc-citas    .m-value  { color: var(--verde-claro); }
         .metric-card.mc-espon    .m-icon,
-        .metric-card.mc-espon    .m-value  { color: var(--dorado); }
+        .metric-card.mc-espon    .m-value  { color: var(--dorado-claro); }
         .metric-card.mc-noshow   .m-icon,
-        .metric-card.mc-noshow   .m-value  { color: var(--danger); }
+        .metric-card.mc-noshow   .m-value  { color: #fca5a5; }
 
         /* ── Secciones de reporte ────────────────────────────────────────── */
         .reporte-section {
-            background: var(--blanco);
+            background: var(--vidrio);
+            backdrop-filter: blur(16px) saturate(140%);
+            -webkit-backdrop-filter: blur(16px) saturate(140%);
             border: 1px solid var(--borde);
             border-radius: var(--radius);
             margin-bottom: 14px;
             overflow: hidden;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.25);
         }
 
         .reporte-header {
@@ -262,7 +283,7 @@ $primerNombre   = $partes[0];
             transition: background 0.15s;
         }
 
-        .reporte-header:hover { background: var(--fondo); }
+        .reporte-header:hover { background: rgba(255,255,255,0.04); }
 
         .reporte-header.open {
             border-bottom-color: var(--borde);
@@ -277,7 +298,7 @@ $primerNombre   = $partes[0];
 
         .reporte-icon {
             width: 30px; height: 30px; border-radius: 8px;
-            background: var(--verde); color: var(--dorado-claro);
+            background: rgba(201,168,76,0.18); color: var(--dorado-claro);
             display: flex; align-items: center; justify-content: center;
             font-size: 0.8rem; flex-shrink: 0;
         }
@@ -287,14 +308,14 @@ $primerNombre   = $partes[0];
         .btn-export {
             padding: 5px 12px; border-radius: 6px;
             border: 1.5px solid var(--borde);
-            background: var(--blanco); color: var(--texto-sub);
+            background: rgba(255,255,255,0.06); color: var(--texto-sub);
             font-family: 'DM Sans', sans-serif;
             font-size: 0.75rem; font-weight: 600;
             cursor: pointer; transition: all 0.2s;
             display: flex; align-items: center; gap: 4px;
         }
 
-        .btn-export:hover { border-color: var(--verde-medio); color: var(--verde-medio); }
+        .btn-export:hover { border-color: var(--dorado); color: var(--dorado-claro); background: rgba(201,168,76,0.1); }
 
         .chevron {
             color: var(--texto-sub); font-size: 0.75rem;
@@ -331,7 +352,7 @@ $primerNombre   = $partes[0];
         }
 
         thead th {
-            background: var(--fondo);
+            background: rgba(0,0,0,0.2);
             padding: 0.65rem 1rem;
             text-align: left;
             font-size: 0.72rem;
@@ -342,9 +363,9 @@ $primerNombre   = $partes[0];
             border-bottom: 1px solid var(--borde);
         }
 
-        tbody tr { border-bottom: 1px solid var(--borde); }
+        tbody tr { border-bottom: 1px solid rgba(255,255,255,0.06); }
         tbody tr:last-child { border-bottom: none; }
-        tbody tr:hover { background: var(--fondo); }
+        tbody tr:hover { background: rgba(255,255,255,0.04); }
         tbody td { padding: 0.65rem 1rem; color: var(--texto); }
 
         /* ── Badges ──────────────────────────────────────────────────────── */
@@ -354,11 +375,11 @@ $primerNombre   = $partes[0];
             font-size: 0.72rem; font-weight: 600; white-space: nowrap;
         }
 
-        .badge-cita       { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
-        .badge-espontanea { background: #fffbeb; color: #92400e; border: 1px solid #fde68a; }
-        .badge-cancelada  { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
-        .badge-reprog     { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
-        .badge-contraprop { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
+        .badge-cita       { background: rgba(52,211,153,0.16); color: #6ee7b7; border: 1px solid rgba(110,231,183,0.3); }
+        .badge-espontanea { background: rgba(201,168,76,0.16); color: var(--dorado-claro); border: 1px solid rgba(201,168,76,0.4); }
+        .badge-cancelada  { background: rgba(248,113,113,0.16); color: #fca5a5; border: 1px solid rgba(252,165,165,0.3); }
+        .badge-reprog     { background: rgba(251,191,36,0.16); color: #fcd34d; border: 1px solid rgba(251,191,36,0.35); }
+        .badge-contraprop { background: rgba(96,165,250,0.18); color: #93c5fd; border: 1px solid rgba(147,197,253,0.35); }
 
         /* ── Estado vacío / cargando ─────────────────────────────────────── */
         .empty-state {
@@ -367,7 +388,7 @@ $primerNombre   = $partes[0];
         }
 
         .empty-state i {
-            font-size: 2rem; color: #cbd5e1;
+            font-size: 2rem; color: rgba(255,255,255,0.25);
             display: block; margin-bottom: 10px;
         }
 
@@ -380,7 +401,7 @@ $primerNombre   = $partes[0];
         .spinner {
             width: 20px; height: 20px;
             border: 2px solid var(--borde);
-            border-top-color: var(--verde-medio);
+            border-top-color: var(--dorado);
             border-radius: 50%;
             animation: spin 0.7s linear infinite;
         }
@@ -397,9 +418,9 @@ $primerNombre   = $partes[0];
             .metrics-grid { grid-template-columns: repeat(2, 1fr); }
         }
         .mc-satisfaccion .m-icon,
-        .mc-satisfaccion .m-value { color: #f59e0b; }
+        .mc-satisfaccion .m-value { color: #fbbf24; }
         .mc-asistencia   .m-icon,
-        .mc-asistencia   .m-value { color: var(--verde-medio); }
+        .mc-asistencia   .m-value { color: var(--verde-claro); }
 
         @media (max-width: 768px) {
             .header { padding: 0 16px; }
@@ -423,9 +444,9 @@ $primerNombre   = $partes[0];
         }
 
         body::-webkit-scrollbar { width: 8px; }
-        body::-webkit-scrollbar-track { background: var(--fondo); }
-        body::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-        body::-webkit-scrollbar-thumb:hover { background: var(--verde-medio); }
+        body::-webkit-scrollbar-track { background: transparent; }
+        body::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.4); border-radius: 4px; }
+        body::-webkit-scrollbar-thumb:hover { background: var(--dorado); }
         .header-nav { display:flex; align-items:center; gap:8px; }
         .nav-link {
             color:rgba(255,255,255,0.75); text-decoration:none; padding:6px 14px;
@@ -945,8 +966,8 @@ const C = {
     rosa:    '#ec4899',
     lima:    '#84cc16',
     gris:    '#94a3b8',
-    gridLine:'#f1f5f9',
-    tickColor:'#94a3b8',
+    gridLine:'rgba(255,255,255,0.08)',
+    tickColor:'rgba(238,243,238,0.6)',
 };
 
 const CHART_DEFAULTS = {
@@ -955,7 +976,7 @@ const CHART_DEFAULTS = {
         y: { ticks: { color: C.tickColor, font: { family: "'DM Sans', sans-serif", size: 11 } }, grid: { color: C.gridLine }, beginAtZero: true },
     },
     plugins: {
-        legend: { labels: { color: '#475569', font: { family: "'DM Sans', sans-serif", size: 12 }, boxWidth: 12, padding: 16 } },
+        legend: { labels: { color: 'rgba(238,243,238,0.75)', font: { family: "'DM Sans', sans-serif", size: 12 }, boxWidth: 12, padding: 16 } },
     },
     responsive: true,
     maintainAspectRatio: false,
@@ -1186,12 +1207,12 @@ function badgeEstado(estado) {
         propuesta_reprogramacion:  '<span class="badge badge-reprog">Prop. reprogramación</span>',
         contrapropuesta_ciudadano: '<span class="badge badge-contraprop">Contrapropuesta</span>',
     };
-    return map[estado] ?? `<span class="badge" style="background:#f8fafc;border:1px solid #e2e8f0;color:#475569">${estado}</span>`;
+    return map[estado] ?? `<span class="badge" style="background:rgba(255,255,255,0.08);border:1px solid var(--borde);color:var(--texto-sub)">${estado}</span>`;
 }
 
 function filaVacia(cols, msg = 'Sin datos para el período seleccionado') {
     return `<tr><td colspan="${cols}" style="text-align:center;padding:2.5rem;color:var(--texto-sub)">
-        <i class="fas fa-inbox" style="display:block;font-size:1.5rem;margin-bottom:8px;color:#cbd5e1"></i>
+        <i class="fas fa-inbox" style="display:block;font-size:1.5rem;margin-bottom:8px;color:rgba(255,255,255,0.25)"></i>
         ${msg}</td></tr>`;
 }
 
@@ -1381,11 +1402,11 @@ function renderMotivos(data) {
             datasets: [{
                 data:            top10.map(r => parseInt(r.frecuencia)),
                 backgroundColor: palette,
-                borderColor:     '#ffffff',
+                borderColor:     'rgba(20,34,26,0.9)',
                 borderWidth:     2,
             }],
         },
-        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { color: '#475569', font: { family: "'DM Sans', sans-serif", size: 12 }, boxWidth: 12 } } } },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { color: 'rgba(238,243,238,0.75)', font: { family: "'DM Sans', sans-serif", size: 12 }, boxWidth: 12 } } } },
     });
 
     const tbody = document.querySelector('#tabla-motivos tbody');
@@ -1486,7 +1507,7 @@ function estrellasHTML(valor) {
     const n = Math.round(parseFloat(valor));
     let s = '';
     for (let i = 1; i <= 5; i++) {
-        s += `<i class="fas fa-star" style="color:${i <= n ? '#f59e0b' : '#e2e8f0'}"></i>`;
+        s += `<i class="fas fa-star" style="color:${i <= n ? '#fbbf24' : 'rgba(255,255,255,0.18)'}"></i>`;
     }
     return s;
 }
@@ -1506,7 +1527,7 @@ function renderSatisfaccion(data) {
         </div>
         <div>
             <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--texto-sub)">Total de respuestas</div>
-            <div style="font-size:2rem;font-weight:700;color:var(--verde-medio);line-height:1.1">${fmtNum(total)}</div>
+            <div style="font-size:2rem;font-weight:700;color:var(--verde-claro);line-height:1.1">${fmtNum(total)}</div>
             <div style="font-size:0.75rem;color:var(--texto-sub)">ciudadanos calificaron</div>
         </div>
     `;

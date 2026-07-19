@@ -29,26 +29,36 @@ window.configSistema = <?= json_encode([
             --dorado: #c9a84c;
             --dorado-claro: #e8c97a;
             --blanco: #ffffff;
-            --texto: #1e293b;
-            --texto-sub: #64748b;
-            --borde: #e2e8f0;
-            --fondo: #f8f9fc;
+            --texto: #eef3ee;
+            --texto-sub: rgba(255, 255, 255, 0.6);
+            --borde: rgba(255, 255, 255, 0.12);
+            --fondo: rgba(0, 0, 0, 0.22);
+            --vidrio: rgba(20, 34, 26, 0.45);
             --rojo: #ef4444;
             --amarillo: #f59e0b;
             --azul: #3b82f6;
         }
-        
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+
         body {
             font-family: 'DM Sans', sans-serif;
-            background: var(--fondo);
             color: var(--texto);
             min-height: 100vh;
+
+            background-image:
+                linear-gradient(180deg, rgba(6, 14, 10, 0.6) 0%, rgba(6, 14, 10, 0.78) 55%, rgba(6, 14, 10, 0.9) 100%),
+                url('/imagenes/Fondo-ciudad.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
         }
-        
+
         .header {
-            background: var(--verde);
+            background: rgba(20, 34, 26, 0.55);
+            backdrop-filter: blur(18px) saturate(140%);
+            -webkit-backdrop-filter: blur(18px) saturate(140%);
             padding: 0 32px;
             height: 64px;
             display: flex;
@@ -57,7 +67,8 @@ window.configSistema = <?= json_encode([
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            border-bottom: 1px solid var(--borde);
         }
         
         .header::after {
@@ -158,7 +169,9 @@ window.configSistema = <?= json_encode([
         }
         
         .stat-card {
-            background: var(--blanco);
+            background: var(--vidrio);
+            backdrop-filter: blur(16px) saturate(140%);
+            -webkit-backdrop-filter: blur(16px) saturate(140%);
             border: 1px solid var(--borde);
             border-radius: 16px;
             padding: 24px;
@@ -166,13 +179,14 @@ window.configSistema = <?= json_encode([
             align-items: center;
             gap: 16px;
             transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
         }
-        
+
         .stat-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+            box-shadow: 0 14px 34px rgba(0,0,0,0.35);
         }
-        
+
         .stat-icono {
             width: 48px;
             height: 48px;
@@ -182,24 +196,24 @@ window.configSistema = <?= json_encode([
             justify-content: center;
             font-size: 1.5rem;
         }
-        
+
         .stat-card.pendientes .stat-icono {
-            background: #fef3c7;
-            color: var(--amarillo);
+            background: rgba(251,191,36,0.18);
+            color: #fcd34d;
         }
-        
+
         .stat-card.hoy .stat-icono {
-            background: #e0f2fe;
-            color: var(--azul);
+            background: rgba(96,165,250,0.18);
+            color: #93c5fd;
         }
-        
+
         .stat-card.proximas .stat-icono {
-            background: #e0f2e9;
-            color: var(--verde-medio);
+            background: rgba(52,211,153,0.16);
+            color: #6ee7b7;
         }
-        
+
         .stat-card.historial .stat-icono {
-            background: #f1f5f9;
+            background: rgba(255,255,255,0.08);
             color: var(--texto-sub);
         }
         
@@ -231,15 +245,15 @@ window.configSistema = <?= json_encode([
         }
         
         .alerta-success {
-            background: #e8f5e9;
-            border-left: 4px solid #2e7d32;
-            color: #1e4620;
+            background: rgba(52,211,153,0.14);
+            border-left: 4px solid #34d399;
+            color: #6ee7b7;
         }
-        
+
         .alerta-error {
-            background: #fee;
-            border-left: 4px solid #e53e3e;
-            color: #c53030;
+            background: rgba(248,113,113,0.14);
+            border-left: 4px solid #f87171;
+            color: #fca5a5;
         }
         
         .grid-2-columns {
@@ -250,16 +264,19 @@ window.configSistema = <?= json_encode([
         }
         
         .card {
-            background: var(--blanco);
+            background: var(--vidrio);
+            backdrop-filter: blur(16px) saturate(140%);
+            -webkit-backdrop-filter: blur(16px) saturate(140%);
             border: 1px solid var(--borde);
             border-radius: 16px;
             overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
         }
-        
+
         .card-header {
             padding: 20px 24px;
             border-bottom: 1px solid var(--borde);
-            background: linear-gradient(to right, rgba(26,92,56,0.02), transparent);
+            background: rgba(0,0,0,0.18);
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -286,47 +303,48 @@ window.configSistema = <?= json_encode([
             overflow-y: auto;
             padding-right: 8px; /* Espacio para el scroll */
             scrollbar-width: thin;
-            scrollbar-color: var(--verde-medio) var(--borde);
+            scrollbar-color: rgba(201,168,76,0.4) transparent;
         }
-        
+
         .solicitudes-scroll::-webkit-scrollbar {
             width: 6px;
         }
-        
+
         .solicitudes-scroll::-webkit-scrollbar-track {
-            background: var(--borde);
+            background: transparent;
             border-radius: 3px;
         }
-        
+
         .solicitudes-scroll::-webkit-scrollbar-thumb {
-            background: var(--verde-medio);
+            background: rgba(201,168,76,0.4);
             border-radius: 3px;
         }
-        
+
         .solicitudes-scroll::-webkit-scrollbar-thumb:hover {
-            background: var(--verde);
+            background: var(--dorado);
         }
-        
+
         .solicitud-item {
             padding: 16px;
             border: 1px solid var(--borde);
             border-radius: 12px;
             margin-bottom: 12px;
             transition: all 0.2s;
+            background: rgba(0,0,0,0.15);
         }
-        
+
         .solicitud-item:last-child {
             margin-bottom: 0;
         }
-        
+
         .solicitud-item:hover {
-            border-color: var(--verde-medio);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border-color: var(--dorado);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
         }
-        
+
         .solicitud-item.oculto {
             opacity: 0.6;
-            background: #f8fafc;
+            background: rgba(0,0,0,0.28);
             position: relative;
             overflow: hidden;
         }
@@ -378,23 +396,23 @@ window.configSistema = <?= json_encode([
         }
         
         .solicitud-detalles {
-            background: var(--fondo);
+            background: rgba(0,0,0,0.2);
             border-radius: 10px;
             padding: 12px;
             margin: 12px 0;
             font-size: 0.9rem;
         }
-        
+
         .detalle-item {
             display: flex;
             align-items: center;
             gap: 10px;
             margin-bottom: 8px;
         }
-        
+
         .detalle-item i {
             width: 20px;
-            color: var(--verde-medio);
+            color: var(--verde-claro);
         }
         
         .solicitud-acciones {
@@ -419,50 +437,53 @@ window.configSistema = <?= json_encode([
         }
         
         .btn-primary {
-            background: var(--verde);
-            color: white;
+            background: linear-gradient(135deg, var(--dorado-claro), var(--dorado));
+            color: #2c2107;
+            font-weight: 700;
         }
-        
+
         .btn-primary:hover {
-            background: var(--verde-medio);
+            transform: translateY(-1px);
+            box-shadow: 0 8px 22px rgba(201,168,76,0.35);
         }
-        
+
         .btn-danger {
-            background: white;
-            border: 1.5px solid var(--rojo);
-            color: var(--rojo);
+            background: rgba(248,113,113,0.12);
+            border: 1.5px solid rgba(248,113,113,0.5);
+            color: #fca5a5;
         }
-        
+
         .btn-danger:hover {
             background: var(--rojo);
             color: white;
         }
-        
+
         .btn-warning {
-            background: white;
-            border: 1.5px solid var(--amarillo);
-            color: var(--amarillo);
+            background: rgba(251,191,36,0.12);
+            border: 1.5px solid rgba(251,191,36,0.5);
+            color: #fcd34d;
         }
-        
+
         .btn-warning:hover {
             background: var(--amarillo);
             color: white;
         }
-        
+
         .btn-sm {
             padding: 6px 12px;
             font-size: 0.8rem;
         }
-        
+
         .btn-outline {
-            background: transparent;
+            background: rgba(255,255,255,0.06);
             border: 1px solid var(--borde);
             color: var(--texto-sub);
         }
-        
+
         .btn-outline:hover {
-            background: var(--fondo);
-            border-color: var(--texto-sub);
+            background: rgba(201,168,76,0.08);
+            border-color: var(--dorado);
+            color: var(--dorado-claro);
         }
         
         .proxima-cita-item {
@@ -508,14 +529,14 @@ window.configSistema = <?= json_encode([
         }
         
         .hora-badge {
-            background: var(--fondo);
+            background: rgba(255,255,255,0.08);
             padding: 4px 8px;
             border-radius: 20px;
             font-size: 0.75rem;
             font-weight: 600;
-            color: var(--verde-medio);
+            color: var(--dorado-claro);
         }
-        
+
         .bloqueo-item {
             display: flex;
             align-items: center;
@@ -568,8 +589,8 @@ window.configSistema = <?= json_encode([
         }
 
         .banner-propuesta-enviada {
-            background: #eff6ff;
-            border: 1px solid #bfdbfe;
+            background: rgba(96,165,250,0.14);
+            border: 1px solid rgba(147,197,253,0.35);
             border-radius: 8px;
             padding: 10px 14px;
             margin-bottom: 12px;
@@ -579,27 +600,27 @@ window.configSistema = <?= json_encode([
             gap: 10px;
         }
         .banner-propuesta-enviada i {
-            color: #3b82f6;
+            color: #93c5fd;
             margin-top: 2px;
             flex-shrink: 0;
         }
         .banner-propuesta-enviada .prop-titulo {
             font-weight: 700;
-            color: #1e40af;
+            color: #93c5fd;
             display: block;
             margin-bottom: 4px;
         }
         .banner-propuesta-enviada .prop-fecha {
-            color: #3b82f6;
+            color: #93c5fd;
             font-weight: 600;
         }
         .badge-esperando {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: #eff6ff;
-            border: 1.5px solid #93c5fd;
-            color: #1d4ed8;
+            background: rgba(96,165,250,0.14);
+            border: 1.5px solid rgba(147,197,253,0.4);
+            color: #93c5fd;
             padding: 8px 16px;
             border-radius: 8px;
             font-size: 0.82rem;
@@ -682,7 +703,7 @@ window.configSistema = <?= json_encode([
         </div>
         
         <?php if (!empty($dependencias)): ?>
-        <div style="margin-bottom: 20px; background: var(--blanco); padding: 12px 20px; border-radius: 8px; border: 1px solid var(--borde);">
+        <div style="margin-bottom: 20px; background: var(--vidrio); backdrop-filter: blur(16px) saturate(140%); -webkit-backdrop-filter: blur(16px) saturate(140%); padding: 12px 20px; border-radius: 8px; border: 1px solid var(--borde);">
             <strong><i class="fas fa-building"></i> Dependencias:</strong> 
             <?php 
             $nombresDep = array_column($dependencias, 'nombre');
@@ -710,16 +731,16 @@ window.configSistema = <?= json_encode([
         <?php endif; ?>
 
         <?php if (!empty($passwordTemporal)): ?>
-        <div style="background:#fffbeb;border:1.5px solid #f59e0b;border-radius:10px;padding:16px 20px;margin-bottom:24px;display:flex;align-items:center;gap:14px;">
-            <i class="fas fa-exclamation-triangle" style="color:#d97706;font-size:1.3rem;flex-shrink:0;"></i>
+        <div style="background:rgba(251,191,36,0.12);border:1.5px solid rgba(251,191,36,0.45);border-radius:10px;padding:16px 20px;margin-bottom:24px;display:flex;align-items:center;gap:14px;">
+            <i class="fas fa-exclamation-triangle" style="color:#fcd34d;font-size:1.3rem;flex-shrink:0;"></i>
             <div style="flex:1;">
-                <strong style="color:#92400e;">Contraseña temporal activa</strong>
-                <p style="margin:4px 0 0;color:#78350f;font-size:0.9rem;">
+                <strong style="color:#fcd34d;">Contraseña temporal activa</strong>
+                <p style="margin:4px 0 0;color:rgba(255,255,255,0.75);font-size:0.9rem;">
                     Estás usando una contraseña temporal que expira en 24 horas.
                     Por favor cámbiala ahora para no perder el acceso.
                 </p>
             </div>
-            <a href="/cambiar-contrasena" style="background:#f59e0b;color:#fff;padding:8px 16px;border-radius:7px;text-decoration:none;font-size:0.88rem;font-weight:600;white-space:nowrap;">
+            <a href="/cambiar-contrasena" style="background:linear-gradient(135deg, var(--dorado-claro), var(--dorado));color:#2c2107;padding:8px 16px;border-radius:7px;text-decoration:none;font-size:0.88rem;font-weight:700;white-space:nowrap;">
                 Cambiar contraseña
             </a>
         </div>
@@ -787,9 +808,9 @@ window.configSistema = <?= json_encode([
                 <div class="solicitud-item" id="solicitud-<?= $solicitud['id_cita'] ?>" style="<?= $borderStyle ?>">
 
                     <?php if ($esContra): ?>
-                    <div style="background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px; padding: 10px 14px; margin-bottom: 12px; font-size: 0.85rem;">
-                        <strong style="color: #92400e;"><i class="fas fa-reply"></i> El ciudadano propone nueva fecha:</strong>
-                        <span style="color: #f59e0b; font-weight: 700; margin-left: 8px;">
+                    <div style="background: rgba(251,191,36,0.14); border: 1px solid rgba(251,191,36,0.35); border-radius: 8px; padding: 10px 14px; margin-bottom: 12px; font-size: 0.85rem;">
+                        <strong style="color: #fcd34d;"><i class="fas fa-reply"></i> El ciudadano propone nueva fecha:</strong>
+                        <span style="color: #fcd34d; font-weight: 700; margin-left: 8px;">
                             <?= date('d/m/Y', strtotime($solicitud['fecha_propuesta'])) ?>
                             · <?= date('h:i A', strtotime($solicitud['hora_propuesta'])) ?>
                         </span>
@@ -1043,39 +1064,39 @@ window.configSistema = <?= json_encode([
             <h3><i class="fas fa-calendar-alt" style="color: var(--amarillo);"></i> Reprogramar Cita</h3>
             <p>Selecciona la nueva fecha y hora para la cita:</p>
             
-            <div style="background: #f8fafc; padding: 16px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid var(--amarillo);">
+            <div style="background: rgba(0,0,0,0.22); padding: 16px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid var(--amarillo);">
                 <p style="margin-bottom: 8px;"><strong>Cita actual:</strong></p>
                 <p id="cita-original-info" style="color: var(--texto-sub); font-size: 0.9rem;"></p>
             </div>
-            
+
             <form method="POST" action="" id="formReprogramar">
                 <?= csrf_field() ?>
             <?= tab_id_field() ?>
                 <input type="hidden" name="action" value="reprogramar">
                 <input type="hidden" name="cita_id" id="reprogramar_cita_id">
-                
+
                 <div style="margin-bottom: 20px;">
                     <label style="display: block; margin-bottom: 8px; font-weight: 600;">Nueva fecha <span class="req">*</span></label>
-                    <input type="date" name="nueva_fecha" id="nueva_fecha" required 
+                    <input type="date" name="nueva_fecha" id="nueva_fecha" required
                         min="<?= date('Y-m-d') ?>"
-                        style="width: 100%; padding: 12px; border: 1.5px solid var(--borde); border-radius: 8px; font-family: 'DM Sans', sans-serif;">
+                        style="width: 100%; padding: 12px; border: 1.5px solid var(--borde); border-radius: 8px; font-family: 'DM Sans', sans-serif; background: rgba(0,0,0,0.28); color: var(--texto);">
                 </div>
-                
+
                 <div style="margin-bottom: 20px;">
                     <label style="display: block; margin-bottom: 8px; font-weight: 600;">Nueva hora <span class="req">*</span></label>
-                    <select name="nueva_hora" id="nueva_hora" required style="width: 100%; padding: 12px; border: 1.5px solid var(--borde); border-radius: 8px;">
+                    <select name="nueva_hora" id="nueva_hora" required style="width: 100%; padding: 12px; border: 1.5px solid var(--borde); border-radius: 8px; background: rgba(0,0,0,0.28); color: var(--texto);">
                         <option value="">Primero selecciona una fecha</option>
                     </select>
                     <div id="loading-horarios" style="display: none; margin-top: 10px; color: var(--texto-sub);">
                         <i class="fas fa-spinner fa-spin"></i> Cargando horarios disponibles...
                     </div>
                 </div>
-                
+
                 <div style="margin-bottom: 20px;">
                     <label style="display: block; margin-bottom: 8px; font-weight: 600;">Motivo de la reprogramación <span class="req">*</span></label>
-                    <textarea name="motivo_reprogramacion" required 
+                    <textarea name="motivo_reprogramacion" required
                             placeholder="Ej: Por reunión interna, por disponibilidad de sala, etc."
-                            style="width: 100%; padding: 12px; border: 1.5px solid var(--borde); border-radius: 8px; min-height: 100px;"></textarea>
+                            style="width: 100%; padding: 12px; border: 1.5px solid var(--borde); border-radius: 8px; min-height: 100px; background: rgba(0,0,0,0.28); color: var(--texto);"></textarea>
                 </div>
                 
                 <div class="modal-acciones">
@@ -1109,7 +1130,7 @@ window.configSistema = <?= json_encode([
             <?= tab_id_field() ?>
                 <input type="hidden" name="action" value="rechazar">
                 <input type="hidden" name="cita_id" id="rechazar_cita_id">
-                <textarea name="motivo_rechazo" placeholder="Ej: Horario no disponible, trámite no corresponde, etc." required style="width: 100%; padding: 12px; border: 1.5px solid var(--borde); border-radius: 8px; margin-bottom: 20px; min-height: 100px;"></textarea>
+                <textarea name="motivo_rechazo" placeholder="Ej: Horario no disponible, trámite no corresponde, etc." required style="width: 100%; padding: 12px; border: 1.5px solid var(--borde); border-radius: 8px; margin-bottom: 20px; min-height: 100px; background: rgba(0,0,0,0.28); color: var(--texto);"></textarea>
                 <div class="modal-acciones">
                     <button type="button" class="btn-modal-cancelar" onclick="cerrarModal('modalRechazar')">Cancelar</button>
                     <button type="submit" class="btn-modal-confirmar" style="background: var(--rojo);">
@@ -1131,10 +1152,10 @@ window.configSistema = <?= json_encode([
                 <input type="hidden" name="action" value="bloquear">
                 
                 <label style="display: block; margin-bottom: 6px; font-weight: 600;">Fecha</label>
-                <input type="date" name="fecha" required min="<?= date('Y-m-d') ?>" style="width: 100%; padding: 10px; border: 1.5px solid var(--borde); border-radius: 8px; margin-bottom: 16px;">
-                
+                <input type="date" name="fecha" required min="<?= date('Y-m-d') ?>" style="width: 100%; padding: 10px; border: 1.5px solid var(--borde); border-radius: 8px; margin-bottom: 16px; background: rgba(0,0,0,0.28); color: var(--texto);">
+
                 <label style="display: block; margin-bottom: 6px; font-weight: 600;">Hora Inicio</label>
-                <select name="hora_inicio" required style="width: 100%; padding: 10px; border: 1.5px solid var(--borde); border-radius: 8px; margin-bottom: 16px;">
+                <select name="hora_inicio" required style="width: 100%; padding: 10px; border: 1.5px solid var(--borde); border-radius: 8px; margin-bottom: 16px; background: rgba(0,0,0,0.28); color: var(--texto);">
                     <?php
                     $horas = ['07:00','07:15','07:30','07:45',
                 '08:00','08:15','08:30','08:45',
@@ -1149,16 +1170,16 @@ window.configSistema = <?= json_encode([
                     <option value="<?= $hora ?>"><?= date('h:i A', strtotime($hora)) ?></option>
                     <?php endforeach; ?>
                 </select>
-                
+
                 <label style="display: block; margin-bottom: 6px; font-weight: 600;">Hora Fin</label>
-                <select name="hora_fin" required style="width: 100%; padding: 10px; border: 1.5px solid var(--borde); border-radius: 8px; margin-bottom: 16px;">
+                <select name="hora_fin" required style="width: 100%; padding: 10px; border: 1.5px solid var(--borde); border-radius: 8px; margin-bottom: 16px; background: rgba(0,0,0,0.28); color: var(--texto);">
                     <?php foreach ($horas as $hora): ?>
                     <option value="<?= $hora ?>"><?= date('h:i A', strtotime($hora)) ?></option>
                     <?php endforeach; ?>
                 </select>
-                
+
                 <label style="display: block; margin-bottom: 6px; font-weight: 600;">Motivo del bloqueo</label>
-                <textarea name="motivo_bloqueo" required placeholder="Ej: Reunión, capacitación, permiso personal, etc." style="width: 100%; padding: 12px; border: 1.5px solid var(--borde); border-radius: 8px; margin-bottom: 20px; min-height: 80px;"></textarea>
+                <textarea name="motivo_bloqueo" required placeholder="Ej: Reunión, capacitación, permiso personal, etc." style="width: 100%; padding: 12px; border: 1.5px solid var(--borde); border-radius: 8px; margin-bottom: 20px; min-height: 80px; background: rgba(0,0,0,0.28); color: var(--texto);"></textarea>
                 
                 <div class="modal-acciones">
                     <button type="button" class="btn-modal-cancelar" onclick="cerrarModal('modalBloquear')">Cancelar</button>
@@ -1186,7 +1207,10 @@ window.configSistema = <?= json_encode([
         }
         
         .modal {
-            background: white;
+            background: rgba(20, 34, 26, 0.75);
+            backdrop-filter: blur(20px) saturate(140%);
+            -webkit-backdrop-filter: blur(20px) saturate(140%);
+            border: 1px solid var(--borde);
             border-radius: 20px;
             padding: 32px;
             max-width: 500px;
@@ -1194,6 +1218,8 @@ window.configSistema = <?= json_encode([
             max-height: 90vh;
             overflow-y: auto;
             animation: modalSlideIn 0.3s ease;
+            box-shadow: 0 25px 70px rgba(0,0,0,0.5);
+            color: var(--texto);
         }
         
         @keyframes modalSlideIn {
@@ -1228,17 +1254,19 @@ window.configSistema = <?= json_encode([
         
         .btn-modal-cancelar {
             padding: 12px 24px;
-            background: var(--blanco);
+            background: rgba(255,255,255,0.06);
             border: 1.5px solid var(--borde);
             border-radius: 8px;
             font-family: 'DM Sans', sans-serif;
             font-weight: 500;
+            color: var(--texto);
             cursor: pointer;
             transition: all 0.2s;
         }
-        
+
         .btn-modal-cancelar:hover {
-            border-color: var(--texto);
+            border-color: var(--dorado);
+            color: var(--dorado-claro);
         }
         
         .btn-modal-confirmar {
@@ -1258,22 +1286,22 @@ window.configSistema = <?= json_encode([
         }
         
         .badge {
-            background: var(--verde-claro);
-            color: white;
+            background: linear-gradient(135deg, var(--dorado-claro), var(--dorado));
+            color: #2c2107;
             padding: 4px 10px;
             border-radius: 20px;
             font-size: 0.8rem;
-            font-weight: 600;
+            font-weight: 700;
         }
 
         /* Alertas de visita prolongada */
         .en-curso-alerta-amarillo {
             border-left-color: #f59e0b !important;
-            background: #fffbeb;
+            background: rgba(251,191,36,0.1);
         }
         .en-curso-alerta-rojo {
             border-left-color: #ef4444 !important;
-            background: #fff5f5;
+            background: rgba(248,113,113,0.1);
         }
         .alerta-visita-banner {
             display: flex;
@@ -1286,12 +1314,12 @@ window.configSistema = <?= json_encode([
             margin-bottom: 10px;
         }
         .alerta-visita-banner.amarillo {
-            background: #fef3c7;
-            color: #92400e;
+            background: rgba(251,191,36,0.18);
+            color: #fcd34d;
         }
         .alerta-visita-banner.rojo {
-            background: #fee2e2;
-            color: #991b1b;
+            background: rgba(248,113,113,0.18);
+            color: #fca5a5;
             animation: parpadeo 1.5s infinite;
         }
         @keyframes parpadeo {
@@ -1644,9 +1672,9 @@ function agregarCitaAlDOM(cita) {
 function actualizarCartaContrapropuesta(cita) {
     const initials = (cita.ciudadano_nombres[0] + (cita.ciudadano_apellidos?.[0] || '')).toUpperCase();
     const inner = `
-        <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:0.85rem;">
-            <strong style="color:#92400e;"><i class="fas fa-reply"></i> El ciudadano propone nueva fecha:</strong>
-            <span style="color:#f59e0b;font-weight:700;margin-left:8px;">
+        <div style="background:rgba(251,191,36,0.14);border:1px solid rgba(251,191,36,0.35);border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:0.85rem;">
+            <strong style="color:#fcd34d;"><i class="fas fa-reply"></i> El ciudadano propone nueva fecha:</strong>
+            <span style="color:#fcd34d;font-weight:700;margin-left:8px;">
                 ${formatFecha(cita.fecha_propuesta)} · ${formatHora(cita.hora_propuesta)}
             </span>
         </div>

@@ -26,34 +26,60 @@ $fecha      = isset($datosVisita['fecha']) ? date('d/m/Y', strtotime($datosVisit
             --dorado:      #c9a84c;
             --dorado-claro:#e8c97a;
             --blanco:      #ffffff;
-            --texto:       #1e293b;
-            --texto-sub:   #64748b;
-            --borde:       #e2e8f0;
-            --fondo:       #f8f9fc;
+            --texto:       #eef3ee;
+            --texto-sub:   rgba(255, 255, 255, 0.6);
+            --borde:       rgba(255, 255, 255, 0.14);
+            --fondo:       rgba(0, 0, 0, 0.28);
             --rojo:        #ef4444;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
+        html, body { height: 100%; }
+
         body {
             font-family: 'DM Sans', sans-serif;
-            background: var(--fondo);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 24px 16px;
+            position: relative;
+            overflow-x: hidden;
+
+            background-image:
+                linear-gradient(180deg, rgba(6, 14, 10, 0.6) 0%, rgba(6, 14, 10, 0.78) 55%, rgba(6, 14, 10, 0.9) 100%),
+                url('/imagenes/Fondo-ciudad.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
         }
 
         .card {
-            background: var(--blanco);
-            border: 1px solid var(--borde);
+            background: rgba(20, 34, 26, 0.45);
+            backdrop-filter: blur(18px) saturate(140%);
+            -webkit-backdrop-filter: blur(18px) saturate(140%);
+            border: 1px solid rgba(255, 255, 255, 0.14);
             border-radius: 20px;
             padding: 40px 36px;
             max-width: 520px;
             width: 100%;
-            box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+            box-shadow:
+                0 25px 70px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(201, 168, 76, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(to right, var(--verde), var(--dorado), var(--verde-claro));
         }
 
         /* Header */
@@ -80,17 +106,17 @@ $fecha      = isset($datosVisita['fecha']) ? date('d/m/Y', strtotime($datosVisit
         }
         .encabezado-texto strong {
             display: block;
-            color: var(--verde);
+            color: var(--dorado-claro);
             font-size: 0.88rem;
         }
 
         h1 {
             font-family: 'Playfair Display', serif;
             font-size: 1.6rem;
-            color: var(--texto);
+            color: var(--blanco);
             margin-bottom: 6px;
         }
-        h1 span { color: var(--verde-medio); }
+        h1 span { color: var(--dorado-claro); }
 
         .subtitulo {
             color: var(--texto-sub);
@@ -116,9 +142,10 @@ $fecha      = isset($datosVisita['fecha']) ? date('d/m/Y', strtotime($datosVisit
 
         /* Error */
         .alerta-error {
-            background: #fef2f2;
+            background: rgba(239, 68, 68, 0.12);
+            border: 1px solid rgba(239, 68, 68, 0.4);
             border-left: 4px solid var(--rojo);
-            color: #991b1b;
+            color: #fecaca;
             padding: 12px 14px;
             border-radius: 8px;
             margin-bottom: 20px;
@@ -150,7 +177,7 @@ $fecha      = isset($datosVisita['fecha']) ? date('d/m/Y', strtotime($datosVisit
 
         .estrellas label {
             font-size: 2.4rem;
-            color: #d1d5db;
+            color: rgba(255, 255, 255, 0.3);
             cursor: pointer;
             transition: color 0.15s, transform 0.15s;
             line-height: 1;
@@ -199,7 +226,7 @@ $fecha      = isset($datosVisita['fecha']) ? date('d/m/Y', strtotime($datosVisit
             padding: 16px 12px;
             border: 2px solid var(--borde);
             border-radius: 12px;
-            background: var(--blanco);
+            background: rgba(0, 0, 0, 0.2);
             cursor: pointer;
             text-align: center;
             font-size: 0.9rem;
@@ -210,14 +237,14 @@ $fecha      = isset($datosVisita['fecha']) ? date('d/m/Y', strtotime($datosVisit
         .opcion-label input { display: none; }
         .opcion-label .icono-opcion { font-size: 1.6rem; display: block; margin-bottom: 6px; }
         .opcion-label:hover {
-            border-color: var(--verde-medio);
-            background: #f0fdf4;
-            color: var(--verde);
+            border-color: var(--dorado);
+            background: rgba(201, 168, 76, 0.1);
+            color: var(--dorado-claro);
         }
         .opcion-label.activo {
-            border-color: var(--verde-medio);
-            background: #f0fdf4;
-            color: var(--verde);
+            border-color: var(--dorado);
+            background: rgba(201, 168, 76, 0.14);
+            color: var(--dorado-claro);
             font-weight: 600;
         }
 
@@ -226,6 +253,7 @@ $fecha      = isset($datosVisita['fecha']) ? date('d/m/Y', strtotime($datosVisit
         .campo-comentario textarea {
             width: 100%;
             padding: 12px 14px;
+            background: rgba(0, 0, 0, 0.28);
             border: 1.5px solid var(--borde);
             border-radius: 10px;
             font-family: 'DM Sans', sans-serif;
@@ -234,33 +262,38 @@ $fecha      = isset($datosVisita['fecha']) ? date('d/m/Y', strtotime($datosVisit
             resize: vertical;
             min-height: 90px;
             outline: none;
-            transition: border-color 0.2s;
+            transition: all 0.2s;
         }
-        .campo-comentario textarea:focus { border-color: var(--verde-medio); }
-        .campo-comentario textarea::placeholder { color: #c0b8ae; }
+        .campo-comentario textarea:focus {
+            border-color: var(--dorado);
+            box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.18);
+            background: rgba(0, 0, 0, 0.38);
+        }
+        .campo-comentario textarea::placeholder { color: rgba(255, 255, 255, 0.4); }
         .campo-hint { font-size: 0.78rem; color: var(--texto-sub); margin-top: 5px; }
 
         /* ── BOTÓN ── */
         .btn-enviar {
             width: 100%;
             padding: 14px;
-            background: var(--verde);
-            color: var(--blanco);
+            background: linear-gradient(135deg, var(--dorado-claro), var(--dorado));
+            color: #2c2107;
             border: none;
             border-radius: 10px;
             font-family: 'DM Sans', sans-serif;
             font-size: 0.95rem;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
-            transition: background 0.2s, transform 0.2s;
+            transition: all 0.2s;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
+            box-shadow: 0 6px 20px rgba(201, 168, 76, 0.25);
         }
         .btn-enviar:hover {
-            background: var(--verde-medio);
             transform: translateY(-1px);
+            box-shadow: 0 10px 28px rgba(201, 168, 76, 0.4);
         }
         .btn-enviar:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
@@ -269,7 +302,7 @@ $fecha      = isset($datosVisita['fecha']) ? date('d/m/Y', strtotime($datosVisit
             margin-top: 28px;
             text-align: center;
             font-size: 0.75rem;
-            color: #a09890;
+            color: rgba(255, 255, 255, 0.5);
             line-height: 1.6;
         }
 

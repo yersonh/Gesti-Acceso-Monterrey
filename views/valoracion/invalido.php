@@ -14,40 +14,66 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --verde:     #1a5c38;
-            --dorado:    #c9a84c;
-            --rojo:      #ef4444;
-            --blanco:    #ffffff;
-            --texto:     #1e293b;
-            --texto-sub: #64748b;
-            --borde:     #e2e8f0;
-            --fondo:     #f8f9fc;
+            --verde:        #1a5c38;
+            --verde-claro:  #3d9e68;
+            --dorado:       #c9a84c;
+            --dorado-claro: #e8c97a;
+            --rojo:         #ef4444;
+            --blanco:       #ffffff;
+            --texto:        #eef3ee;
+            --texto-sub:    rgba(255, 255, 255, 0.6);
+            --borde:        rgba(255, 255, 255, 0.14);
+            --fondo:        rgba(0, 0, 0, 0.28);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; }
         body {
             font-family: 'DM Sans', sans-serif;
-            background: var(--fondo);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 24px 16px;
+            position: relative;
+            overflow-x: hidden;
+
+            background-image:
+                linear-gradient(180deg, rgba(6, 14, 10, 0.6) 0%, rgba(6, 14, 10, 0.78) 55%, rgba(6, 14, 10, 0.9) 100%),
+                url('/imagenes/Fondo-ciudad.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
         }
         .card {
-            background: var(--blanco);
-            border: 1px solid var(--borde);
+            background: rgba(20, 34, 26, 0.45);
+            backdrop-filter: blur(18px) saturate(140%);
+            -webkit-backdrop-filter: blur(18px) saturate(140%);
+            border: 1px solid rgba(255, 255, 255, 0.14);
             border-radius: 20px;
             padding: 48px 36px;
             max-width: 460px;
             width: 100%;
             text-align: center;
-            box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+            box-shadow:
+                0 25px 70px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(201, 168, 76, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(to right, var(--verde), var(--dorado), var(--verde-claro));
         }
         .icono {
             width: 80px; height: 80px;
-            background: #fef2f2;
-            border: 2px solid #fecaca;
+            background: rgba(239, 68, 68, 0.12);
+            border: 2px solid rgba(239, 68, 68, 0.4);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -58,7 +84,7 @@
         h1 {
             font-family: 'Playfair Display', serif;
             font-size: 1.7rem;
-            color: var(--texto);
+            color: var(--blanco);
             margin-bottom: 12px;
         }
         .mensaje {
@@ -70,7 +96,7 @@
         .footer-card {
             margin-top: 36px;
             font-size: 0.75rem;
-            color: #a09890;
+            color: rgba(255, 255, 255, 0.5);
             line-height: 1.6;
         }
     </style>

@@ -54,26 +54,36 @@ window.configSistema = <?= json_encode([
             --verde-claro:  #3d9e68;
             --dorado:       #c9a84c;
             --dorado-claro: #e8c97a;
-            --crema:        #f8f4ed;
             --blanco:       #ffffff;
-            --texto:        #1e293b;
-            --texto-sub:    #64748b;
-            --borde:        #e2e8f0;
-            --fondo:        #f8f9fc;
+            --texto:        #eef3ee;
+            --texto-sub:    rgba(255, 255, 255, 0.6);
+            --borde:        rgba(255, 255, 255, 0.12);
+            --fondo:        rgba(0, 0, 0, 0.25);
+            --vidrio:       rgba(20, 34, 26, 0.45);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'DM Sans', sans-serif;
-            background: var(--fondo);
             color: var(--texto);
             min-height: 100vh;
+
+            background-image:
+                linear-gradient(180deg, rgba(6, 14, 10, 0.6) 0%, rgba(6, 14, 10, 0.78) 55%, rgba(6, 14, 10, 0.9) 100%),
+                url('/imagenes/Fondo-ciudad.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
         }
 
         /* ── Header ── */
         .header {
-            background: var(--verde);
+            background: rgba(20, 34, 26, 0.5);
+            backdrop-filter: blur(18px) saturate(140%);
+            -webkit-backdrop-filter: blur(18px) saturate(140%);
+            border-bottom: 1px solid var(--borde);
             padding: 0 32px;
             height: 64px;
             display: flex;
@@ -82,13 +92,13 @@ window.configSistema = <?= json_encode([
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.25);
         }
         .header::after {
             content: '';
             position: absolute;
             bottom: 0; left: 0; right: 0;
-            height: 3px;
+            height: 2px;
             background: linear-gradient(to right, var(--verde), var(--dorado), var(--verde-claro));
         }
         .header-brand {
@@ -108,19 +118,19 @@ window.configSistema = <?= json_encode([
         .header-usuario { display: flex; align-items: center; gap: 14px; }
         .avatar {
             width: 38px; height: 38px; border-radius: 50%;
-            background: rgba(201,168,76,0.25); border: 2px solid var(--dorado);
+            background: rgba(201,168,76,0.2); border: 1.5px solid var(--dorado);
             color: var(--dorado-claro); font-size: 0.85rem; font-weight: 700;
             display: flex; align-items: center; justify-content: center; letter-spacing: 0.05em;
         }
         .header-nombre { color: var(--blanco); font-size: 0.88rem; font-weight: 500; opacity: 0.9; }
         .btn-logout {
-            background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.16);
             color: var(--blanco); padding: 7px 14px; border-radius: 8px;
             font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 500;
             cursor: pointer; display: flex; align-items: center; gap: 6px;
             text-decoration: none; transition: all 0.2s;
         }
-        .btn-logout:hover { background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.35); }
+        .btn-logout:hover { background: rgba(255,255,255,0.16); border-color: rgba(255,255,255,0.3); }
 
         /* ── Main ── */
         .main { max-width: 1100px; margin: 0 auto; padding: 36px 24px 60px; }
@@ -131,7 +141,7 @@ window.configSistema = <?= json_encode([
             font-family: 'Playfair Display', serif; font-size: 1.9rem; font-weight: 700;
             color: var(--texto); margin-bottom: 4px;
         }
-        .bienvenida h1 span { color: var(--verde-medio); }
+        .bienvenida h1 span { color: var(--dorado-claro); }
         .bienvenida p { color: var(--texto-sub); font-size: 0.9rem; font-weight: 300; }
 
         /* ── Stats ── */
@@ -140,42 +150,46 @@ window.configSistema = <?= json_encode([
             gap: 16px; margin-bottom: 28px;
         }
         .stat-card {
-            background: var(--blanco); border: 1px solid var(--borde);
+            background: var(--vidrio);
+            backdrop-filter: blur(16px) saturate(140%);
+            -webkit-backdrop-filter: blur(16px) saturate(140%);
+            border: 1px solid var(--borde);
             border-radius: 14px; padding: 20px 20px 16px;
             display: flex; flex-direction: column; gap: 6px; transition: box-shadow 0.2s;
         }
-        .stat-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.07); }
+        .stat-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
         .stat-label {
             font-size: 0.75rem; font-weight: 600; color: var(--texto-sub);
             text-transform: uppercase; letter-spacing: 0.08em;
         }
         .stat-valor { font-size: 2rem; font-weight: 700; line-height: 1; }
         .stat-card.total     .stat-valor { color: var(--texto); }
-        .stat-card.pendiente  .stat-valor { color: #f59e0b; }
-        .stat-card.confirmada .stat-valor { color: var(--verde-medio); }
-        .stat-card.completada .stat-valor { color: #64748b; }
+        .stat-card.pendiente  .stat-valor { color: #fcd34d; }
+        .stat-card.confirmada .stat-valor { color: var(--verde-claro); }
+        .stat-card.completada .stat-valor { color: var(--texto-sub); }
         .stat-icono { font-size: 1.1rem; margin-bottom: 4px; }
-        .stat-card.total     .stat-icono { color: #94a3b8; }
-        .stat-card.pendiente  .stat-icono { color: #f59e0b; }
-        .stat-card.confirmada .stat-icono { color: var(--verde-medio); }
-        .stat-card.completada .stat-icono { color: #94a3b8; }
-        .stat-card.propuesta_reprogramacion .stat-icono { color: #f59e0b; }
+        .stat-card.total     .stat-icono { color: rgba(255,255,255,0.4); }
+        .stat-card.pendiente  .stat-icono { color: #fcd34d; }
+        .stat-card.confirmada .stat-icono { color: var(--verde-claro); }
+        .stat-card.completada .stat-icono { color: rgba(255,255,255,0.4); }
+        .stat-card.propuesta_reprogramacion .stat-icono { color: #fcd34d; }
 
         /* ── Botón agendar ── */
         .btn-agendar {
             display: flex; align-items: center; justify-content: center; gap: 10px;
-            background: var(--verde); color: var(--blanco); text-decoration: none;
-            padding: 16px 28px; border-radius: 12px; font-size: 1rem; font-weight: 600;
+            background: linear-gradient(135deg, var(--dorado-claro), var(--dorado));
+            color: #2c2107; text-decoration: none;
+            padding: 16px 28px; border-radius: 12px; font-size: 1rem; font-weight: 700;
             letter-spacing: 0.04em; margin-bottom: 32px; transition: all 0.25s;
-            box-shadow: 0 4px 14px rgba(26,92,56,0.25); position: relative; overflow: hidden;
+            box-shadow: 0 6px 20px rgba(201,168,76,0.25); position: relative; overflow: hidden;
         }
         .btn-agendar::after {
             content: ''; position: absolute; inset: 0;
             background: linear-gradient(135deg, rgba(255,255,255,0.08), transparent);
         }
         .btn-agendar:hover {
-            background: var(--verde-medio); transform: translateY(-1px);
-            box-shadow: 0 8px 24px rgba(26,92,56,0.3);
+            transform: translateY(-1px);
+            box-shadow: 0 10px 28px rgba(201,168,76,0.4);
         }
         .btn-agendar i { font-size: 1.1rem; }
 
@@ -185,9 +199,9 @@ window.configSistema = <?= json_encode([
             display: flex; align-items: center; gap: 10px; font-size: 0.9rem;
             font-weight: 500; animation: subirEntrar 0.4s ease both;
         }
-        .alerta-ok     { background: #e8f5e9; border-left: 4px solid #2e7d32; color: #1e4620; }
-        .alerta-cancel { background: #fff3e0; border-left: 4px solid #e65100; color: #7c3a00; }
-        .alerta-error  { background: #fee;    border-left: 4px solid #e53e3e; color: #c53030; }
+        .alerta-ok     { background: rgba(52,211,153,0.14); border: 1px solid rgba(110,231,183,0.4); color: #6ee7b7; }
+        .alerta-cancel { background: rgba(251,191,36,0.14); border: 1px solid rgba(252,211,77,0.4); color: #fcd34d; }
+        .alerta-error  { background: rgba(248,113,113,0.14); border: 1px solid rgba(252,165,165,0.4); color: #fca5a5; }
 
         /* ── Sección citas ── */
         .seccion-header {
@@ -201,42 +215,45 @@ window.configSistema = <?= json_encode([
         .filtros { display: flex; gap: 8px; flex-wrap: wrap; }
         .filtro-btn {
             padding: 6px 14px; border-radius: 20px; border: 1.5px solid var(--borde);
-            background: var(--blanco); color: var(--texto-sub); font-family: 'DM Sans', sans-serif;
+            background: rgba(255,255,255,0.06); color: var(--texto-sub); font-family: 'DM Sans', sans-serif;
             font-size: 0.8rem; font-weight: 500; cursor: pointer; text-decoration: none;
             transition: all 0.2s;
         }
-        .filtro-btn:hover { border-color: var(--verde-medio); color: var(--verde-medio); }
-        .filtro-btn.activo { background: var(--verde); border-color: var(--verde); color: var(--blanco); }
+        .filtro-btn:hover { border-color: var(--dorado); color: var(--dorado-claro); background: rgba(201,168,76,0.08); }
+        .filtro-btn.activo { background: linear-gradient(135deg, var(--dorado-claro), var(--dorado)); border-color: var(--dorado); color: #2c2107; font-weight: 700; }
 
         /* ── Cards citas ── */
         .citas-lista { display: flex; flex-direction: column; gap: 14px; }
         .cita-card {
-            background: var(--blanco); border: 1px solid var(--borde); border-radius: 14px;
+            background: var(--vidrio);
+            backdrop-filter: blur(16px) saturate(140%);
+            -webkit-backdrop-filter: blur(16px) saturate(140%);
+            border: 1px solid var(--borde); border-radius: 14px;
             padding: 20px 24px; display: grid; grid-template-columns: 1fr auto;
             gap: 16px; align-items: start; transition: box-shadow 0.2s, transform 0.2s;
             animation: subirEntrar 0.4s ease both;
         }
-        .cita-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.07); transform: translateY(-1px); }
-        .cita-card.estado-confirmada { border-left: 4px solid var(--verde-medio); }
-        .cita-card.estado-pendiente  { border-left: 4px solid #f59e0b; }
+        .cita-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.3); transform: translateY(-1px); }
+        .cita-card.estado-confirmada { border-left: 4px solid var(--verde-claro); }
+        .cita-card.estado-pendiente  { border-left: 4px solid #fbbf24; }
         .cita-card.estado-cancelada  { border-left: 4px solid #ef4444; opacity: 0.75; }
-        .cita-card.estado-finalizada { border-left: 4px solid #94a3b8; }
-        .cita-card.estado-no_asistio { border-left: 4px solid #f97316; opacity: 0.75; }
-        .cita-card.estado-propuesta_reprogramacion { border-left: 4px solid #f59e0b; opacity: 0.75; }
+        .cita-card.estado-finalizada { border-left: 4px solid rgba(255,255,255,0.35); }
+        .cita-card.estado-no_asistio { border-left: 4px solid #fb923c; opacity: 0.75; }
+        .cita-card.estado-propuesta_reprogramacion { border-left: 4px solid #fbbf24; opacity: 0.85; }
 
         .cita-dependencia {
-            font-size: 0.72rem; font-weight: 700; color: var(--verde-medio);
+            font-size: 0.72rem; font-weight: 700; color: var(--dorado-claro);
             text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px;
         }
         .cita-funcionario { font-size: 1rem; font-weight: 600; color: var(--texto); margin-bottom: 6px; }
         .cita-meta { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; margin-bottom: 8px; }
         .cita-meta-item { display: flex; align-items: center; gap: 6px; font-size: 0.85rem; color: var(--texto-sub); }
-        .cita-meta-item i { font-size: 0.8rem; color: #94a3b8; }
+        .cita-meta-item i { font-size: 0.8rem; color: rgba(255,255,255,0.4); }
         .cita-motivo { font-size: 0.85rem; color: var(--texto-sub); font-weight: 300; line-height: 1.5; margin-top: 4px; }
         .cita-motivo strong { color: var(--texto); font-weight: 500; }
         .cita-nota {
-            margin-top: 10px; padding: 10px 12px; background: #f0fdf4; border-radius: 8px;
-            border-left: 3px solid var(--verde-claro); font-size: 0.82rem; color: #166534; line-height: 1.5;
+            margin-top: 10px; padding: 10px 12px; background: rgba(52,211,153,0.1); border-radius: 8px;
+            border-left: 3px solid var(--verde-claro); font-size: 0.82rem; color: #6ee7b7; line-height: 1.5;
         }
 
         /* Badges */
@@ -244,29 +261,29 @@ window.configSistema = <?= json_encode([
             display: inline-flex; align-items: center; gap: 5px; padding: 5px 12px;
             border-radius: 20px; font-size: 0.78rem; font-weight: 600; white-space: nowrap; margin-bottom: 10px;
         }
-        .badge-pendiente  { background: #fffbeb; color: #92400e; border: 1px solid #fde68a; }
-        .badge-confirmada { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
-        .badge-cancelada  { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
-        .badge-completada { background: #f8fafc; color: #475569; border: 1px solid #e2e8f0; }
-        .badge-noasistio  { background: #fff7ed; color: #9a3412; border: 1px solid #fed7aa; }
-        .badge-propuesta-reprogramacion { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
-        .badge-contrapropuesta-ciudadano { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+        .badge-pendiente  { background: rgba(251,191,36,0.16); color: #fcd34d; }
+        .badge-confirmada { background: rgba(52,211,153,0.16); color: #6ee7b7; }
+        .badge-cancelada  { background: rgba(248,113,113,0.16); color: #fca5a5; }
+        .badge-completada { background: rgba(255,255,255,0.08); color: var(--texto-sub); }
+        .badge-noasistio  { background: rgba(251,146,60,0.16); color: #fdba74; }
+        .badge-propuesta-reprogramacion { background: rgba(251,191,36,0.18); color: #fcd34d; }
+        .badge-contrapropuesta-ciudadano { background: rgba(251,191,36,0.18); color: #fcd34d; }
         .cita-meta-tachado { text-decoration: line-through; opacity: 0.45; }
         .cita-propuesta-nueva {
             display: flex; align-items: center; gap: 6px;
             margin-top: 8px; padding: 8px 12px;
-            background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px;
-            font-size: 0.82rem; color: #92400e; font-weight: 600;
+            background: rgba(251,191,36,0.14); border: 1px solid rgba(252,211,77,0.35); border-radius: 8px;
+            font-size: 0.82rem; color: #fcd34d; font-weight: 600;
         }
-        .cita-propuesta-nueva i { color: #f59e0b; flex-shrink: 0; }
+        .cita-propuesta-nueva i { color: #fbbf24; flex-shrink: 0; }
 
         .btn-cancelar {
-            background: none; border: 1.5px solid #fecaca; color: #ef4444;
+            background: none; border: 1.5px solid rgba(248,113,113,0.4); color: #fca5a5;
             padding: 7px 14px; border-radius: 8px; font-family: 'DM Sans', sans-serif;
             font-size: 0.8rem; font-weight: 600; cursor: pointer; display: flex;
             align-items: center; gap: 6px; transition: all 0.2s; white-space: nowrap;
         }
-        .btn-cancelar:hover { background: #fef2f2; border-color: #ef4444; }
+        .btn-cancelar:hover { background: rgba(239,68,68,0.12); border-color: #ef4444; }
 
         /* ── Paginación ── */
         .paginacion {
@@ -293,7 +310,7 @@ window.configSistema = <?= json_encode([
             height: 36px;
             padding: 0 10px;
             border: 1.5px solid var(--borde);
-            background: var(--blanco);
+            background: rgba(255,255,255,0.06);
             color: var(--texto-sub);
             border-radius: 8px;
             font-family: 'DM Sans', sans-serif;
@@ -308,14 +325,15 @@ window.configSistema = <?= json_encode([
             text-decoration: none;
         }
         .pag-btn:hover:not(:disabled):not(.activo) {
-            border-color: var(--verde-medio);
-            color: var(--verde-medio);
-            background: #f0fdf4;
+            border-color: var(--dorado);
+            color: var(--dorado-claro);
+            background: rgba(201,168,76,0.1);
         }
         .pag-btn.activo {
-            background: var(--verde);
-            border-color: var(--verde);
-            color: var(--blanco);
+            background: linear-gradient(135deg, var(--dorado-claro), var(--dorado));
+            border-color: var(--dorado);
+            color: #2c2107;
+            font-weight: 700;
             cursor: default;
         }
         .pag-btn:disabled {
@@ -335,86 +353,95 @@ window.configSistema = <?= json_encode([
 
         /* Empty state */
         .empty-state {
-            text-align: center; padding: 60px 20px; background: var(--blanco);
+            text-align: center; padding: 60px 20px; background: var(--vidrio);
+            backdrop-filter: blur(16px) saturate(140%);
+            -webkit-backdrop-filter: blur(16px) saturate(140%);
             border: 1px solid var(--borde); border-radius: 14px;
         }
-        .empty-state i { font-size: 2.5rem; color: #cbd5e1; display: block; margin-bottom: 16px; }
+        .empty-state i { font-size: 2.5rem; color: rgba(255,255,255,0.25); display: block; margin-bottom: 16px; }
         .empty-state h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--texto); margin-bottom: 8px; }
         .empty-state p { color: var(--texto-sub); font-size: 0.9rem; font-weight: 300; margin-bottom: 24px; }
         .empty-state a {
-            display: inline-flex; align-items: center; gap: 8px; background: var(--verde);
-            color: var(--blanco); text-decoration: none; padding: 11px 22px;
-            border-radius: 10px; font-size: 0.9rem; font-weight: 600; transition: background 0.2s;
+            display: inline-flex; align-items: center; gap: 8px;
+            background: linear-gradient(135deg, var(--dorado-claro), var(--dorado));
+            color: #2c2107; text-decoration: none; padding: 11px 22px;
+            border-radius: 10px; font-size: 0.9rem; font-weight: 700; transition: all 0.2s;
         }
-        .empty-state a:hover { background: var(--verde-medio); }
+        .empty-state a:hover { transform: translateY(-1px); box-shadow: 0 8px 22px rgba(201,168,76,0.35); }
 
         /* Modal */
         .modal-overlay {
-            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45);
-            z-index: 200; align-items: center; justify-content: center; backdrop-filter: blur(3px);
+            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+            z-index: 200; align-items: center; justify-content: center; backdrop-filter: blur(4px);
         }
         .modal-overlay.activo { display: flex; }
         .modal {
-            background: var(--blanco); border-radius: 16px; padding: 32px;
+            background: rgba(20, 34, 26, 0.75);
+            backdrop-filter: blur(20px) saturate(140%);
+            -webkit-backdrop-filter: blur(20px) saturate(140%);
+            border: 1px solid var(--borde);
+            border-radius: 16px; padding: 32px;
             width: 100%; max-width: 440px; margin: 20px; animation: subirEntrar 0.3s ease both;
+            box-shadow: 0 25px 70px rgba(0,0,0,0.5);
         }
         .modal h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--texto); margin-bottom: 8px; }
         .modal p { color: var(--texto-sub); font-size: 0.9rem; margin-bottom: 20px; line-height: 1.5; }
         .modal textarea {
             width: 100%; padding: 12px 14px; border: 1.5px solid var(--borde); border-radius: 10px;
             font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--texto);
+            background: rgba(0,0,0,0.28);
             resize: vertical; min-height: 90px; outline: none; margin-bottom: 20px; transition: border-color 0.2s;
         }
-        .modal textarea:focus { border-color: var(--verde-medio); }
-        .modal textarea::placeholder { color: #c0b8ae; }
+        .modal textarea:focus { border-color: var(--dorado); box-shadow: 0 0 0 3px rgba(201,168,76,0.15); }
+        .modal textarea::placeholder { color: rgba(255,255,255,0.35); }
         .modal-acciones { display: flex; gap: 10px; justify-content: flex-end; }
         .btn-modal-cancelar {
-            padding: 10px 20px; border: 1.5px solid var(--borde); background: var(--blanco);
+            padding: 10px 20px; border: 1.5px solid var(--borde); background: rgba(255,255,255,0.06);
             color: var(--texto-sub); border-radius: 8px; font-family: 'DM Sans', sans-serif;
             font-size: 0.88rem; font-weight: 500; cursor: pointer; transition: all 0.2s;
         }
-        .btn-modal-cancelar:hover { border-color: var(--texto-sub); color: var(--texto); }
+        .btn-modal-cancelar:hover { border-color: var(--dorado); color: var(--dorado-claro); background: rgba(201,168,76,0.08); }
         .btn-modal-confirmar {
-            padding: 10px 20px; background: #ef4444; border: none; color: var(--blanco);
+            padding: 10px 20px; background: #dc2626; border: none; color: #fff;
             border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 0.88rem;
             font-weight: 600; cursor: pointer; transition: background 0.2s;
         }
-        .btn-modal-confirmar:hover { background: #dc2626; }
+        .btn-modal-confirmar:hover { background: #b91c1c; }
 
         /* Modal aviso (festivo / día no hábil) */
-        .modal-aviso-overlay { position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9999;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px); }
+        .modal-aviso-overlay { position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9999;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px); }
         .modal-aviso-overlay.activo { display:flex; }
-        .modal-aviso-card { background:#fff;border-radius:18px;padding:30px 26px;max-width:380px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.2);animation:subirEntrar .25s ease both; }
+        .modal-aviso-card { background:rgba(20,34,26,0.8);backdrop-filter:blur(20px) saturate(140%);-webkit-backdrop-filter:blur(20px) saturate(140%);border:1px solid var(--borde);border-radius:18px;padding:30px 26px;max-width:380px;width:90%;text-align:center;box-shadow:0 25px 70px rgba(0,0,0,.5);animation:subirEntrar .25s ease both; }
         .modal-aviso-icon { font-size:2.3rem;margin-bottom:12px; }
         .modal-aviso-title { font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--texto);margin-bottom:8px; }
         .modal-aviso-msg { font-size:.87rem;color:var(--texto-sub);line-height:1.6;margin-bottom:20px; }
-        .btn-aviso-ok { padding:10px 28px;background:var(--verde);color:#fff;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:.9rem;cursor:pointer;transition:background .2s; }
-        .btn-aviso-ok:hover { background:var(--verde-medio); }
+        .btn-aviso-ok { padding:10px 28px;background:linear-gradient(135deg, var(--dorado-claro), var(--dorado));color:#2c2107;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.9rem;cursor:pointer;transition:all .2s; }
+        .btn-aviso-ok:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(201,168,76,0.35); }
 
         /* Botones inline de respuesta a propuesta */
         .cita-responder-acciones { display:flex;flex-wrap:wrap;gap:8px;margin-top:10px; }
         .btn-resp { display:inline-flex;align-items:center;gap:5px;padding:7px 13px;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:0.8rem;font-weight:600;text-decoration:none;border:none;cursor:pointer;transition:all .2s; }
-        .btn-resp-verde { background:var(--verde);color:#fff; }
-        .btn-resp-verde:hover { background:var(--verde-medio); }
-        .btn-resp-amber { background:#f59e0b;color:#fff; }
+        .btn-resp-verde { background:linear-gradient(135deg, var(--verde-claro), var(--verde-medio));color:#fff; }
+        .btn-resp-verde:hover { filter: brightness(1.1); }
+        .btn-resp-amber { background:#f59e0b;color:#2c2107; }
         .btn-resp-amber:hover { background:#d97706; }
         /* Botones del modal responder */
         .btn-resp-modal { display:block;width:100%;padding:12px 16px;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:0.9rem;font-weight:600;text-align:center;text-decoration:none;margin-bottom:8px;cursor:pointer;border:none;transition:all .2s; }
-        .btn-resp-modal.verde { background:var(--verde);color:#fff; }
-        .btn-resp-modal.verde:hover { background:var(--verde-medio); }
-        .btn-resp-modal.amber { background:#fffbeb;border:1.5px solid #fde68a;color:#92400e; }
-        .btn-resp-modal.amber:hover { background:#fef3c7; }
-        .btn-resp-modal.rojo { background:#fff;border:1.5px solid #fecaca;color:#ef4444; }
-        .btn-resp-modal.rojo:hover { background:#fef2f2; }
+        .btn-resp-modal.verde { background:linear-gradient(135deg, var(--verde-claro), var(--verde-medio));color:#fff; }
+        .btn-resp-modal.verde:hover { filter: brightness(1.1); }
+        .btn-resp-modal.amber { background:rgba(251,191,36,0.14);border:1.5px solid rgba(252,211,77,0.4);color:#fcd34d; }
+        .btn-resp-modal.amber:hover { background:rgba(251,191,36,0.22); }
+        .btn-resp-modal.rojo { background:rgba(255,255,255,0.05);border:1.5px solid rgba(248,113,113,0.4);color:#fca5a5; }
+        .btn-resp-modal.rojo:hover { background:rgba(239,68,68,0.12); }
 
         @keyframes subirEntrar {
             from { opacity: 0; transform: translateY(12px); }
             to   { opacity: 1; transform: translateY(0); }
         }
-        body::-webkit-scrollbar { width: 8px; }
-        body::-webkit-scrollbar-track { background: var(--fondo); }
-        body::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-        body::-webkit-scrollbar-thumb:hover { background: var(--verde-medio); }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.4); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--dorado); }
 
         @media (max-width: 768px) {
             .header { padding: 0 16px; }
@@ -664,8 +691,8 @@ window.configSistema = <?= json_encode([
 <!-- Modal responder propuesta de reprogramación -->
 <div class="modal-overlay" id="modalResponderPropuesta">
     <div class="modal" style="max-width:480px;">
-        <h3><i class="fas fa-calendar-alt" style="color:#f59e0b;margin-right:8px;"></i> Propuesta de reprogramación</h3>
-        <div id="resp-info-box" style="background:#fffbeb;border-left:4px solid #f59e0b;border-radius:0 8px 8px 0;padding:12px 16px;margin-bottom:20px;font-size:0.88rem;color:#334155;"></div>
+        <h3><i class="fas fa-calendar-alt" style="color:#fbbf24;margin-right:8px;"></i> Propuesta de reprogramación</h3>
+        <div id="resp-info-box" style="background:rgba(251,191,36,0.14);border-left:4px solid #fbbf24;border-radius:0 8px 8px 0;padding:12px 16px;margin-bottom:20px;font-size:0.88rem;color:var(--texto);"></div>
 
         <!-- Opciones -->
         <div id="resp-opciones">
@@ -682,7 +709,7 @@ window.configSistema = <?= json_encode([
 
         <!-- Confirmación de rechazo (oculta) -->
         <div id="resp-confirmar-rechazo" style="display:none;">
-            <div style="background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:14px 16px;margin-bottom:16px;font-size:0.88rem;color:#991b1b;">
+            <div style="background:rgba(248,113,113,0.14);border:1px solid rgba(252,165,165,0.4);border-radius:10px;padding:14px 16px;margin-bottom:16px;font-size:0.88rem;color:#fca5a5;">
                 <i class="fas fa-exclamation-circle" style="margin-right:6px;"></i>
                 El funcionario será notificado para buscar una nueva alternativa. Tu cita vuelve a estado pendiente.
             </div>
@@ -700,14 +727,14 @@ window.configSistema = <?= json_encode([
             <?= tab_id_field() ?>
             <input type="hidden" name="from_dashboard" value="1">
             <div style="margin-bottom:12px;">
-                <label style="display:block;font-size:0.85rem;font-weight:600;color:#334155;margin-bottom:6px;"><i class="fas fa-calendar"></i> Nueva fecha que propones</label>
+                <label style="display:block;font-size:0.85rem;font-weight:600;color:var(--texto);margin-bottom:6px;"><i class="fas fa-calendar"></i> Nueva fecha que propones</label>
                 <input type="date" name="contrapropuesta_fecha" id="cp-fecha" required min="<?= date('Y-m-d') ?>"
-                       style="width:100%;padding:10px 12px;border:1.5px solid var(--borde);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:0.9rem;outline:none;">
+                       style="width:100%;padding:10px 12px;background:rgba(0,0,0,0.28);border:1.5px solid var(--borde);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:0.9rem;color:var(--texto);outline:none;">
             </div>
             <div style="margin-bottom:16px;">
-                <label style="display:block;font-size:0.85rem;font-weight:600;color:#334155;margin-bottom:6px;"><i class="fas fa-clock"></i> Nueva hora que propones</label>
+                <label style="display:block;font-size:0.85rem;font-weight:600;color:var(--texto);margin-bottom:6px;"><i class="fas fa-clock"></i> Nueva hora que propones</label>
                 <select name="contrapropuesta_hora" required
-                        style="width:100%;padding:10px 12px;border:1.5px solid var(--borde);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:0.9rem;outline:none;">
+                        style="width:100%;padding:10px 12px;background:rgba(0,0,0,0.28);border:1.5px solid var(--borde);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:0.9rem;color:var(--texto);outline:none;">
                     <option value="">Selecciona una hora...</option>
                     <?php
                     $cpSlots = ['07:00','07:15','07:30','07:45','08:00','08:15','08:30','08:45',
@@ -725,7 +752,7 @@ window.configSistema = <?= json_encode([
             </div>
             <div class="modal-acciones">
                 <button type="button" class="btn-modal-cancelar" onclick="ocultarSubpanel()">← Volver</button>
-                <button type="submit" style="padding:10px 20px;background:#f59e0b;border:none;color:#fff;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:0.88rem;font-weight:600;cursor:pointer;">
+                <button type="submit" style="padding:10px 20px;background:#f59e0b;border:none;color:#2c2107;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:0.88rem;font-weight:700;cursor:pointer;">
                     <i class="fas fa-paper-plane"></i> Enviar propuesta
                 </button>
             </div>
@@ -772,7 +799,7 @@ window.configSistema = <?= json_encode([
         var iconos = {
             error:   '<i class="fas fa-calendar-times" style="color:#ef4444;font-size:2.3rem;"></i>',
             warning: '<i class="fas fa-exclamation-triangle" style="color:#f59e0b;font-size:2.3rem;"></i>',
-            info:    '<i class="fas fa-info-circle" style="color:var(--verde);font-size:2.3rem;"></i>'
+            info:    '<i class="fas fa-info-circle" style="color:var(--verde-claro);font-size:2.3rem;"></i>'
         };
         document.getElementById('aviso-icon-dash').innerHTML    = iconos[tipo] || iconos.info;
         document.getElementById('aviso-titulo-dash').textContent = titulo;
@@ -834,8 +861,8 @@ window.configSistema = <?= json_encode([
         var h12  = hh > 12 ? hh - 12 : (hh === 0 ? 12 : hh);
         document.getElementById('resp-info-box').innerHTML =
             '<strong>Propuesta del funcionario:</strong>&nbsp; ' +
-            '<i class="fas fa-calendar" style="color:var(--verde);margin-right:3px;"></i>' + fechaFmt +
-            '&nbsp;&nbsp;<i class="fas fa-clock" style="color:var(--verde);margin-right:3px;"></i>' + h12 + ':' + mm + ' ' + ampm;
+            '<i class="fas fa-calendar" style="color:var(--dorado-claro);margin-right:3px;"></i>' + fechaFmt +
+            '&nbsp;&nbsp;<i class="fas fa-clock" style="color:var(--dorado-claro);margin-right:3px;"></i>' + h12 + ':' + mm + ' ' + ampm;
 
         // Reset subpaneles
         ocultarSubpanel();
@@ -938,7 +965,7 @@ window.configSistema = <?= json_encode([
         function cargarCitas(estado, pagina = 1) {
             estadoActual = estado;
             paginaActual = pagina;
-            citasContainer.innerHTML = '<div style="text-align:center;padding:40px"><i class="fas fa-spinner fa-pulse fa-2x" style="color:var(--verde)"></i><p style="margin-top:10px;color:var(--texto-sub)">Cargando citas...</p></div>';
+            citasContainer.innerHTML = '<div style="text-align:center;padding:40px"><i class="fas fa-spinner fa-pulse fa-2x" style="color:var(--dorado-claro)"></i><p style="margin-top:10px;color:var(--texto-sub)">Cargando citas...</p></div>';
 
             fetch(`/ajax/get_citas?estado=${estado}&pagina=${pagina}&tab_id=${window.TAB_ID}`)
                 .then(r => { if (!r.ok) throw new Error(); return r.json(); })

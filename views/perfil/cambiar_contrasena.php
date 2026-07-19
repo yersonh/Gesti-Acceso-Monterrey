@@ -8,26 +8,59 @@
     <link rel="icon" type="image/png" href="/imagenes/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --verde: #1a5c38;
+            --verde-medio: #2d7a4f;
+            --verde-claro: #3d9e68;
+            --dorado: #c9a84c;
+            --dorado-claro: #e8c97a;
+            --blanco: #ffffff;
+        }
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { height: 100%; }
         body {
             font-family: 'DM Sans', sans-serif;
-            background: #f4f6f9;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 24px;
+            position: relative;
+            overflow-x: hidden;
+
+            background-image:
+                linear-gradient(180deg, rgba(6, 14, 10, 0.6) 0%, rgba(6, 14, 10, 0.78) 55%, rgba(6, 14, 10, 0.9) 100%),
+                url('/imagenes/Fondo-ciudad.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
         }
         .card {
-            background: #fff;
-            border-radius: 14px;
-            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            background: rgba(20, 34, 26, 0.45);
+            backdrop-filter: blur(18px) saturate(140%);
+            -webkit-backdrop-filter: blur(18px) saturate(140%);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 22px;
+            box-shadow:
+                0 25px 70px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(201, 168, 76, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08);
             padding: 40px 48px;
             width: 100%;
             max-width: 440px;
+            position: relative;
+            overflow: hidden;
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(to right, var(--verde), var(--dorado), var(--verde-claro));
         }
         .logo-wrap {
             text-align: center;
@@ -36,23 +69,25 @@
         .logo-wrap img {
             height: 60px;
             border-radius: 50%;
+            border: 2px solid var(--dorado);
         }
         h1 {
+            font-family: 'Playfair Display', serif;
             font-size: 1.35rem;
             font-weight: 700;
-            color: #1a3c2e;
+            color: var(--blanco);
             text-align: center;
             margin-bottom: 6px;
         }
         .subtitle {
             text-align: center;
-            color: #6b7280;
+            color: rgba(255, 255, 255, 0.6);
             font-size: 0.9rem;
             margin-bottom: 28px;
         }
         .banner-temp {
-            background: #fffbeb;
-            border: 1.5px solid #f59e0b;
+            background: rgba(201, 168, 76, 0.12);
+            border: 1.5px solid rgba(201, 168, 76, 0.4);
             border-radius: 9px;
             padding: 14px 16px;
             margin-bottom: 24px;
@@ -60,9 +95,9 @@
             gap: 10px;
             align-items: flex-start;
             font-size: 0.88rem;
-            color: #78350f;
+            color: var(--dorado-claro);
         }
-        .banner-temp i { color: #d97706; margin-top: 2px; flex-shrink: 0; }
+        .banner-temp i { color: var(--dorado); margin-top: 2px; flex-shrink: 0; }
         .alert {
             border-radius: 9px;
             padding: 12px 16px;
@@ -72,46 +107,53 @@
             gap: 10px;
             align-items: center;
         }
-        .alert-error   { background: #fef2f2; color: #991b1b; border: 1px solid #fca5a5; }
-        .alert-success { background: #f0fdf4; color: #166534; border: 1px solid #86efac; }
+        .alert-error   { background: rgba(239, 68, 68, 0.12); color: #fecaca; border: 1px solid rgba(239, 68, 68, 0.4); }
+        .alert-success { background: rgba(52, 211, 153, 0.14); color: #6ee7b7; border: 1px solid rgba(110, 231, 183, 0.4); }
         .form-group { margin-bottom: 18px; }
-        label { display: block; font-size: 0.85rem; font-weight: 600; color: #374151; margin-bottom: 6px; }
+        label { display: block; font-size: 0.85rem; font-weight: 600; color: rgba(255, 255, 255, 0.85); margin-bottom: 6px; }
         input[type="password"] {
             width: 100%;
             padding: 10px 14px;
-            border: 1.5px solid #d1d5db;
+            background: rgba(0, 0, 0, 0.28);
+            border: 1.5px solid rgba(255, 255, 255, 0.14);
             border-radius: 8px;
             font-size: 0.95rem;
             font-family: inherit;
-            transition: border-color .2s;
+            color: var(--blanco);
+            transition: all .2s;
             outline: none;
         }
-        input[type="password"]:focus { border-color: #1a5c38; }
-        .hint { font-size: 0.78rem; color: #9ca3af; margin-top: 5px; }
+        input[type="password"]:focus {
+            border-color: var(--dorado);
+            box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.18);
+            background: rgba(0, 0, 0, 0.38);
+        }
+        .hint { font-size: 0.78rem; color: rgba(255, 255, 255, 0.5); margin-top: 5px; }
         .btn {
             width: 100%;
-            background: #1a5c38;
-            color: #fff;
+            background: linear-gradient(135deg, var(--dorado-claro), var(--dorado));
+            color: #2c2107;
             border: none;
             border-radius: 8px;
             padding: 12px;
             font-size: 0.95rem;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
             font-family: inherit;
-            transition: background .2s;
+            transition: all .2s;
             margin-top: 6px;
+            box-shadow: 0 6px 20px rgba(201, 168, 76, 0.25);
         }
-        .btn:hover { background: #145030; }
+        .btn:hover { transform: translateY(-1px); box-shadow: 0 10px 28px rgba(201, 168, 76, 0.4); }
         .back-link {
             display: block;
             text-align: center;
             margin-top: 16px;
-            color: #6b7280;
+            color: rgba(255, 255, 255, 0.6);
             font-size: 0.85rem;
             text-decoration: none;
         }
-        .back-link:hover { color: #1a5c38; }
+        .back-link:hover { color: var(--dorado-claro); }
     </style>
 </head>
 <body>
