@@ -775,6 +775,57 @@ HTML;
     return $this->sendEmail($email, 'Tus credenciales de acceso — Alcaldía de Monterrey', $html);
 }
 
+/**
+ * Notificar al funcionario que un visitante espontáneo lo está esperando
+ */
+public function enviarNotificacionVisitaEspontanea(string $nombreFunc, string $emailFunc, array $datos): bool {
+    $subject      = "Visita espontánea en recepción - Alcaldía de Monterrey";
+    $year         = date('Y');
+    $nombreFunc   = self::h($nombreFunc);
+    $visitante    = self::h($datos['visitante']);
+    $dependencia  = self::h($datos['dependencia']);
+    $motivo       = self::h($datos['motivo']);
+    $urlDashboard = self::h(self::baseUrl('funcionario/dashboard'));
+
+    $html = <<<HTML
+<!DOCTYPE html><html><head><meta charset="UTF-8"></head>
+<body style="font-family:Arial,sans-serif;background:#f8f4ed;margin:0;padding:0;">
+<div style="max-width:600px;margin:0 auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,0.1);">
+  <div style="background:linear-gradient(135deg,#1a5c38,#2d7a4f);padding:28px 24px;text-align:center;">
+    <h1 style="color:#e8c97a;font-family:'Playfair Display',serif;font-size:24px;margin:0;">Visita Espontánea</h1>
+    <p style="color:rgba(255,255,255,0.85);margin-top:8px;font-size:14px;">Un visitante te está esperando en recepción</p>
+  </div>
+  <div style="padding:28px 24px;">
+    <p style="font-size:16px;margin-bottom:20px;">Hola <strong style="color:#1a5c38;">{$nombreFunc}</strong>,</p>
+    <p style="font-size:15px;color:#334155;margin-bottom:20px;">
+      <strong>{$visitante}</strong> se ha registrado en recepción como visita espontánea para <strong>{$dependencia}</strong>.
+    </p>
+    <div style="background:#f8f4ed;border-left:4px solid #c9a84c;padding:20px;border-radius:0 8px 8px 0;margin-bottom:24px;">
+      <p style="margin:6px 0;"><strong>Dependencia:</strong> {$dependencia}</p>
+      <p style="margin:10px 0 0;font-size:14px;color:#64748b;"><strong>Motivo:</strong> {$motivo}</p>
+    </div>
+    <p style="font-size:14px;color:#64748b;margin-bottom:20px;">
+      Por favor dirígete a recepción o ingresa a tu panel para gestionar la visita.
+    </p>
+    <div style="text-align:center;margin:24px 0;">
+      <a href="{$urlDashboard}" style="background:#1a5c38;color:#fff;padding:13px 28px;border-radius:8px;text-decoration:none;font-weight:600;font-size:15px;">
+        Ir al panel
+      </a>
+    </div>
+    <p style="font-size:13px;color:#94a3b8;text-align:center;">
+      Esta notificación es automática — no responder a este correo.
+    </p>
+  </div>
+  <div style="background:#1a5c38;padding:14px;text-align:center;">
+    <p style="color:#e8e0d5;font-size:12px;margin:0;">© {$year} Alcaldía Municipal de Monterrey, Casanare</p>
+  </div>
+</div>
+</body></html>
+HTML;
+
+    return $this->sendEmail($emailFunc, $subject, $html);
+}
+
 public function enviarContrapropuestaCiudadano(string $nombreFunc, string $emailFunc, array $datos): void {
     $year          = date('Y');
     $nombreFunc    = self::h($nombreFunc);

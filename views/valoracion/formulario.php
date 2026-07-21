@@ -35,7 +35,7 @@ $fecha      = isset($datosVisita['fecha']) ? date('d/m/Y', strtotime($datosVisit
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        html, body { height: 100%; }
+        html { min-height: 100%; }
 
         body {
             font-family: 'DM Sans', sans-serif;
@@ -47,6 +47,7 @@ $fecha      = isset($datosVisita['fecha']) ? date('d/m/Y', strtotime($datosVisit
             padding: 24px 16px;
             position: relative;
             overflow-x: hidden;
+            overflow-y: auto;
 
             background-image:
                 linear-gradient(180deg, rgba(6, 14, 10, 0.6) 0%, rgba(6, 14, 10, 0.78) 55%, rgba(6, 14, 10, 0.9) 100%),

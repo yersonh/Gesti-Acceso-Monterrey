@@ -81,6 +81,26 @@ class RecepcionController {
                         'notas'                 => $notas ?: null,
                     ]);
 
+                    $funcionario = Funcionario::getPorId($funcionarioId);
+                    if ($funcionario && !empty($funcionario['email'])) {
+                        try {
+                            $dependencia = Dependencia::getPorId($dependenciaId);
+                            require_once __DIR__ . '/../config/mail.php';
+                            $mailer = new Mailer();
+                            $mailer->enviarNotificacionVisitaEspontanea(
+                                trim($funcionario['nombres'] . ' ' . $funcionario['apellidos']),
+                                $funcionario['email'],
+                                [
+                                    'visitante'   => "$nombres $apellidos",
+                                    'dependencia' => $dependencia['nombre'] ?? 'No especificada',
+                                    'motivo'      => $motivo,
+                                ]
+                            );
+                        } catch (Exception $eMail) {
+                            error_log('RecepcionController - error notificando visita espontánea: ' . $eMail->getMessage());
+                        }
+                    }
+
                     $_SESSION['flash_mensaje'] = "Visita espontánea registrada (#$idVisita).";
                 }
             } catch (Exception $e) {
