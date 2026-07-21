@@ -439,7 +439,7 @@
             padding-right: 36px;
         }
 
-        .campo-input select option { background: #16281c; color: var(--gris-texto); }
+        .campo-input select option { background: #fff; color: #1a1a1a; }
 
         .campo-input input::placeholder { color: rgba(255, 255, 255, 0.4); font-weight: 300; }
 

@@ -638,6 +638,7 @@ tbody tr:hover td { background: rgba(255,255,255,0.04); }
 }
 .form-control:focus { border-color: var(--dorado); box-shadow: 0 0 0 3px rgba(201,168,76,0.15); }
 .form-control::placeholder { color: rgba(255,255,255,0.35); }
+select.form-control option, select option { background: #fff; color: #1a1a1a; }
 .field-error { display:none; font-size:0.77rem; color:#dc2626; margin-top:3px; }
 
 .form-row {

@@ -215,7 +215,7 @@ $primerNombre   = $partes[0];
         .form-group input:focus,
         .form-group select:focus { border-color:var(--dorado); box-shadow: 0 0 0 3px rgba(201,168,76,0.15); }
         .form-group input::placeholder { color:rgba(255,255,255,0.35); }
-        .form-group select option { background:#14221a; color:var(--texto); }
+        .form-group select option { background: #fff; color: #1a1a1a; }
 
         .modal-acciones { display:flex; gap:10px; justify-content:flex-end; }
         .btn-cancelar-modal {

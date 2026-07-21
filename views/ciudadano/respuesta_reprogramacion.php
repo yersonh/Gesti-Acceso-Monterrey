@@ -86,6 +86,7 @@ window.configSistema = <?= json_encode([
             margin-bottom: 14px; outline: none; transition: border-color 0.2s;
         }
         input[type="date"]:focus, select:focus { border-color: var(--dorado); box-shadow: 0 0 0 3px rgba(201,168,76,0.18); }
+        select option { background: #fff; color: #1a1a1a; }
         .resultado-icon { font-size: 3rem; text-align: center; margin-bottom: 16px; }
         .alerta { padding: 16px 20px; border-radius: 10px; font-size: 0.9rem; text-align: center; }
         .alerta-ok { background: rgba(52,211,153,0.14); color: #6ee7b7; border: 1px solid rgba(110,231,183,0.4); }

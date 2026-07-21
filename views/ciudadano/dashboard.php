@@ -487,6 +487,7 @@ window.configSistema = <?= json_encode([
             .btn-modal-cancelar, .btn-modal-confirmar { width: 100%; justify-content: center; }
             .btn-cancelar { padding: 6px 10px; font-size: 0.75rem; }
         }
+        select option { background: #fff; color: #1a1a1a; }
     </style>
 </head>
 <body>

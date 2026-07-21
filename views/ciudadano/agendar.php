@@ -161,6 +161,7 @@
         .campo-input-wrap input:focus,
         .campo-input-wrap textarea:focus { border-color: var(--dorado); box-shadow: 0 0 0 3px rgba(201,168,76,0.18); }
         .campo-input-wrap select:disabled { background: rgba(0,0,0,0.15); color: rgba(255,255,255,0.35); cursor: not-allowed; }
+        .campo-input-wrap select option { background: #fff; color: #1a1a1a; }
         .campo-input-wrap textarea { resize: vertical; min-height: 100px; padding-top: 12px; }
         .campo-input-wrap textarea::placeholder,
         .campo-input-wrap input::placeholder { color: rgba(255,255,255,0.35); }

@@ -202,7 +202,7 @@ $primerNombre   = $partes[0];
 
         .filtro-group input:focus,
         .filtro-group select:focus { border-color: var(--dorado); box-shadow: 0 0 0 3px rgba(201,168,76,0.15); }
-        .filtro-group select option { background: #14221a; color: var(--texto); }
+        .filtro-group select option { background: #fff; color: #1a1a1a; }
 
         .btn-aplicar {
             background: linear-gradient(135deg, var(--dorado-claro), var(--dorado)); color: #2c2107;

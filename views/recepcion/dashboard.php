@@ -248,6 +248,7 @@
         .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(255,255,255,0.4); }
         .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--dorado); box-shadow: 0 0 0 3px rgba(201,168,76,0.18); background: rgba(0,0,0,0.38); }
         .form-group input:disabled, .form-group select:disabled { background: rgba(255,255,255,0.04); color: var(--texto-sub); }
+        .form-group select option { background: #fff; color: #1a1a1a; }
         .form-group textarea { resize: vertical; min-height: 80px; }
         .grupo-verificar { display: flex; gap: 8px; align-items: flex-end; }
         .grupo-verificar .form-group { flex: 1; margin-bottom: 0; }
