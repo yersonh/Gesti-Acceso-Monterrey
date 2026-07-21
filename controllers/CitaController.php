@@ -84,6 +84,57 @@ class CitaController {
     }
 
     public function agendar(): void {
+        // AJAX: estos lookups son usados también por Recepción (no solo Ciudadano),
+        // por lo que se atienden antes del guard de rol y solo exigen sesión iniciada.
+        if (isset($_GET['action'])) {
+            if (!isset($_SESSION['usuario_id'])) {
+                redirect('/login');
+            }
+
+            // AJAX: funcionarios por dependencia
+            if ($_GET['action'] === 'funcionarios') {
+                header('Content-Type: application/json');
+                $depId = (int)($_GET['dependencia_id'] ?? 0);
+                echo json_encode($depId ? Funcionario::getPorDependencia($depId) : []);
+                exit;
+            }
+
+            // AJAX: horarios disponibles
+            if ($_GET['action'] === 'horarios') {
+                header('Content-Type: application/json');
+                $funcId = (int)($_GET['funcionario_id'] ?? 0);
+                $fecha  = $_GET['fecha'] ?? '';
+                if (!$funcId || !$fecha) {
+                    echo json_encode(['error' => 'Parámetros inválidos.']);
+                    exit;
+                }
+                echo json_encode(Cita::getHorariosDisponibles($funcId, $fecha));
+                exit;
+            }
+
+            // AJAX: configuración del sistema
+            if ($_GET['action'] === 'config') {
+                header('Content-Type: application/json');
+                $pdo    = Database::getConnection();
+                $config = $pdo->query("SELECT * FROM configuracion_sistema LIMIT 1")
+                              ->fetch(PDO::FETCH_ASSOC);
+
+                // Incluir festivos activos para validación cliente-side
+                $hoy = date('Y');
+                $festivos = $pdo->query("
+                    SELECT descripcion,
+                           CASE WHEN recurrente THEN TO_CHAR(fecha, 'MM-DD') ELSE TO_CHAR(fecha, 'YYYY-MM-DD') END AS clave,
+                           recurrente
+                    FROM dias_festivos
+                    WHERE activo = true
+                ")->fetchAll(PDO::FETCH_ASSOC);
+                $config['_festivos'] = $festivos;
+
+                echo json_encode($config);
+                exit;
+            }
+        }
+
         $this->requireCiudadano();
 
         if (!isset($_SESSION['usuario_email'])) {
@@ -96,49 +147,6 @@ class CitaController {
         $ciudadanoNombre    = $_SESSION['usuario_nombre'] ?? '';
         $partes             = explode(' ', trim($ciudadanoNombre));
         $ciudadanoIniciales = strtoupper(substr($partes[0] ?? '', 0, 1) . substr($partes[1] ?? '', 0, 1));
-
-        // AJAX: funcionarios por dependencia
-        if (isset($_GET['action']) && $_GET['action'] === 'funcionarios') {
-            header('Content-Type: application/json');
-            $depId = (int)($_GET['dependencia_id'] ?? 0);
-            echo json_encode($depId ? Funcionario::getPorDependencia($depId) : []);
-            exit;
-        }
-
-        // AJAX: horarios disponibles
-        if (isset($_GET['action']) && $_GET['action'] === 'horarios') {
-            header('Content-Type: application/json');
-            $funcId = (int)($_GET['funcionario_id'] ?? 0);
-            $fecha  = $_GET['fecha'] ?? '';
-            if (!$funcId || !$fecha) {
-                echo json_encode(['error' => 'Parámetros inválidos.']);
-                exit;
-            }
-            echo json_encode(Cita::getHorariosDisponibles($funcId, $fecha));
-            exit;
-        }
-
-        // AJAX: configuración del sistema
-        if (isset($_GET['action']) && $_GET['action'] === 'config') {
-            header('Content-Type: application/json');
-            $pdo    = Database::getConnection();
-            $config = $pdo->query("SELECT * FROM configuracion_sistema LIMIT 1")
-                          ->fetch(PDO::FETCH_ASSOC);
-
-            // Incluir festivos activos para validación cliente-side
-            $hoy = date('Y');
-            $festivos = $pdo->query("
-                SELECT descripcion,
-                       CASE WHEN recurrente THEN TO_CHAR(fecha, 'MM-DD') ELSE TO_CHAR(fecha, 'YYYY-MM-DD') END AS clave,
-                       recurrente
-                FROM dias_festivos
-                WHERE activo = true
-            ")->fetchAll(PDO::FETCH_ASSOC);
-            $config['_festivos'] = $festivos;
-
-            echo json_encode($config);
-            exit;
-        }
 
         $dependencias = Dependencia::getActivas();
         $error = '';
