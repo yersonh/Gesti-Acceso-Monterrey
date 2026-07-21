@@ -598,8 +598,9 @@
                             const input = document.getElementById('esp-' + campo);
                             const valor = c[campo] || '';
                             input.value = valor;
-                            // Bloqueado si ya tiene valor, editable si vacío (para completar datos faltantes)
-                            input.disabled = valor !== '';
+                            // Bloqueado (solo lectura) si ya tiene valor, editable si vacío (para completar datos faltantes)
+                            // readOnly en vez de disabled: los campos disabled no se envían con el formulario
+                            input.readOnly = valor !== '';
                         });
 
                         estadoDiv.innerHTML = '<i class="fas fa-check-circle" style="color:var(--verde-medio);"></i> Ciudadano encontrado — datos cargados';
@@ -608,7 +609,7 @@
                         document.getElementById('esp-ciudadano_id').value = 0;
                         campos.forEach(campo => {
                             const input = document.getElementById('esp-' + campo);
-                            input.disabled = false;
+                            input.readOnly = false;
                         });
                         estadoDiv.innerHTML = '<i class="fas fa-info-circle" style="color:var(--dorado);"></i> No encontrado — se registrará como nuevo';
                         estadoDiv.style.color = 'var(--dorado)';
