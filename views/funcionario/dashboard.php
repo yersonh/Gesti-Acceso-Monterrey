@@ -1029,6 +1029,12 @@ window.configSistema = <?= json_encode([
                 <input type="hidden" name="action"  value="registrar_salida">
                 <input type="hidden" name="cita_id" id="salida_cita_id">
                 <input type="hidden" name="tipo"    id="salida_tipo">
+                <div class="form-group" style="margin-top:16px;">
+                    <label for="salida_resultado">Resultado de la visita *</label>
+                    <textarea name="resultado" id="salida_resultado" required
+                        placeholder="Describe brevemente cómo se resolvió o qué se acordó en la visita"
+                        style="width:100%;min-height:90px;resize:vertical;"></textarea>
+                </div>
                 <div class="modal-acciones">
                     <button type="button" class="btn-modal-cancelar" onclick="cerrarModal('modalSalida')">Cancelar</button>
                     <button type="submit" class="btn-modal-confirmar" style="background: var(--verde);">
@@ -1334,6 +1340,7 @@ window.configSistema = <?= json_encode([
         function abrirModalSalida(citaId, tipo, nombre) {
             document.getElementById('salida_cita_id').value = citaId;
             document.getElementById('salida_tipo').value = tipo;
+            document.getElementById('salida_resultado').value = '';
             document.getElementById('modalSalida-texto').textContent =
                 '¿Confirmas la salida de ' + nombre + '? Se registrará la hora actual.';
             document.getElementById('modalSalida').style.display = 'flex';

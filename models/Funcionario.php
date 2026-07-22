@@ -705,30 +705,32 @@ class Funcionario {
     /**
      * Registrar salida de una cita en curso.
      */
-    public static function registrarSalida(int $id, int $funcionarioId, string $tipo = 'cita'): array {
+    public static function registrarSalida(int $id, int $funcionarioId, string $tipo = 'cita', string $resultado = ''): array {
         try {
             $pdo = Database::getConnection();
 
             if ($tipo === 'espontanea') {
                 $sql = "UPDATE visitas_espontaneas
-                        SET estado      = 'finalizada',
-                            hora_salida = NOW(),
-                            updated_at  = NOW()
+                        SET estado           = 'finalizada',
+                            hora_salida      = NOW(),
+                            resultado_visita = ?,
+                            updated_at       = NOW()
                         WHERE id_visita      = ?
                         AND funcionario_id = ?
                         AND estado         = 'en_curso'";
             } else {
                 $sql = "UPDATE citas
-                        SET estado      = 'finalizada',
-                            hora_salida = NOW(),
-                            updated_at  = NOW()
+                        SET estado           = 'finalizada',
+                            hora_salida      = NOW(),
+                            resultado_visita = ?,
+                            updated_at       = NOW()
                         WHERE id_cita        = ?
                         AND funcionario_id = ?
                         AND estado         = 'en_curso'";
             }
 
             $stmt = $pdo->prepare($sql);
-            $stmt->execute([$id, $funcionarioId]);
+            $stmt->execute([$resultado ?: null, $id, $funcionarioId]);
 
             if ($stmt->rowCount() === 0) {
                 return ['success' => false, 'error' => 'El registro no está en curso o no pertenece a este funcionario'];

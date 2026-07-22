@@ -673,15 +673,23 @@ HTML;
 /**
  * Enviar link de encuesta de satisfacción al visitante
  */
-public function enviarLinkValoracion(string $nombre, string $email, string $link, string $dependencia, string $funcionario = ''): bool {
+public function enviarLinkValoracion(string $nombre, string $email, string $link, string $dependencia, string $funcionario = '', string $resultado = ''): bool {
     $year        = date('Y');
     $nombre      = self::h($nombre);
     $dependencia = self::h($dependencia);
     $funcionario = self::h($funcionario);
     $link        = self::h($link);
+    $resultado   = self::h($resultado);
 
     $lineaFuncionario = $funcionario
         ? "<br>Atendido por: <strong>{$funcionario}</strong>"
+        : '';
+
+    $bloqueResultado = $resultado !== ''
+        ? '<div style="background:#f8f4ed;border-left:4px solid #1a5c38;padding:16px 20px;border-radius:0 8px 8px 0;margin-bottom:24px;">'
+          . '<p style="margin:0 0 6px;font-size:13px;color:#1a5c38;font-weight:700;text-transform:uppercase;letter-spacing:.05em;">Resultado de tu visita</p>'
+          . '<p style="margin:0;font-size:14px;color:#334155;white-space:pre-line;">' . nl2br($resultado) . '</p>'
+          . '</div>'
         : '';
 
     $html = <<<HTML
@@ -698,6 +706,7 @@ public function enviarLinkValoracion(string $nombre, string $email, string $link
       Tu visita a <strong>{$dependencia}</strong> — Alcaldía de Monterrey ha finalizado.{$lineaFuncionario}<br>
       Nos gustaría conocer tu experiencia. Solo toma un minuto.
     </p>
+    {$bloqueResultado}
     <div style="background:#f8f4ed;border-left:4px solid #c9a84c;padding:16px 20px;border-radius:0 8px 8px 0;margin-bottom:24px;">
       <p style="margin:0;font-size:14px;color:#64748b;">⭐ Califica la atención recibida, indica si tu solicitud fue resuelta y deja un comentario opcional.</p>
     </div>

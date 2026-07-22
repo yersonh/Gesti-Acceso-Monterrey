@@ -239,13 +239,20 @@ class FuncionarioController {
             }
 
             if ($action === 'registrar_salida' && isset($_POST['cita_id'])) {
-                $visitaId   = (int)$_POST['cita_id'];
-                $tipoVisita = in_array($_POST['tipo'] ?? '', ['cita', 'espontanea', 'visita_directa'], true)
+                $visitaId       = (int)$_POST['cita_id'];
+                $tipoVisita     = in_array($_POST['tipo'] ?? '', ['cita', 'espontanea', 'visita_directa'], true)
                     ? $_POST['tipo']
                     : 'cita';
-                $resultado  = Funcionario::registrarSalida($visitaId, $this->funcionarioId, $tipoVisita);
+                $resultadoTexto = trim($_POST['resultado'] ?? '');
+
+                if ($resultadoTexto === '') {
+                    $_SESSION['flash_error'] = 'Debes indicar el resultado de la visita.';
+                    redirect('/funcionario/dashboard');
+                }
+
+                $resultado  = Funcionario::registrarSalida($visitaId, $this->funcionarioId, $tipoVisita, $resultadoTexto);
                 if ($resultado['success']) {
-                    $this->enviarLinkValoracion($visitaId, $tipoVisita);
+                    $this->enviarLinkValoracion($visitaId, $tipoVisita, $resultadoTexto);
                     $_SESSION['flash_mensaje'] = 'Salida registrada exitosamente.';
 
                     // ── Auditoría ──────────────────────────────────
@@ -373,7 +380,7 @@ class FuncionarioController {
         );
     }
 
-    private function enviarLinkValoracion(int $visitaId, string $tipo): void {
+    private function enviarLinkValoracion(int $visitaId, string $tipo, string $resultadoVisita = ''): void {
         try {
             $valoracionModel = new ValoracionModel();
             $token           = $valoracionModel->crear($visitaId, $tipo);
@@ -390,7 +397,7 @@ class FuncionarioController {
 
             require_once BASE_PATH . '/config/mail.php';
             $mailer = new Mailer();
-            $mailer->enviarLinkValoracion($nombreVisitante, $email, $link, $dependencia, $nombreFuncionario);
+            $mailer->enviarLinkValoracion($nombreVisitante, $email, $link, $dependencia, $nombreFuncionario, $resultadoVisita);
 
         } catch (Exception $e) {
             error_log('enviarLinkValoracion error: ' . $e->getMessage());
