@@ -14,7 +14,7 @@ $redirectUrl = '/login?tab_id=' . htmlspecialchars(auth_tab_id());
     <link rel="icon" type="image/png" href="/imagenes/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -32,7 +32,8 @@ $redirectUrl = '/login?tab_id=' . htmlspecialchars(auth_tab_id());
         }
 
         body {
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Outfit', sans-serif;
+            letter-spacing: -0.02em;
             min-height: 100vh;
             display: flex;
             align-items: center;

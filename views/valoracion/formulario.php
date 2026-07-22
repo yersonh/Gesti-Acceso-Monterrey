@@ -16,7 +16,7 @@ $fecha      = isset($datosVisita['fecha']) ? date('d/m/Y', strtotime($datosVisit
     <link rel="icon" type="image/png" href="/imagenes/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         :root {
@@ -38,7 +38,8 @@ $fecha      = isset($datosVisita['fecha']) ? date('d/m/Y', strtotime($datosVisit
         html { min-height: 100%; }
 
         body {
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Outfit', sans-serif;
+            letter-spacing: -0.02em;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -257,7 +258,7 @@ $fecha      = isset($datosVisita['fecha']) ? date('d/m/Y', strtotime($datosVisit
             background: rgba(0, 0, 0, 0.28);
             border: 1.5px solid var(--borde);
             border-radius: 10px;
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Outfit', sans-serif;
             font-size: 0.9rem;
             color: var(--texto);
             resize: vertical;
@@ -281,7 +282,7 @@ $fecha      = isset($datosVisita['fecha']) ? date('d/m/Y', strtotime($datosVisit
             color: #2c2107;
             border: none;
             border-radius: 10px;
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Outfit', sans-serif;
             font-size: 0.95rem;
             font-weight: 700;
             cursor: pointer;

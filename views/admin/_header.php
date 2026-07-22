@@ -33,7 +33,7 @@ $_tabQ = ($_tid !== 'default') ? '?tab_id=' . urlencode($_tid) : '';
 <link rel="icon" type="image/png" href="/imagenes/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
 :root {
@@ -59,7 +59,8 @@ $_tabQ = ($_tid !== 'default') ? '?tab_id=' . urlencode($_tid) : '';
 html, body { height: 100%; }
 
 body {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Outfit', sans-serif;
+    letter-spacing: -0.02em;
     color: var(--texto);
     min-height: 100vh;
 
@@ -336,7 +337,7 @@ body {
     border: none;
     padding: 10px 20px;
     border-radius: 9px;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Outfit', sans-serif;
     font-size: 0.87rem;
     font-weight: 700;
     cursor: pointer;
@@ -355,7 +356,7 @@ body {
     border: 1.5px solid var(--borde);
     padding: 9px 18px;
     border-radius: 9px;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Outfit', sans-serif;
     font-size: 0.87rem;
     font-weight: 500;
     cursor: pointer;
@@ -497,7 +498,7 @@ tbody tr:hover td { background: rgba(255,255,255,0.04); }
     display: inline-flex; align-items: center; gap: 7px;
     background: #dc2626; color: #fff; border: none;
     padding: 10px 20px; border-radius: 9px;
-    font-family: 'DM Sans', sans-serif; font-size: 0.87rem; font-weight: 600;
+    font-family: 'Outfit', sans-serif; font-size: 0.87rem; font-weight: 600;
     cursor: pointer; transition: all 0.2s;
 }
 .btn-danger:hover { background: #b91c1c; }
@@ -629,7 +630,7 @@ tbody tr:hover td { background: rgba(255,255,255,0.04); }
     border: 1.5px solid var(--borde);
     border-radius: 8px;
     padding: 9px 12px;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Outfit', sans-serif;
     font-size: 0.87rem;
     color: var(--texto);
     background: rgba(0,0,0,0.28);
@@ -727,7 +728,7 @@ select.form-control option, select option { background: #fff; color: #1a1a1a; }
     border: 1.5px solid var(--borde);
     background: rgba(255,255,255,0.06);
     color: var(--texto);
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Outfit', sans-serif;
     font-size: 0.82rem;
     font-weight: 500;
     cursor: pointer;
@@ -762,7 +763,7 @@ select.form-control option, select option { background: #fff; color: #1a1a1a; }
     border: 1.5px solid var(--borde);
     border-radius: 8px;
     padding: 8px 12px;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Outfit', sans-serif;
     font-size: 0.85rem;
     color: var(--texto);
     background: rgba(0,0,0,0.28);

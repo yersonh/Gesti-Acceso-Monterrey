@@ -13,7 +13,7 @@
     <link rel="icon" type="image/png" href="/imagenes/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -32,7 +32,8 @@
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Outfit', sans-serif;
+            letter-spacing: -0.02em;
             color: var(--texto);
             min-height: 100vh;
 
@@ -72,7 +73,7 @@
         .btn-logout {
             background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.16);
             color: var(--blanco); padding: 7px 14px; border-radius: 8px;
-            font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 500;
+            font-family: 'Outfit', sans-serif; font-size: 0.82rem; font-weight: 500;
             cursor: pointer; display: flex; align-items: center; gap: 6px; text-decoration: none; transition: all 0.2s;
         }
         .btn-logout:hover { background: rgba(255,255,255,0.16); border-color: rgba(255,255,255,0.3); }
@@ -154,7 +155,7 @@
         .campo-input-wrap input,
         .campo-input-wrap textarea {
             width: 100%; padding: 13px 14px 13px 40px; background: rgba(0,0,0,0.28);
-            border: 1.5px solid var(--borde); border-radius: 10px; font-family: 'DM Sans', sans-serif;
+            border: 1.5px solid var(--borde); border-radius: 10px; font-family: 'Outfit', sans-serif;
             font-size: 0.92rem; color: var(--texto); outline: none; transition: all 0.25s; appearance: none;
         }
         .campo-input-wrap select:focus,
@@ -220,13 +221,13 @@
             display: flex; align-items: center; gap: 8px; color: var(--texto-sub); text-decoration: none;
             font-size: 0.9rem; font-weight: 500; padding: 12px 20px; border: 1.5px solid var(--borde);
             border-radius: 10px; background: rgba(255,255,255,0.06); transition: all 0.2s;
-            cursor: pointer; font-family: 'DM Sans', sans-serif;
+            cursor: pointer; font-family: 'Outfit', sans-serif;
         }
         .btn-volver:hover { border-color: var(--dorado); color: var(--dorado-claro); background: rgba(201,168,76,0.08); }
         .btn-agendar-submit {
             display: flex; align-items: center; gap: 10px;
             background: linear-gradient(135deg, var(--dorado-claro), var(--dorado)); color: #2c2107;
-            border: none; padding: 14px 32px; border-radius: 10px; font-family: 'DM Sans', sans-serif;
+            border: none; padding: 14px 32px; border-radius: 10px; font-family: 'Outfit', sans-serif;
             font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: all 0.25s;
             position: relative; overflow: hidden; box-shadow: 0 6px 20px rgba(201,168,76,0.25);
         }

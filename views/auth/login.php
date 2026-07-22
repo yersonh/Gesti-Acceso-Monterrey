@@ -12,7 +12,7 @@
     <link rel="icon" type="image/png" href="/imagenes/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -36,7 +36,8 @@
 
         body {
             min-height: 100vh;
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Outfit', sans-serif;
+            letter-spacing: -0.02em;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -213,7 +214,7 @@
             border: 1.5px solid rgba(255, 255, 255, 0.14);
             border-radius: 10px;
             font-size: 0.92rem;
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Outfit', sans-serif;
             color: var(--blanco);
             transition: all 0.25s;
             outline: none;
@@ -321,7 +322,7 @@
             color: #2c2107;
             border: none;
             border-radius: 10px;
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Outfit', sans-serif;
             font-size: 0.95rem;
             font-weight: 700;
             letter-spacing: 0.04em;

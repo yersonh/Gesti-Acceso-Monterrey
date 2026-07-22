@@ -19,7 +19,7 @@ $primerNombre   = $partes[0];
     <link rel="icon" type="image/png" href="/imagenes/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -44,7 +44,7 @@ $primerNombre   = $partes[0];
         html, body { height: 100%; }
 
         body {
-            font-family:'DM Sans',sans-serif; color:var(--texto); min-height:100vh;
+            font-family:'Outfit',sans-serif; letter-spacing:-0.02em; color:var(--texto); min-height:100vh;
 
             background-image:
                 linear-gradient(180deg, rgba(6, 14, 10, 0.6) 0%, rgba(6, 14, 10, 0.78) 55%, rgba(6, 14, 10, 0.9) 100%),
@@ -97,7 +97,7 @@ $primerNombre   = $partes[0];
         .btn-logout {
             background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2);
             color:var(--blanco); padding:7px 14px; border-radius:8px;
-            font-family:'DM Sans',sans-serif; font-size:0.82rem; font-weight:500;
+            font-family:'Outfit',sans-serif; font-size:0.82rem; font-weight:500;
             cursor:pointer; display:flex; align-items:center; gap:6px;
             text-decoration:none; transition:all 0.2s;
         }
@@ -115,7 +115,7 @@ $primerNombre   = $partes[0];
         .btn-nuevo {
             display:inline-flex; align-items:center; gap:8px;
             background:linear-gradient(135deg, var(--dorado-claro), var(--dorado)); color:#2c2107; border:none;
-            padding:10px 20px; border-radius:10px; font-family:'DM Sans',sans-serif;
+            padding:10px 20px; border-radius:10px; font-family:'Outfit',sans-serif;
             font-size:0.9rem; font-weight:700; cursor:pointer;
             transition:all 0.2s; text-decoration:none;
             margin-bottom:24px; box-shadow: 0 4px 14px rgba(201,168,76,0.2);
@@ -168,7 +168,7 @@ $primerNombre   = $partes[0];
         .acciones { display:flex; gap:6px; }
         .btn-accion {
             padding:5px 10px; border-radius:6px; border:1.5px solid var(--borde);
-            background:rgba(255,255,255,0.06); color:var(--texto); font-family:'DM Sans',sans-serif;
+            background:rgba(255,255,255,0.06); color:var(--texto); font-family:'Outfit',sans-serif;
             font-size:0.75rem; font-weight:600; cursor:pointer; transition:all 0.2s;
             display:flex; align-items:center; gap:4px;
         }
@@ -209,7 +209,7 @@ $primerNombre   = $partes[0];
         .form-group input,
         .form-group select {
             padding:0.55rem 0.75rem; border:1.5px solid var(--borde);
-            border-radius:8px; font-family:'DM Sans',sans-serif; font-size:0.875rem;
+            border-radius:8px; font-family:'Outfit',sans-serif; font-size:0.875rem;
             color:var(--texto); background:rgba(0,0,0,0.28); outline:none; transition:border-color 0.2s;
         }
         .form-group input:focus,
@@ -220,13 +220,13 @@ $primerNombre   = $partes[0];
         .modal-acciones { display:flex; gap:10px; justify-content:flex-end; }
         .btn-cancelar-modal {
             padding:10px 20px; border:1.5px solid var(--borde); background:rgba(255,255,255,0.06);
-            color:var(--texto-sub); border-radius:8px; font-family:'DM Sans',sans-serif;
+            color:var(--texto-sub); border-radius:8px; font-family:'Outfit',sans-serif;
             font-size:0.88rem; font-weight:500; cursor:pointer; transition:all 0.2s;
         }
         .btn-cancelar-modal:hover { border-color:rgba(255,255,255,0.3); color:var(--texto); }
         .btn-confirmar-modal {
             padding:10px 24px; background:linear-gradient(135deg, var(--dorado-claro), var(--dorado)); border:none; color:#2c2107;
-            border-radius:8px; font-family:'DM Sans',sans-serif; font-size:0.88rem;
+            border-radius:8px; font-family:'Outfit',sans-serif; font-size:0.88rem;
             font-weight:700; cursor:pointer; transition:all 0.2s;
             display:flex; align-items:center; gap:6px;
             box-shadow: 0 4px 14px rgba(201,168,76,0.2);

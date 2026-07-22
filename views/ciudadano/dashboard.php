@@ -45,7 +45,7 @@ window.configSistema = <?= json_encode([
     <link rel="icon" type="image/png" href="/imagenes/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -65,7 +65,8 @@ window.configSistema = <?= json_encode([
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Outfit', sans-serif;
+            letter-spacing: -0.02em;
             color: var(--texto);
             min-height: 100vh;
 
@@ -126,7 +127,7 @@ window.configSistema = <?= json_encode([
         .btn-logout {
             background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.16);
             color: var(--blanco); padding: 7px 14px; border-radius: 8px;
-            font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 500;
+            font-family: 'Outfit', sans-serif; font-size: 0.82rem; font-weight: 500;
             cursor: pointer; display: flex; align-items: center; gap: 6px;
             text-decoration: none; transition: all 0.2s;
         }
@@ -215,7 +216,7 @@ window.configSistema = <?= json_encode([
         .filtros { display: flex; gap: 8px; flex-wrap: wrap; }
         .filtro-btn {
             padding: 6px 14px; border-radius: 20px; border: 1.5px solid var(--borde);
-            background: rgba(255,255,255,0.06); color: var(--texto-sub); font-family: 'DM Sans', sans-serif;
+            background: rgba(255,255,255,0.06); color: var(--texto-sub); font-family: 'Outfit', sans-serif;
             font-size: 0.8rem; font-weight: 500; cursor: pointer; text-decoration: none;
             transition: all 0.2s;
         }
@@ -279,7 +280,7 @@ window.configSistema = <?= json_encode([
 
         .btn-cancelar {
             background: none; border: 1.5px solid rgba(248,113,113,0.4); color: #fca5a5;
-            padding: 7px 14px; border-radius: 8px; font-family: 'DM Sans', sans-serif;
+            padding: 7px 14px; border-radius: 8px; font-family: 'Outfit', sans-serif;
             font-size: 0.8rem; font-weight: 600; cursor: pointer; display: flex;
             align-items: center; gap: 6px; transition: all 0.2s; white-space: nowrap;
         }
@@ -313,7 +314,7 @@ window.configSistema = <?= json_encode([
             background: rgba(255,255,255,0.06);
             color: var(--texto-sub);
             border-radius: 8px;
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Outfit', sans-serif;
             font-size: 0.85rem;
             font-weight: 500;
             cursor: pointer;
@@ -388,7 +389,7 @@ window.configSistema = <?= json_encode([
         .modal p { color: var(--texto-sub); font-size: 0.9rem; margin-bottom: 20px; line-height: 1.5; }
         .modal textarea {
             width: 100%; padding: 12px 14px; border: 1.5px solid var(--borde); border-radius: 10px;
-            font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--texto);
+            font-family: 'Outfit', sans-serif; font-size: 0.9rem; color: var(--texto);
             background: rgba(0,0,0,0.28);
             resize: vertical; min-height: 90px; outline: none; margin-bottom: 20px; transition: border-color 0.2s;
         }
@@ -397,13 +398,13 @@ window.configSistema = <?= json_encode([
         .modal-acciones { display: flex; gap: 10px; justify-content: flex-end; }
         .btn-modal-cancelar {
             padding: 10px 20px; border: 1.5px solid var(--borde); background: rgba(255,255,255,0.06);
-            color: var(--texto-sub); border-radius: 8px; font-family: 'DM Sans', sans-serif;
+            color: var(--texto-sub); border-radius: 8px; font-family: 'Outfit', sans-serif;
             font-size: 0.88rem; font-weight: 500; cursor: pointer; transition: all 0.2s;
         }
         .btn-modal-cancelar:hover { border-color: var(--dorado); color: var(--dorado-claro); background: rgba(201,168,76,0.08); }
         .btn-modal-confirmar {
             padding: 10px 20px; background: #dc2626; border: none; color: #fff;
-            border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 0.88rem;
+            border-radius: 8px; font-family: 'Outfit', sans-serif; font-size: 0.88rem;
             font-weight: 600; cursor: pointer; transition: background 0.2s;
         }
         .btn-modal-confirmar:hover { background: #b91c1c; }
@@ -415,18 +416,18 @@ window.configSistema = <?= json_encode([
         .modal-aviso-icon { font-size:2.3rem;margin-bottom:12px; }
         .modal-aviso-title { font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--texto);margin-bottom:8px; }
         .modal-aviso-msg { font-size:.87rem;color:var(--texto-sub);line-height:1.6;margin-bottom:20px; }
-        .btn-aviso-ok { padding:10px 28px;background:linear-gradient(135deg, var(--dorado-claro), var(--dorado));color:#2c2107;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.9rem;cursor:pointer;transition:all .2s; }
+        .btn-aviso-ok { padding:10px 28px;background:linear-gradient(135deg, var(--dorado-claro), var(--dorado));color:#2c2107;border:none;border-radius:8px;font-family:'Outfit',sans-serif;font-weight:700;font-size:.9rem;cursor:pointer;transition:all .2s; }
         .btn-aviso-ok:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(201,168,76,0.35); }
 
         /* Botones inline de respuesta a propuesta */
         .cita-responder-acciones { display:flex;flex-wrap:wrap;gap:8px;margin-top:10px; }
-        .btn-resp { display:inline-flex;align-items:center;gap:5px;padding:7px 13px;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:0.8rem;font-weight:600;text-decoration:none;border:none;cursor:pointer;transition:all .2s; }
+        .btn-resp { display:inline-flex;align-items:center;gap:5px;padding:7px 13px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:0.8rem;font-weight:600;text-decoration:none;border:none;cursor:pointer;transition:all .2s; }
         .btn-resp-verde { background:linear-gradient(135deg, var(--verde-claro), var(--verde-medio));color:#fff; }
         .btn-resp-verde:hover { filter: brightness(1.1); }
         .btn-resp-amber { background:#f59e0b;color:#2c2107; }
         .btn-resp-amber:hover { background:#d97706; }
         /* Botones del modal responder */
-        .btn-resp-modal { display:block;width:100%;padding:12px 16px;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:0.9rem;font-weight:600;text-align:center;text-decoration:none;margin-bottom:8px;cursor:pointer;border:none;transition:all .2s; }
+        .btn-resp-modal { display:block;width:100%;padding:12px 16px;border-radius:10px;font-family:'Outfit',sans-serif;font-size:0.9rem;font-weight:600;text-align:center;text-decoration:none;margin-bottom:8px;cursor:pointer;border:none;transition:all .2s; }
         .btn-resp-modal.verde { background:linear-gradient(135deg, var(--verde-claro), var(--verde-medio));color:#fff; }
         .btn-resp-modal.verde:hover { filter: brightness(1.1); }
         .btn-resp-modal.amber { background:rgba(251,191,36,0.14);border:1.5px solid rgba(252,211,77,0.4);color:#fcd34d; }
@@ -730,12 +731,12 @@ window.configSistema = <?= json_encode([
             <div style="margin-bottom:12px;">
                 <label style="display:block;font-size:0.85rem;font-weight:600;color:var(--texto);margin-bottom:6px;"><i class="fas fa-calendar"></i> Nueva fecha que propones</label>
                 <input type="date" name="contrapropuesta_fecha" id="cp-fecha" required min="<?= date('Y-m-d') ?>"
-                       style="width:100%;padding:10px 12px;background:rgba(0,0,0,0.28);border:1.5px solid var(--borde);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:0.9rem;color:var(--texto);outline:none;">
+                       style="width:100%;padding:10px 12px;background:rgba(0,0,0,0.28);border:1.5px solid var(--borde);border-radius:8px;font-family:'Outfit',sans-serif;font-size:0.9rem;color:var(--texto);outline:none;">
             </div>
             <div style="margin-bottom:16px;">
                 <label style="display:block;font-size:0.85rem;font-weight:600;color:var(--texto);margin-bottom:6px;"><i class="fas fa-clock"></i> Nueva hora que propones</label>
                 <select name="contrapropuesta_hora" required
-                        style="width:100%;padding:10px 12px;background:rgba(0,0,0,0.28);border:1.5px solid var(--borde);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:0.9rem;color:var(--texto);outline:none;">
+                        style="width:100%;padding:10px 12px;background:rgba(0,0,0,0.28);border:1.5px solid var(--borde);border-radius:8px;font-family:'Outfit',sans-serif;font-size:0.9rem;color:var(--texto);outline:none;">
                     <option value="">Selecciona una hora...</option>
                     <?php
                     $cpSlots = ['07:00','07:15','07:30','07:45','08:00','08:15','08:30','08:45',
@@ -753,7 +754,7 @@ window.configSistema = <?= json_encode([
             </div>
             <div class="modal-acciones">
                 <button type="button" class="btn-modal-cancelar" onclick="ocultarSubpanel()">← Volver</button>
-                <button type="submit" style="padding:10px 20px;background:#f59e0b;border:none;color:#2c2107;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:0.88rem;font-weight:700;cursor:pointer;">
+                <button type="submit" style="padding:10px 20px;background:#f59e0b;border:none;color:#2c2107;border-radius:8px;font-family:'Outfit',sans-serif;font-size:0.88rem;font-weight:700;cursor:pointer;">
                     <i class="fas fa-paper-plane"></i> Enviar propuesta
                 </button>
             </div>

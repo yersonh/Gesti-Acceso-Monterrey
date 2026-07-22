@@ -23,7 +23,7 @@ window.configSistema = <?= json_encode([
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Responder propuesta de cita — Alcaldía de Monterrey</title>
     <link rel="icon" type="image/png" href="/imagenes/favicon.png">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -35,7 +35,8 @@ window.configSistema = <?= json_encode([
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Outfit', sans-serif;
+            letter-spacing: -0.02em;
             color: #eef3ee;
             min-height: 100vh;
             display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px;
@@ -68,7 +69,7 @@ window.configSistema = <?= json_encode([
         .tachado { text-decoration: line-through; color: rgba(255,255,255,0.4); }
         .nuevo { color: #fcd34d; font-weight: 600; }
         .acciones { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
-        .btn { padding: 14px 20px; border: none; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; transition: all 0.2s; }
+        .btn { padding: 14px 20px; border: none; border-radius: 10px; font-family: 'Outfit', sans-serif; font-size: 0.95rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; transition: all 0.2s; }
         .btn-verde { background: linear-gradient(135deg, var(--verde-claro), var(--verde-medio)); color: white; }
         .btn-verde:hover { filter: brightness(1.1); }
         .btn-rojo { background: rgba(255,255,255,0.05); border: 1.5px solid rgba(248,113,113,0.4); color: #fca5a5; }
@@ -82,7 +83,7 @@ window.configSistema = <?= json_encode([
         input[type="date"], select {
             width: 100%; padding: 10px 12px; background: rgba(0,0,0,0.28);
             border: 1.5px solid rgba(255,255,255,0.14); border-radius: 8px;
-            font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: #eef3ee;
+            font-family: 'Outfit', sans-serif; font-size: 0.9rem; color: #eef3ee;
             margin-bottom: 14px; outline: none; transition: border-color 0.2s;
         }
         input[type="date"]:focus, select:focus { border-color: var(--dorado); box-shadow: 0 0 0 3px rgba(201,168,76,0.18); }
@@ -120,11 +121,11 @@ window.configSistema = <?= json_encode([
         .modal-icon { font-size:2.4rem;margin-bottom:14px; }
         .modal-title { font-family:'Playfair Display',serif;font-size:1.2rem;color:#eef3ee;margin-bottom:10px; }
         .modal-msg { font-size:.88rem;color:rgba(255,255,255,0.6);line-height:1.6;margin-bottom:24px; }
-        .btn-entendido { padding:12px 32px;background:linear-gradient(135deg, var(--dorado-claro), var(--dorado));color:#2c2107;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.95rem;cursor:pointer;transition:all .2s; }
+        .btn-entendido { padding:12px 32px;background:linear-gradient(135deg, var(--dorado-claro), var(--dorado));color:#2c2107;border:none;border-radius:10px;font-family:'Outfit',sans-serif;font-weight:700;font-size:.95rem;cursor:pointer;transition:all .2s; }
         .btn-entendido:hover { transform: translateY(-1px); box-shadow: 0 8px 22px rgba(201,168,76,0.35); }
-        .btn-cancelar-modal { padding:12px 24px;background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.6);border:1.5px solid rgba(255,255,255,0.14);border-radius:10px;font-family:'DM Sans',sans-serif;font-weight:500;font-size:.9rem;cursor:pointer;transition:all .2s; }
+        .btn-cancelar-modal { padding:12px 24px;background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.6);border:1.5px solid rgba(255,255,255,0.14);border-radius:10px;font-family:'Outfit',sans-serif;font-weight:500;font-size:.9rem;cursor:pointer;transition:all .2s; }
         .btn-cancelar-modal:hover { border-color: var(--dorado); color: var(--dorado-claro); background: rgba(201,168,76,0.08); }
-        .btn-confirmar-peligro { padding:12px 24px;background:#dc2626;color:#fff;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:.9rem;cursor:pointer;transition:background .2s; }
+        .btn-confirmar-peligro { padding:12px 24px;background:#dc2626;color:#fff;border:none;border-radius:10px;font-family:'Outfit',sans-serif;font-weight:600;font-size:.9rem;cursor:pointer;transition:background .2s; }
         .btn-confirmar-peligro:hover { background:#b91c1c; }
         .modal-acciones { display:flex;gap:10px;justify-content:center;flex-wrap:wrap; }
     </style>

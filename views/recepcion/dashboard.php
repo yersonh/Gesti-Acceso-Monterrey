@@ -12,7 +12,7 @@
     <link rel="icon" type="image/png" href="/imagenes/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -35,7 +35,8 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Outfit', sans-serif;
+            letter-spacing: -0.02em;
             color: var(--texto);
             min-height: 100vh;
 
@@ -92,7 +93,7 @@
         .btn-logout {
             background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
             color: var(--blanco); padding: 7px 14px; border-radius: 8px;
-            font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 500;
+            font-family: 'Outfit', sans-serif; font-size: 0.82rem; font-weight: 500;
             cursor: pointer; display: flex; align-items: center; gap: 6px;
             text-decoration: none; transition: all 0.2s;
         }
@@ -140,13 +141,13 @@
         .buscador i { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--texto-sub); font-size: 0.85rem; }
         .buscador input {
             width: 100%; padding: 10px 14px 10px 36px; border: 1.5px solid var(--borde); border-radius: 8px;
-            font-family: 'DM Sans', sans-serif; font-size: 0.87rem; background: rgba(0,0,0,0.28); color: var(--texto);
+            font-family: 'Outfit', sans-serif; font-size: 0.87rem; background: rgba(0,0,0,0.28); color: var(--texto);
         }
         .buscador input::placeholder { color: rgba(255,255,255,0.4); }
         .buscador input:focus { outline: none; border-color: var(--dorado); box-shadow: 0 0 0 3px rgba(201,168,76,0.18); background: rgba(0,0,0,0.38); }
 
         .btn {
-            padding: 10px 20px; border: none; border-radius: 8px; font-family: 'DM Sans', sans-serif;
+            padding: 10px 20px; border: none; border-radius: 8px; font-family: 'Outfit', sans-serif;
             font-size: 0.85rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center;
             gap: 8px; transition: all 0.2s; text-decoration: none;
         }
@@ -227,11 +228,11 @@
 
         .btn-modal-cancelar {
             padding: 12px 24px; background: rgba(255,255,255,0.06); border: 1.5px solid var(--borde); border-radius: 8px;
-            color: var(--texto); font-family: 'DM Sans', sans-serif; font-weight: 500; cursor: pointer; transition: all 0.2s;
+            color: var(--texto); font-family: 'Outfit', sans-serif; font-weight: 500; cursor: pointer; transition: all 0.2s;
         }
         .btn-modal-cancelar:hover { border-color: var(--dorado); color: var(--dorado-claro); }
         .btn-modal-confirmar {
-            padding: 12px 24px; border: none; border-radius: 8px; font-family: 'DM Sans', sans-serif;
+            padding: 12px 24px; border: none; border-radius: 8px; font-family: 'Outfit', sans-serif;
             font-weight: 700; color: #2c2107; cursor: pointer; transition: all 0.2s;
             background: linear-gradient(135deg, var(--dorado-claro), var(--dorado));
             box-shadow: 0 6px 20px rgba(201, 168, 76, 0.25);
@@ -243,7 +244,7 @@
         .form-group label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.85rem; color: var(--texto); }
         .form-group input, .form-group select, .form-group textarea {
             width: 100%; padding: 12px; border: 1.5px solid var(--borde); border-radius: 8px;
-            font-family: 'DM Sans', sans-serif; font-size: 0.9rem; background: rgba(0,0,0,0.28); color: var(--texto);
+            font-family: 'Outfit', sans-serif; font-size: 0.9rem; background: rgba(0,0,0,0.28); color: var(--texto);
         }
         .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(255,255,255,0.4); }
         .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--dorado); box-shadow: 0 0 0 3px rgba(201,168,76,0.18); background: rgba(0,0,0,0.38); }

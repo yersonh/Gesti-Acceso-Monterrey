@@ -19,7 +19,7 @@ window.configSistema = <?= json_encode([
     <link rel="icon" type="image/png" href="/imagenes/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -42,7 +42,8 @@ window.configSistema = <?= json_encode([
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Outfit', sans-serif;
+            letter-spacing: -0.02em;
             color: var(--texto);
             min-height: 100vh;
 
@@ -128,7 +129,7 @@ window.configSistema = <?= json_encode([
         .btn-logout {
             background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
             color: var(--blanco); padding: 7px 14px; border-radius: 8px;
-            font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 500;
+            font-family: 'Outfit', sans-serif; font-size: 0.82rem; font-weight: 500;
             cursor: pointer; display: flex; align-items: center; gap: 6px;
             text-decoration: none; transition: all 0.2s;
         }
@@ -425,7 +426,7 @@ window.configSistema = <?= json_encode([
             padding: 10px 20px;
             border: none;
             border-radius: 8px;
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Outfit', sans-serif;
             font-size: 0.85rem;
             font-weight: 600;
             cursor: pointer;
@@ -1085,7 +1086,7 @@ window.configSistema = <?= json_encode([
                     <label style="display: block; margin-bottom: 8px; font-weight: 600;">Nueva fecha <span class="req">*</span></label>
                     <input type="date" name="nueva_fecha" id="nueva_fecha" required
                         min="<?= date('Y-m-d') ?>"
-                        style="width: 100%; padding: 12px; border: 1.5px solid var(--borde); border-radius: 8px; font-family: 'DM Sans', sans-serif; background: rgba(0,0,0,0.28); color: var(--texto);">
+                        style="width: 100%; padding: 12px; border: 1.5px solid var(--borde); border-radius: 8px; font-family: 'Outfit', sans-serif; background: rgba(0,0,0,0.28); color: var(--texto);">
                 </div>
 
                 <div style="margin-bottom: 20px;">
@@ -1263,7 +1264,7 @@ window.configSistema = <?= json_encode([
             background: rgba(255,255,255,0.06);
             border: 1.5px solid var(--borde);
             border-radius: 8px;
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Outfit', sans-serif;
             font-weight: 500;
             color: var(--texto);
             cursor: pointer;
@@ -1279,7 +1280,7 @@ window.configSistema = <?= json_encode([
             padding: 12px 24px;
             border: none;
             border-radius: 8px;
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Outfit', sans-serif;
             font-weight: 600;
             color: white;
             cursor: pointer;
@@ -1614,7 +1615,7 @@ function reconciliarEnCurso(lista) {
 
         // Toast de notificación
         const toast = document.createElement('div');
-        toast.style.cssText = 'position:fixed;bottom:20px;right:20px;z-index:10000;background:var(--verde-medio);color:white;padding:12px 20px;border-radius:10px;font-family:DM Sans,sans-serif;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,0.2);';
+        toast.style.cssText = 'position:fixed;bottom:20px;right:20px;z-index:10000;background:var(--verde-medio);color:white;padding:12px 20px;border-radius:10px;font-family:Outfit,sans-serif;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,0.2);';
         toast.innerHTML = `<i class="fas fa-door-open"></i> ${nombre} está en curso`;
         document.body.appendChild(toast);
         setTimeout(() => toast.remove(), 4000);
@@ -1733,7 +1734,7 @@ function mostrarNotificacionContrapropuesta(cita) {
         });
     }
     const toast = document.createElement('div');
-    toast.style.cssText = 'position:fixed;bottom:20px;right:20px;z-index:10000;background:#f59e0b;color:white;padding:12px 20px;border-radius:10px;font-family:DM Sans,sans-serif;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,0.2);';
+    toast.style.cssText = 'position:fixed;bottom:20px;right:20px;z-index:10000;background:#f59e0b;color:white;padding:12px 20px;border-radius:10px;font-family:Outfit,sans-serif;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,0.2);';
     toast.innerHTML = `<i class="fas fa-reply"></i> ${escapeHtml(cita.ciudadano_nombres)} envió una contrapropuesta`;
     document.body.appendChild(toast);
     setTimeout(() => toast.remove(), 5000);
@@ -1748,7 +1749,7 @@ function mostrarNotificacion(cita) {
         });
     }
     const toast = document.createElement('div');
-    toast.style.cssText = 'position:fixed;bottom:20px;right:20px;z-index:10000;background:#1a5c38;color:white;padding:12px 20px;border-radius:10px;font-family:DM Sans,sans-serif;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,0.2);';
+    toast.style.cssText = 'position:fixed;bottom:20px;right:20px;z-index:10000;background:#1a5c38;color:white;padding:12px 20px;border-radius:10px;font-family:Outfit,sans-serif;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,0.2);';
     toast.innerHTML = `<i class="fas fa-bell"></i> Nueva cita de ${escapeHtml(cita.ciudadano_nombres)}`;
     document.body.appendChild(toast);
     setTimeout(() => toast.remove(), 4000);

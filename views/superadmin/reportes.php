@@ -21,7 +21,7 @@ $primerNombre   = $partes[0];
     <link rel="icon" type="image/png" href="/imagenes/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -51,7 +51,8 @@ $primerNombre   = $partes[0];
         html, body { height: 100%; }
 
         body {
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Outfit', sans-serif;
+            letter-spacing: -0.02em;
             color: var(--texto);
             min-height: 100vh;
 
@@ -131,7 +132,7 @@ $primerNombre   = $partes[0];
         .btn-logout {
             background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
             color: var(--blanco); padding: 7px 14px; border-radius: 8px;
-            font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 500;
+            font-family: 'Outfit', sans-serif; font-size: 0.82rem; font-weight: 500;
             cursor: pointer; display: flex; align-items: center; gap: 6px;
             text-decoration: none; transition: all 0.2s;
         }
@@ -194,7 +195,7 @@ $primerNombre   = $partes[0];
             border-radius: 8px;
             color: var(--texto);
             padding: 0.5rem 0.75rem;
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Outfit', sans-serif;
             font-size: 0.875rem;
             outline: none;
             transition: border-color 0.2s;
@@ -208,7 +209,7 @@ $primerNombre   = $partes[0];
             background: linear-gradient(135deg, var(--dorado-claro), var(--dorado)); color: #2c2107;
             border: none; border-radius: 8px;
             padding: 0.55rem 1.25rem;
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Outfit', sans-serif;
             font-size: 0.875rem; font-weight: 700;
             cursor: pointer; width: 100%;
             transition: all 0.2s;
@@ -290,7 +291,7 @@ $primerNombre   = $partes[0];
         }
 
         .reporte-header h2 {
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Outfit', sans-serif;
             font-size: 0.95rem; font-weight: 600;
             display: flex; align-items: center; gap: 10px;
             color: var(--texto);
@@ -309,7 +310,7 @@ $primerNombre   = $partes[0];
             padding: 5px 12px; border-radius: 6px;
             border: 1.5px solid var(--borde);
             background: rgba(255,255,255,0.06); color: var(--texto-sub);
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Outfit', sans-serif;
             font-size: 0.75rem; font-weight: 600;
             cursor: pointer; transition: all 0.2s;
             display: flex; align-items: center; gap: 4px;
@@ -972,11 +973,11 @@ const C = {
 
 const CHART_DEFAULTS = {
     scales: {
-        x: { ticks: { color: C.tickColor, font: { family: "'DM Sans', sans-serif", size: 11 } }, grid: { color: C.gridLine } },
-        y: { ticks: { color: C.tickColor, font: { family: "'DM Sans', sans-serif", size: 11 } }, grid: { color: C.gridLine }, beginAtZero: true },
+        x: { ticks: { color: C.tickColor, font: { family: "'Outfit', sans-serif", size: 11 } }, grid: { color: C.gridLine } },
+        y: { ticks: { color: C.tickColor, font: { family: "'Outfit', sans-serif", size: 11 } }, grid: { color: C.gridLine }, beginAtZero: true },
     },
     plugins: {
-        legend: { labels: { color: 'rgba(238,243,238,0.75)', font: { family: "'DM Sans', sans-serif", size: 12 }, boxWidth: 12, padding: 16 } },
+        legend: { labels: { color: 'rgba(238,243,238,0.75)', font: { family: "'Outfit', sans-serif", size: 12 }, boxWidth: 12, padding: 16 } },
     },
     responsive: true,
     maintainAspectRatio: false,
@@ -1406,7 +1407,7 @@ function renderMotivos(data) {
                 borderWidth:     2,
             }],
         },
-        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { color: 'rgba(238,243,238,0.75)', font: { family: "'DM Sans', sans-serif", size: 12 }, boxWidth: 12 } } } },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { color: 'rgba(238,243,238,0.75)', font: { family: "'Outfit', sans-serif", size: 12 }, boxWidth: 12 } } } },
     });
 
     const tbody = document.querySelector('#tabla-motivos tbody');
