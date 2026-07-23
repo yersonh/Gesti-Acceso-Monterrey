@@ -639,81 +639,9 @@ class AdminController
     {
         $this->requireAdmin();
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            csrf_verify();
-            $accion = $_POST['accion'] ?? '';
-
-            try {
-                $pdo = Database::getConnection();
-
-                if ($accion === 'crear') {
-                    $nombre = trim($_POST['nombre'] ?? '');
-                    if ($nombre === '') throw new InvalidArgumentException('El nombre es obligatorio.');
-
-                    $stmt = $pdo->prepare("
-                        INSERT INTO dependencias (nombre, descripcion, activo)
-                        VALUES (:n, :d, :a)
-                        RETURNING id_dependencia
-                    ");
-                    $stmt->execute([
-                        ':n' => $nombre,
-                        ':d' => trim($_POST['descripcion'] ?? ''),
-                        ':a' => isset($_POST['activo']) ? 'true' : 'true',
-                    ]);
-                    $id = (int)$stmt->fetchColumn();
-
-                    Auditoria::registrar('CREAR_DEPENDENCIA', "Creación de dependencia: $nombre", 'dependencias', $id);
-                    $_SESSION['flash_mensaje'] = 'Dependencia creada correctamente.';
-
-                } elseif ($accion === 'editar') {
-                    $id     = (int)($_POST['id_dependencia'] ?? 0);
-                    $nombre = trim($_POST['nombre'] ?? '');
-                    if (!$id || $nombre === '') throw new InvalidArgumentException('Datos inválidos.');
-
-                    $stmt = $pdo->prepare("
-                        UPDATE dependencias
-                        SET nombre = :n, descripcion = :d
-                        WHERE id_dependencia = :id
-                    ");
-                    $stmt->execute([
-                        ':n'  => $nombre,
-                        ':d'  => trim($_POST['descripcion'] ?? ''),
-                        ':id' => $id,
-                    ]);
-
-                    Auditoria::registrar('EDITAR_DEPENDENCIA', "Dependencia editada: $nombre", 'dependencias', $id);
-                    $_SESSION['flash_mensaje'] = 'Dependencia actualizada correctamente.';
-
-                } elseif ($accion === 'toggle_activo') {
-                    $id     = (int)($_POST['id_dependencia'] ?? 0);
-                    $activo = (bool)($_POST['activo'] ?? 0);
-                    if (!$id) throw new InvalidArgumentException('ID inválido.');
-
-                    $stmtNomD = $pdo->prepare("SELECT nombre FROM dependencias WHERE id_dependencia = :id");
-                    $stmtNomD->execute([':id' => $id]);
-                    $nombreD = $stmtNomD->fetchColumn() ?: "id=$id";
-
-                    $stmt = $pdo->prepare("UPDATE dependencias SET activo = :a WHERE id_dependencia = :id");
-                    $stmt->execute([':a' => $activo ? 'true' : 'false', ':id' => $id]);
-
-                    Auditoria::registrar(
-                        $activo ? 'ACTIVAR_DEPENDENCIA' : 'DESACTIVAR_DEPENDENCIA',
-                        ($activo ? 'Dependencia activada' : 'Dependencia desactivada') . ": $nombreD",
-                        'dependencias',
-                        $id
-                    );
-                    $_SESSION['flash_mensaje'] = $activo ? 'Dependencia activada.' : 'Dependencia desactivada.';
-                }
-
-            } catch (InvalidArgumentException $e) {
-                $_SESSION['flash_error'] = $e->getMessage();
-            } catch (Exception $e) {
-                error_log('AdminController::dependencias - ' . $e->getMessage());
-                $_SESSION['flash_error'] = 'Error interno del servidor.';
-            }
-
-            redirect('/admin/dependencias');
-        }
+        // Las dependencias son gestionadas en el Core Institucional y llegan
+        // a dependencias_cache vía scripts/sync_core.php — este panel es de
+        // solo lectura.
 
         // GET
         try {
@@ -724,11 +652,11 @@ class AdminController
                     d.nombre,
                     d.descripcion,
                     d.activo,
-                    d.created_at,
+                    d.synced_at,
                     COUNT(fd.funcionario_id) AS num_funcionarios
                 FROM dependencias_cache d
                 LEFT JOIN funcionario_dependencia fd ON fd.dependencia_id = d.id_dependencia
-                GROUP BY d.id_dependencia, d.nombre, d.descripcion, d.activo, d.created_at
+                GROUP BY d.id_dependencia, d.nombre, d.descripcion, d.activo, d.synced_at
                 ORDER BY d.nombre
             ")->fetchAll();
 
