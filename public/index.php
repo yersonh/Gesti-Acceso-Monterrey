@@ -51,6 +51,7 @@ require_once BASE_PATH . '/models/SuperAdminModel.php';
 require_once BASE_PATH . '/controllers/SuperAdminController.php';
 require_once BASE_PATH . '/controllers/AdminController.php';
 require_once BASE_PATH . '/controllers/PerfilController.php';
+require_once BASE_PATH . '/controllers/ManualController.php';
 // ── Obtener la ruta solicitada ────────────────────────────────────────────────
 $uri = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
 
@@ -158,6 +159,9 @@ switch ($uri) {
 
     case 'cambiar-contrasena':
         (new PerfilController())->cambiarContrasena(); break;
+
+    case 'manual-usuario':
+        (new ManualController())->descargar(); break;
 
     case 'superadmin/reportes':
         (new ReportesController())->dashboard();

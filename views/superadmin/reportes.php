@@ -138,6 +138,8 @@ $primerNombre   = $partes[0];
         }
 
         .btn-logout:hover { background: rgba(255,255,255,0.2); }
+        .btn-ayuda { background: rgba(201,168,76,0.14); border-color: rgba(201,168,76,0.35); color: var(--dorado-claro); }
+        .btn-ayuda:hover { background: rgba(201,168,76,0.24); border-color: var(--dorado); }
 
         /* ── Main ────────────────────────────────────────────────────────── */
         .main { max-width: 1200px; margin: 0 auto; padding: 36px 24px 60px; }
@@ -481,6 +483,9 @@ $primerNombre   = $partes[0];
         <div class="avatar"><?= htmlspecialchars($iniciales) ?></div>
         <span class="header-nombre"><?= htmlspecialchars($nombreAdmin) ?></span>
         <span class="header-rol">SuperAdmin</span>
+        <a href="/manual-usuario" target="_blank" class="btn-logout btn-ayuda">
+            <i class="fas fa-question-circle"></i> Ayuda
+        </a>
         <a href="/logout" class="btn-logout">
             <i class="fas fa-sign-out-alt"></i> Salir
         </a>

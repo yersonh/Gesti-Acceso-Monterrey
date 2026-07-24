@@ -135,7 +135,9 @@ window.configSistema = <?= json_encode([
         }
         
         .btn-logout:hover { background: rgba(255,255,255,0.2); }
-        
+        .btn-ayuda { background: rgba(201,168,76,0.14); border-color: rgba(201,168,76,0.35); color: var(--dorado-claro); }
+        .btn-ayuda:hover { background: rgba(201,168,76,0.24); border-color: var(--dorado); }
+
         .main {
             max-width: 1300px;
             margin: 0 auto;
@@ -691,6 +693,9 @@ window.configSistema = <?= json_encode([
             <div class="avatar">
                 <?= strtoupper(substr($funcionario['nombres'] ?? $usuario['nombres'], 0, 1) . substr($funcionario['apellidos'] ?? $usuario['apellidos'], 0, 1)) ?>
             </div>
+            <a href="/manual-usuario" target="_blank" class="btn-logout btn-ayuda">
+                <i class="fas fa-question-circle"></i> Ayuda
+            </a>
             <a href="/logout" class="btn-logout">
                 <i class="fas fa-sign-out-alt"></i> Salir
             </a>

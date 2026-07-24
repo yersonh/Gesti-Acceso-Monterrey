@@ -235,6 +235,7 @@ body {
     display: flex; align-items: center; justify-content: center;
 }
 .sidebar-logout:hover { color: #ef4444; background: rgba(239,68,68,0.1); }
+.sidebar-ayuda:hover { color: var(--dorado-claro); background: rgba(201,168,76,0.14); }
 
 /* ═══════════════════════════════════
    MAIN WRAP
@@ -870,6 +871,9 @@ select.form-control option, select option { background: #fff; color: #1a1a1a; }
             <div class="sidebar-user-name"><?= htmlspecialchars($nombreAdmin) ?></div>
             <div class="sidebar-user-rol">Administrador</div>
         </div>
+        <a href="/manual-usuario<?= $_tabQ ?>" target="_blank" class="sidebar-logout sidebar-ayuda" title="Manual de Usuario">
+            <i class="fas fa-question-circle"></i>
+        </a>
         <a href="/logout<?= $_tabQ ?>" class="sidebar-logout" title="Cerrar sesión">
             <i class="fas fa-sign-out-alt"></i>
         </a>
