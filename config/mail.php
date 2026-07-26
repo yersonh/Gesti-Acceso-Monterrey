@@ -163,8 +163,8 @@ class Mailer {
             
             <p style="font-size: 14px; color: #6b6b6b; line-height: 1.6; margin-top: 24px; padding-top: 24px; border-top: 1px solid #d8d0c4;">
                 Si tienes alguna pregunta o necesitas ayuda, no dudes en contactarnos:<br>
-                📧 soportesgp@gmail.com<br>
-                📞 (+57) 313 333 62 27
+                📧 nexgoviasolutions@gmail.com<br>
+                📞 (+57) 310 6310227
             </p>
         </div>
         
@@ -243,8 +243,8 @@ HTML;
             
             <p style="font-size: 14px; color: #6b6b6b; line-height: 1.6; margin-top: 24px; padding-top: 24px; border-top: 1px solid #d8d0c4;">
                 ¿Necesitas ayuda? Contáctanos:<br>
-                📧 soportesgp@gmail.com<br>
-                📞 (+57) 313 333 62 27
+                📧 nexgoviasolutions@gmail.com<br>
+                📞 (+57) 310 6310227
             </p>
         </div>
         
@@ -357,8 +357,8 @@ HTML;
             
             <p style="font-size: 14px; color: #6b6b6b; line-height: 1.6; margin-top: 24px; padding-top: 24px; border-top: 1px solid #d8d0c4;">
                 ¿Tienes alguna duda? Contáctanos:<br>
-                📧 soportesgp@gmail.com<br>
-                📞 (+57) 313 333 62 27
+                📧 nexgoviasolutions@gmail.com<br>
+                📞 (+57) 310 6310227
             </p>
         </div>
         
@@ -550,7 +550,7 @@ private function getTemplateRechazo($nombre, $motivoOriginal, $motivoRechazo) {
             
             <p style="font-size: 14px; color: #6b6b6b; margin-top: 24px; padding-top: 24px; border-top: 1px solid #d8d0c4;">
                 Puedes agendar una nueva cita en nuestro portal.<br>
-                📧 soportesgp@gmail.com
+                📧 nexgoviasolutions@gmail.com
             </p>
         </div>
         
