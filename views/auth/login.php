@@ -497,7 +497,7 @@
         <div class="footer-form">
             <p>
                 <strong>© 2026 Sistema de control de visitas SCV</strong> — Monterrey, Casanare<br>
-                Desarrollado por <button class="btn-nexgov-trigger" onclick="abrirModalNexGov()" style="background:none;border:none;cursor:pointer;font:inherit;padding:0;">NexGovIA S.A.S.®</button> · ☎ (+57) 310 631 02 27 · soportesgp@gmail.com
+                Desarrollado por <button class="btn-nexgov-trigger" onclick="abrirModalNexGov()" style="background:none;border:none;cursor:pointer;font:inherit;padding:0;">NexGovIA S.A.S.®</button> · ☎ (+57) 310 631 02 27 · nexgoviasolutions@gmail.com
             </p>
         </div>
     </div>
